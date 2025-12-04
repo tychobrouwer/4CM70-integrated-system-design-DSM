@@ -1,0 +1,14 @@
+define component SRAMCache
+  parameters
+    size is a cache-capacity property
+    die-area is an area property
+    voltage is a voltage property
+    bandwidth is a bandwidth property
+    hit-rate is a hit-rate property
+    power-usage is a power property
+    process-node is a process-node property
+    latency is a latency property
+  
+  design-requirements
+    dr-cache-latency: latency must be at most 10.0 [ns]
+    dr-hit-rate: hit-rate must be at least 90.0 [percent]

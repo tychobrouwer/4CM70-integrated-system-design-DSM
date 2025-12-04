@@ -1,0 +1,9 @@
+define component CoreCacheInterconnect
+  parameters
+    length is a length property
+    bandwidth is a bandwidth property
+    bus-width is a bus-width property
+    latency is a latency property
+  
+  design-requirements
+    dr-interconnect-bandwidth: bandwidth must be at least 100.0 [GB/s]

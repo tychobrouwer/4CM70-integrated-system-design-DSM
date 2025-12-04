@@ -1,0 +1,14 @@
+define component CPUCore
+  parameters
+    max-temperature is a temperature
+    voltage is a voltage property
+    max-clock-frequency is a frequency property
+    computational-performance is a performance property
+    data-processing-speed is a data-rate property
+    process-node is a process-node property
+    power-consumption is a power property
+    die-area is an area property
+  
+  design-requirements
+    dr-core-voltage: voltage must be at least 0.5 [V]
+    dr-core-freq: max-clock-frequency must be at least 1.0 [Hz]

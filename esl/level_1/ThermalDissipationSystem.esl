@@ -1,0 +1,9 @@
+define component ThermalDissipationSystem
+  parameters
+    core-tsv-density is a density property
+    cache-tsv-density is a density property
+    core-thermal-resistance is a thermal-resistance property
+    cache-thermal-resistance is a thermal-resistance property
+  
+  design-requirements
+    dr-thermal-res: core-thermal-resistance must be at most 1.0 [K/W]

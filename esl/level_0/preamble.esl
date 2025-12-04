@@ -1,0 +1,22 @@
+define type
+  temperature is a real with unit K
+  voltage is a real with unit V
+  frequency is a real with unit Hz
+  performance is a real with unit GFLOPS
+  data-rate is a real with unit GB/s
+  process-node is a real with unit nm
+  power is a real with unit W
+  area is a real with unit mm2
+  bandwidth is a real with unit GB/s
+  length is a real with unit um
+  bus-width is a real with unit bits
+  latency is a real with unit ns
+  density is a real with unit count/mm2
+  thermal-resistance is a real with unit K/W
+  cache-capacity is a real with unit MB
+  hit-rate is a real with unit percent
+
+define verb
+  provide to
+  connect to
+  manage of
