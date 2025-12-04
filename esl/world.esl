@@ -1,0 +1,27 @@
+world
+  components
+    core is a Core
+    cache is an Cache
+    interconnect is an Interconnect
+    power is an PowerDistSystem
+    thermal is an ThermalDissSystem
+
+
+define component Core
+  empty
+
+
+define component Cache
+  empty
+
+
+define component Interconnect
+  empty
+
+
+define component PowerDistSystem
+  empty
+
+
+define component ThermalDissSystem
+  empty
