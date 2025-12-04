@@ -1,21 +1,25 @@
 define component SRAMCache
   parameters
-    capacity is a cache-capacity property
-    die-area is an area property
-    voltage is a voltage property
-    bandwidth is a bandwidth property
-    hit-rate is a hit-rate property
-    power-consumption is a power property
-    process-node is a process-node property
-    latency is a latency property
-  
+    capacity         is a cache-capacity property
+    die-area         is an area          property
+    voltage          is a voltage        property
+    bandwidth        is a bandwidth      property
+    hit-rate         is a hit-rate       property
+    power-consumption is a power         property
+    process-node     is a process-node   property
+    latency          is a latency        property
+
   design-requirements
     dr-cache-latency: latency must be at most 10.0 [ns]
-    dr-hit-rate: hit-rate must be at least 90.0 [percent]
+    dr-hit-rate:      hit-rate must be at least 90.0 [percent]
 
   transformation-constraints
-    tc-voltage-vs-power: does convert voltage into power-consumption
-    tc-process-node-vs-power: does convert process-node into power-consumption
-    tc-die-area-vs-capacity: does convert die-area into capacity
-    tc-process-node-vs-capacity: does convert process-node into capacity
-    tc-voltage-vs-bandwidth: does convert voltage into bandwidth
+    tc-capacity:  does convert die-area and process-node into capacity
+    tc-area:      does convert capacity and process-node into die-area
+
+    tc-power:     does convert voltage and capacity and process-node into power-consumption
+
+    tc-bandwidth: does convert voltage and capacity into bandwidth
+    tc-latency:   does convert capacity and process-node into latency
+
+    tc-hit-rate:  does convert capacity into hit-rate

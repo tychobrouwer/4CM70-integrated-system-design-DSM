@@ -9,7 +9,7 @@ world
     core-power-consumption is a power
     core-die-area is an area
     core-transistors is a count
-    cache-size is a cache-capacity
+    cache-capacity is a cache-capacity
     cache-die-area is an area
     cache-voltage is a voltage
     cache-bandwidth is a bandwidth
@@ -44,7 +44,7 @@ world
       * core-die-area
       * core-transistors
     cache is a SRAMCache with arguments
-      * cache-size
+      * cache-capacity
       * cache-die-area
       * cache-voltage
       * cache-bandwidth
@@ -81,4 +81,4 @@ world
   design-requirements
     dr-temp-limit: core-max-temperature must be at most 373.0 [K]
     dr-min-performance: core-computational-performance must be at least 100.0 [GFLOPS]
-    dr-cache-size: cache-size must be at least 1.0 [MB]
+    dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
