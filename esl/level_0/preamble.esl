@@ -13,10 +13,13 @@ define type
   latency is a real with unit ns
   density is a real with unit count/mm2
   thermal-resistance is a real with unit K/W
+  thermal-power is a real with unit W
   cache-capacity is a real with unit MB
   hit-rate is a real with unit percent
+  count is a real with unit count
 
 define verb
   provide to
   connect to
   manage of
+  convert into

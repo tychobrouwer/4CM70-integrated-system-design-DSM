@@ -4,6 +4,17 @@ define component ThermalDissipationSystem
     cache-tsv-density is a density property
     core-thermal-resistance is a thermal-resistance property
     cache-thermal-resistance is a thermal-resistance property
+    thermal-dissipation is a thermal-power property
   
   design-requirements
     dr-thermal-res: core-thermal-resistance must be at most 1.0 [K/W]
+    dr-cache-thermal-res: cache-thermal-resistance must be at most 1.0 [K/W]
+    dr-thermal-dissipation: thermal-dissipation must be at most 100.0 [W]
+  
+  transformation-requirements
+    tr-aggregate-thermal: must convert core-thermal-resistance and cache-thermal-resistance into thermal-dissipation
+
+  transformation-constraints
+    tc-core-tsv-vs-thermal: does convert core-tsv-density into core-thermal-resistance
+    tc-cache-tsv-vs-thermal: does convert cache-tsv-density into cache-thermal-resistance
+    tc-thermal-dissipation: does convert core-thermal-resistance and cache-thermal-resistance into thermal-dissipation

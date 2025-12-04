@@ -8,12 +8,13 @@ world
     core-process-node is a process-node
     core-power-consumption is a power
     core-die-area is an area
+    core-transistors is a count
     cache-size is a cache-capacity
     cache-die-area is an area
     cache-voltage is a voltage
     cache-bandwidth is a bandwidth
     cache-hit-rate is a hit-rate
-    cache-power-usage is a power
+    cache-power-consumption is a power
     cache-process-node is a process-node
     cache-latency is a latency
     interconnect-length is a length
@@ -22,11 +23,14 @@ world
     interconnect-latency is a latency
     core-power-tsv-density is a density
     cache-power-tsv-density is a density
+    core-power-capability is a power
+    cache-power-capability is a power
     total-power-capability is a power
     core-thermal-tsv-density is a density
     cache-thermal-tsv-density is a density
     core-to-cooler-thermal-resistance is a thermal-resistance
     cache-to-cooler-thermal-resistance is a thermal-resistance
+    thermal-dissipation is a thermal-power
 
   components
     core is a CPUCore with arguments
@@ -38,13 +42,14 @@ world
       * core-process-node
       * core-power-consumption
       * core-die-area
+      * core-transistors
     cache is a SRAMCache with arguments
       * cache-size
       * cache-die-area
       * cache-voltage
       * cache-bandwidth
       * cache-hit-rate
-      * cache-power-usage
+      * cache-power-consumption
       * cache-process-node
       * cache-latency
     interconnect is a CoreCacheInterconnect with arguments
@@ -55,20 +60,23 @@ world
     power-system is a PowerDistributionSystem with arguments
       * core-power-tsv-density
       * cache-power-tsv-density
+      * core-power-capability
+      * cache-power-capability
       * total-power-capability
     thermal-system is a ThermalDissipationSystem with arguments
       * core-thermal-tsv-density
       * cache-thermal-tsv-density
       * core-to-cooler-thermal-resistance
       * cache-to-cooler-thermal-resistance
+      * thermal-dissipation
 
   goal-requirements
     data-provision-interconnect-core: interconnect must provide interconnect-bandwidth to core
-    data-provision-interconnect-cache: interconnect must provide interconnect-bandwidth to cache
-    power-provision-core: power-system must provide total-power-capability to core
-    power-provision-cache: power-system must provide total-power-capability to cache
+    data-provision-interconnect-cache: cache must provide interconnect-bandwidth to interconnect
+    power-provision-core: power-system must provide core-power-capability to core
+    power-provision-cache: power-system must provide cache-power-capability to cache
     thermal-management-core: thermal-system must manage core-power-consumption of core
-    thermal-management-cache: thermal-system must manage cache-power-usage of cache
+    thermal-management-cache: thermal-system must manage cache-power-consumption of cache
 
   design-requirements
     dr-temp-limit: core-max-temperature must be at most 373.0 [K]

@@ -1,6 +1,6 @@
 define component CPUCore
   parameters
-    max-temperature is a temperature
+    max-temperature is a temperature property
     voltage is a voltage property
     max-clock-frequency is a frequency property
     computational-performance is a performance property
@@ -8,7 +8,24 @@ define component CPUCore
     process-node is a process-node property
     power-consumption is a power property
     die-area is an area property
+    transistors is a count property
   
   design-requirements
     dr-core-voltage: voltage must be at least 0.5 [V]
     dr-core-freq: max-clock-frequency must be at least 1.0 [Hz]
+
+  transformation-requirements
+    tr-convert-computational-performance: must convert data-processing-speed into computational-performance
+
+  transformation-constraints
+    tc-voltage-power: does convert voltage into power-consumption
+    tc-power-thermal: does convert power-consumption into max-temperature
+    tc-transistors-performance: does convert transistors into computational-performance
+    tc-area-performance: does convert die-area into computational-performance
+    tc-voltage-performance: does convert voltage into computational-performance
+    tc-temp-performance: does convert max-temperature into computational-performance
+    tc-frequency-performance: does convert max-clock-frequency into computational-performance
+    tc-process-node-power: does convert process-node into power-consumption
+    tc-process-node-transistors: does convert process-node into transistors
+    tc-die-area-transistors: does convert die-area into transistors
+    tc-performance-data-rate: does convert computational-performance into data-processing-speed
