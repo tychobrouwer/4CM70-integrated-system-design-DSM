@@ -73,6 +73,7 @@ world
   goal-requirements
     data-provision-interconnect-core: interconnect must provide interconnect-bandwidth to core
     data-provision-interconnect-cache: cache must provide interconnect-bandwidth to interconnect
+    data-hitrate-core-cache: cache must provide cache-hit-rate to core
     power-provision-core: power-system must provide core-power-capability to core
     power-provision-cache: power-system must provide cache-power-capability to cache
     thermal-management-core: thermal-system must manage core-power-consumption of core
