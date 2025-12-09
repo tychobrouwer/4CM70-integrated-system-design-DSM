@@ -35,6 +35,24 @@ define relation
       * power-1 is a Power
       * power-2 is a Power
 
+  ThermalPowerRelation
+    relating parameters
+      * thermal-power is a Power
+      * thermal-capability is a ThermalPower
+
+  HitRatePerformanceRelation
+    relating parameters
+      * hit-rate                  is a HitRate
+      * computational-performance is a Performance
+
+  TotalPowerRelation
+    requiring parameters
+      * power-1 is a Power
+      * power-2 is a Power
+    
+    returning parameters
+      * total-power is a Power
+
   BandwidthModel
     requiring parameters
       * bus-width is a BusWidth
@@ -60,6 +78,7 @@ define relation
 
     returning parameters
       * computational-performance is a Performance
+      * required-data-bandwidth   is a Bandwidth
 
   PowerModel
     requiring parameters
@@ -77,3 +96,85 @@ define relation
 
     returning parameters
       * die-area is a Area
+
+  CapacityModel
+    requiring parameters
+      * die-area    is a Area
+      * process-node is a ProcessNode
+
+    returning parameters
+      * capacity is a CacheCapacity
+
+  FrequencyModel
+    requiring parameters
+      * voltage         is a Voltage
+      * max-temperature is a Temperature
+      * process-node    is a ProcessNode
+
+    returning parameters
+      * max-clock-frequency is a Frequency
+
+  CorePowerModel
+    requiring parameters
+      * voltage      is a Voltage
+      * transistors  is a Count
+      * process-node is a ProcessNode
+
+    returning parameters
+      * power-consumption is a Power
+
+  CachePowerModel
+    requiring parameters
+      * voltage      is a Voltage
+      * transistors  is a Count
+      * process-node is a ProcessNode
+
+    returning parameters
+      * power-consumption is a Power
+
+  CacheBandwidthModel
+    requiring parameters
+      * voltage  is a Voltage
+      * capacity is a CacheCapacity
+
+    returning parameters
+      * bandwidth is a Bandwidth
+
+  CacheLatencyModel
+    requiring parameters
+      * capacity     is a CacheCapacity
+      * process-node is a ProcessNode
+      * die-area     is a Area
+
+    returning parameters
+      * latency is a Latency
+
+  HitRateModel
+    requiring parameters
+      * capacity is a CacheCapacity
+
+    returning parameters
+      * hit-rate is a HitRate
+
+  PowerCapabilityRelation
+    requiring parameters
+      * tsv-density is a Density
+
+    returning parameters
+      * power-capability is a Power
+
+  ThermalCapabilityModel
+    requiring parameters
+      * tsv-density is a Density
+      * resistance  is a ThermalResistance
+
+    returning parameters
+      * thermal-capability is a ThermalPower
+
+  ThermalDissipationModel
+    requiring parameters
+      * core-thermal-capability  is a ThermalPower
+      * cache-thermal-capability is a ThermalPower
+
+    returning parameters
+      * thermal-dissipation is a ThermalPower

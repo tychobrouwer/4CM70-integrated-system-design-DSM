@@ -10,20 +10,9 @@ define component SRAMCache
     latency           is a Latency        property
     transistors       is a Count          property
 
-  design-requirements
-    dr-cache-latency: latency must be at most 10.0 [ns]
-    dr-hit-rate:      hit-rate must be at least 90.0 [percent]
-
-  transformation-constraints
-    tc-capacity:  does convert die-area and process-node into capacity
-    tc-area:      does convert capacity and process-node into die-area
-
-    tc-power:     does convert voltage and capacity and process-node into power-consumption
-
-    tc-bandwidth: does convert voltage and capacity into bandwidth
-    tc-latency:   does convert capacity and process-node into latency
-
-    tc-hit-rate:  does convert capacity into hit-rate
+  #design-requirements
+  #  dr-cache-latency: latency must be at most 10.0 [ns]
+  #  dr-hit-rate:      hit-rate must be at least 90.0 [percent]
 
   relations
     cache-area-model: AreaModel
@@ -33,3 +22,44 @@ define component SRAMCache
 
       returning arguments
         * die-area
+
+    cache-capacity-model: CapacityModel
+      requiring arguments
+        * die-area
+        * process-node
+
+      returning arguments
+        * capacity
+
+    cache-power-model: CachePowerModel
+      requiring arguments
+        * voltage
+        * transistors
+        * process-node
+
+      returning arguments
+        * power-consumption
+
+    cache-bandwidth-model: CacheBandwidthModel
+      requiring arguments
+        * voltage
+        * capacity
+
+      returning arguments
+        * bandwidth
+
+    cache-latency-model: CacheLatencyModel
+      requiring arguments
+        * capacity
+        * process-node
+        * die-area
+
+      returning arguments
+        * latency
+
+    cache-hit-rate-model: HitRateModel
+      requiring arguments
+        * capacity
+
+      returning arguments
+        * hit-rate

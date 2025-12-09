@@ -5,6 +5,7 @@ world
     core-max-clock-frequency            is a Frequency
     core-computational-performance      is a Performance
     core-data-processing-speed          is a Bandwidth
+    core-required-data-bandwidth        is a Bandwidth
     core-process-node                   is a ProcessNode
     core-power-consumption              is a Power
     core-die-area                       is a Area
@@ -31,6 +32,8 @@ world
     cache-thermal-tsv-density           is a Density
     core-to-cooler-thermal-resistance   is a ThermalResistance
     cache-to-cooler-thermal-resistance  is a ThermalResistance
+    core-thermal-capability             is a ThermalPower
+    cache-thermal-capability            is a ThermalPower
     thermal-dissipation                 is a ThermalPower
 
   components
@@ -40,6 +43,7 @@ world
       * core-max-clock-frequency
       * core-computational-performance
       * core-data-processing-speed
+      * core-required-data-bandwidth
       * core-process-node
       * core-power-consumption
       * core-die-area
@@ -70,16 +74,9 @@ world
       * cache-thermal-tsv-density
       * core-to-cooler-thermal-resistance
       * cache-to-cooler-thermal-resistance
+      * core-thermal-capability
+      * cache-thermal-capability
       * thermal-dissipation
-
-  #goal-requirements
-  #  data-provision-interconnect-core: interconnect must provide interconnect-bandwidth to core
-  #  data-provision-interconnect-cache: cache must provide interconnect-bandwidth to interconnect
-  #  data-hitrate-core-cache: cache must provide cache-hit-rate to core
-  #  power-provision-core: power-system must provide core-power-capability to core
-  #  power-provision-cache: power-system must provide cache-power-capability to cache
-  #  thermal-management-core: thermal-system must manage core-power-consumption of core
-  #  thermal-management-cache: thermal-system must manage cache-power-consumption of cache
 
   #design-requirements
   #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
@@ -106,3 +103,19 @@ world
       relating arguments
         * cache-power-consumption
         * cache-power-capability
+
+    core-thermal-management-relation: ThermalPowerRelation
+      relating arguments
+        * core-power-consumption
+        * core-thermal-capability
+
+    cache-thermal-management-relation: ThermalPowerRelation
+      relating arguments
+        * cache-power-consumption
+        * cache-thermal-capability
+
+    hitrate-performance-relation: HitRatePerformanceRelation
+      relating arguments
+        * cache-hit-rate
+        * core-computational-performance
+    

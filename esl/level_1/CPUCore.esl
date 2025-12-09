@@ -5,22 +5,15 @@ define component CPUCore
     max-clock-frequency       is a Frequency          property
     computational-performance is a Performance        property
     data-processing-speed     is a Bandwidth          property
+    required-data-bandwidth   is a Bandwidth          property
     process-node              is a ProcessNode        property
     power-consumption         is a Power              property
     die-area                  is a Area               property
     transistors               is a Count              property
 
-  design-requirements
-    dr-core-voltage: voltage must be at least 0.5 [V]
-    dr-core-freq:    max-clock-frequency must be at least 1.0 [Hz]
-
-  #transformation-constraints
-    #tc-performance:           does convert max-clock-frequency and voltage and process-node and transistors and data-processing-speed into computational-performance
-    #tc-transistors:           does convert die-area and process-node into transistors
-    #tc-area:                  does convert transistors and process-node into die-area
-    #tc-power:                 does convert voltage and transistors and process-node into power-consumption
-    #tc-power-temperature:     does convert voltage and max-temperature and process-node into max-clock-frequency
-    #tc-performance-data-rate: does convert computational-performance into data-processing-speed
+  #design-requirements
+  #  dr-core-voltage: voltage must be at least 0.5 [V]
+  #  dr-core-freq:    max-clock-frequency must be at least 1.0 [Hz]
 
   relations
     core-performance-model: PerformanceModel
@@ -33,6 +26,7 @@ define component CPUCore
 
       returning arguments
         * computational-performance
+        * data-processing-speed
 
     core-power-model: PowerModel
       requiring arguments
@@ -50,3 +44,26 @@ define component CPUCore
 
       returning arguments
         * die-area
+
+    core-bandwidth-relation: BandwidthRelation
+      relating arguments
+        * required-data-bandwidth
+        * data-processing-speed
+
+    core-temperature-model: CorePowerModel
+      requiring arguments
+        * voltage
+        * transistors
+        * process-node
+
+      returning arguments
+        * power-consumption
+
+    core-frequency-model: FrequencyModel
+      requiring arguments
+        * voltage
+        * max-temperature
+        * process-node
+
+      returning arguments
+        * max-clock-frequency

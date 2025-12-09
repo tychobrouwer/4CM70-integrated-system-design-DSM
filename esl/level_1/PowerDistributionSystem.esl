@@ -6,10 +6,29 @@ define component PowerDistributionSystem
     cache-power-capability  is a Power  property
     power-capability        is a Power  property
 
-  design-requirements
-    dr-total-power-cap: power-capability must be at least 100.0 [W]
+  #design-requirements
+  #  dr-total-power-cap: power-capability must be at least 100.0 [W]
 
-  transformation-constraints
-    tc-core-power-cap:        does convert core-tsv-density into core-power-capability
-    tc-cache-power-cap:       does convert cache-tsv-density into cache-power-capability
-    tc-power-cap:             does convert core-power-capability and cache-power-capability into power-capability
+  relations
+    total-power-relation: TotalPowerRelation
+      requiring arguments
+        * core-power-capability
+        * cache-power-capability
+
+      returning arguments
+        * power-capability
+
+    cache-power-relation: PowerCapabilityRelation
+      requiring arguments
+        * core-tsv-density
+      
+      returning arguments
+        * cache-power-capability
+
+    core-power-relation: PowerCapabilityRelation
+      requiring arguments
+        * cache-tsv-density
+      
+      returning arguments
+        * core-power-capability
+    
