@@ -10,14 +10,14 @@ define component CoreCacheInterconnect
 
   relations
     bandwidth-model: BandwidthModel
-      relating arguments
+      requiring arguments
         * bus-width
 
       returning arguments
         * bandwidth
     
     latency-model: InterconnectLatencyModel
-      relating arguments
+      requiring arguments
         * length
         * bandwidth
 

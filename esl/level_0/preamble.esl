@@ -25,6 +25,16 @@ define verb
   convert into
 
 define relation 
+  BandwidthRelation
+    relating parameters
+      * bandwidth-1 is a Bandwidth
+      * bandwidth-2 is a Bandwidth
+
+  PowerRelation
+    relating parameters
+      * power-1 is a Power
+      * power-2 is a Power
+
   BandwidthModel
     requiring parameters
       * bus-width is a BusWidth
@@ -46,7 +56,7 @@ define relation
       * voltage                   is a Voltage
       * process-node              is a ProcessNode
       * transistors               is a Count
-      * data-processing-speed     is a DataRate
+      * data-processing-speed     is a Bandwidth
 
     returning parameters
       * computational-performance is a Performance
@@ -59,3 +69,11 @@ define relation
 
     returning parameters
       * power-consumption is a Power
+
+  AreaModel
+    requiring parameters
+      * transistors  is a Count
+      * process-node is a ProcessNode
+
+    returning parameters
+      * die-area is a Area

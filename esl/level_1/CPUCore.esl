@@ -4,7 +4,7 @@ define component CPUCore
     voltage                   is a Voltage            property
     max-clock-frequency       is a Frequency          property
     computational-performance is a Performance        property
-    data-processing-speed     is a DataRate           property
+    data-processing-speed     is a Bandwidth          property
     process-node              is a ProcessNode        property
     power-consumption         is a Power              property
     die-area                  is a Area               property
@@ -24,8 +24,7 @@ define component CPUCore
 
   relations
     core-performance-model: PerformanceModel
-      relating arguments
-        * computational-performance
+      requiring arguments
         * max-clock-frequency
         * voltage
         * process-node
@@ -36,10 +35,18 @@ define component CPUCore
         * computational-performance
 
     core-power-model: PowerModel
-      relating arguments
+      requiring arguments
         * voltage
         * transistors
         * process-node
       
       returning arguments
         * power-consumption
+
+    core-area-model: AreaModel
+      requiring arguments
+        * transistors
+        * process-node
+
+      returning arguments
+        * die-area

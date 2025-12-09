@@ -4,7 +4,7 @@ world
     core-voltage                        is a Voltage
     core-max-clock-frequency            is a Frequency
     core-computational-performance      is a Performance
-    core-data-processing-speed          is a DataRate
+    core-data-processing-speed          is a Bandwidth
     core-process-node                   is a ProcessNode
     core-power-consumption              is a Power
     core-die-area                       is a Area
@@ -17,6 +17,7 @@ world
     cache-power-consumption             is a Power
     cache-process-node                  is a ProcessNode
     cache-latency                       is a Latency
+    cache-transistors                   is a Count
     interconnect-length                 is a Length
     interconnect-bandwidth              is a Bandwidth
     interconnect-bus-width              is a BusWidth
@@ -52,6 +53,7 @@ world
       * cache-power-consumption
       * cache-process-node
       * cache-latency
+      * cache-transistors
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-length
       * interconnect-bandwidth
@@ -83,3 +85,24 @@ world
   #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
   #  dr-min-performance: core-computational-performance must be at least 100.0 [GFLOPS]
   #  dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
+
+  relation
+    core-interconnect-data-rate: BandwidthRelation
+      relating arguments
+        * interconnect-bandwidth
+        * core-data-processing-speed
+
+    cache-interconnect-bandwidth: BandwidthRelation
+      relating arguments
+        * interconnect-bandwidth
+        * cache-bandwidth
+    
+    core-power-relation: PowerRelation
+      relating arguments
+        * core-power-consumption
+        * core-power-capability
+
+    cache-power-relation: PowerRelation
+      relating arguments
+        * cache-power-consumption
+        * cache-power-capability

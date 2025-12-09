@@ -8,6 +8,7 @@ define component SRAMCache
     power-consumption is a Power          property
     process-node      is a ProcessNode    property
     latency           is a Latency        property
+    transistors       is a Count          property
 
   design-requirements
     dr-cache-latency: latency must be at most 10.0 [ns]
@@ -23,3 +24,12 @@ define component SRAMCache
     tc-latency:   does convert capacity and process-node into latency
 
     tc-hit-rate:  does convert capacity into hit-rate
+
+  relations
+    cache-area-model: AreaModel
+      requiring arguments
+        * transistors
+        * process-node
+
+      returning arguments
+        * die-area
