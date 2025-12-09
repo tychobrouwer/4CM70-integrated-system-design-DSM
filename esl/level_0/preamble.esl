@@ -1,25 +1,31 @@
 define type
-  temperature is a real with unit K
-  voltage is a real with unit V
-  frequency is a real with unit Hz
-  performance is a real with unit GFLOPS
-  data-rate is a real with unit GB/s
-  process-node is a real with unit nm
-  power is a real with unit W
-  area is a real with unit mm2
-  bandwidth is a real with unit GB/s
-  length is a real with unit um
-  bus-width is a real with unit bits
-  latency is a real with unit ns
-  density is a real with unit count/mm2
-  thermal-resistance is a real with unit K/W
-  thermal-power is a real with unit W
-  cache-capacity is a real with unit MB
-  hit-rate is a real with unit percent
-  count is a real with unit count
+  Temperature       is a real with unit K
+  Voltage           is a real with unit V
+  Frequency         is a real with unit Hz
+  Performance       is a real with unit GFLOPS
+  DataRate          is a real with unit GB/s
+  ProcessNode       is a real with unit nm
+  Power             is a real with unit W
+  Area              is a real with unit mm2
+  Bandwidth         is a real with unit GB/s
+  Length            is a real with unit um
+  BusWidth          is a real with unit bits
+  Latency           is a real with unit ns
+  Density           is a real with unit count/mm2
+  ThermalResistance is a real with unit K/W
+  ThermalPower      is a real with unit W
+  CacheCapacity     is a real with unit MB
+  HitRate           is a real with unit percent
+  Count             is a real with unit count
 
 define verb
   provide to
   connect to
   manage of
   convert into
+
+define relation 
+  DataRate
+    relating parameters
+      * cache-bandwidth is a Bandwidth
+      * interconnect-bandwidth is a Bandwidth

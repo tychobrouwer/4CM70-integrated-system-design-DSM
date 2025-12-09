@@ -1,10 +1,10 @@
 define component PowerDistributionSystem
   parameters
-    core-tsv-density        is a density property
-    cache-tsv-density       is a density property
-    core-power-capability   is a power  property
-    cache-power-capability  is a power  property
-    power-capability        is a power  property
+    core-tsv-density        is a Density property
+    cache-tsv-density       is a Density property
+    core-power-capability   is a Power  property
+    cache-power-capability  is a Power  property
+    power-capability        is a Power  property
 
   design-requirements
     dr-total-power-cap: power-capability must be at least 100.0 [W]

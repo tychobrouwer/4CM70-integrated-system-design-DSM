@@ -1,36 +1,36 @@
 world
   variables
-    core-max-temperature is a temperature
-    core-voltage is a voltage
-    core-max-clock-frequency is a frequency
-    core-computational-performance is a performance
-    core-data-processing-speed is a data-rate
-    core-process-node is a process-node
-    core-power-consumption is a power
-    core-die-area is an area
-    core-transistors is a count
-    cache-capacity is a cache-capacity
-    cache-die-area is an area
-    cache-voltage is a voltage
-    cache-bandwidth is a bandwidth
-    cache-hit-rate is a hit-rate
-    cache-power-consumption is a power
-    cache-process-node is a process-node
-    cache-latency is a latency
-    interconnect-length is a length
-    interconnect-bandwidth is a bandwidth
-    interconnect-bus-width is a bus-width
-    interconnect-latency is a latency
-    core-power-tsv-density is a density
-    cache-power-tsv-density is a density
-    core-power-capability is a power
-    cache-power-capability is a power
-    total-power-capability is a power
-    core-thermal-tsv-density is a density
-    cache-thermal-tsv-density is a density
-    core-to-cooler-thermal-resistance is a thermal-resistance
-    cache-to-cooler-thermal-resistance is a thermal-resistance
-    thermal-dissipation is a thermal-power
+    core-max-temperature                is a Temperature
+    core-voltage                        is a Voltage
+    core-max-clock-frequency            is a Frequency
+    core-computational-performance      is a Performance
+    core-data-processing-speed          is a DataRate
+    core-process-node                   is a ProcessNode
+    core-power-consumption              is a Power
+    core-die-area                       is a Area
+    core-transistors                    is a Count
+    cache-capacity                      is a CacheCapacity
+    cache-die-area                      is a Area
+    cache-voltage                       is a Voltage
+    cache-bandwidth                     is a Bandwidth
+    cache-hit-rate                      is a HitRate
+    cache-power-consumption             is a Power
+    cache-process-node                  is a ProcessNode
+    cache-latency                       is a Latency
+    interconnect-length                 is a Length
+    interconnect-bandwidth              is a Bandwidth
+    interconnect-bus-width              is a BusWidth
+    interconnect-latency                is a Latency
+    core-power-tsv-density              is a Density
+    cache-power-tsv-density             is a Density
+    core-power-capability               is a Power
+    cache-power-capability              is a Power
+    total-power-capability              is a Power
+    core-thermal-tsv-density            is a Density
+    cache-thermal-tsv-density           is a Density
+    core-to-cooler-thermal-resistance   is a ThermalResistance
+    cache-to-cooler-thermal-resistance  is a ThermalResistance
+    thermal-dissipation                 is a ThermalPower
 
   components
     core is a CPUCore with arguments
@@ -70,16 +70,23 @@ world
       * cache-to-cooler-thermal-resistance
       * thermal-dissipation
 
-  goal-requirements
-    data-provision-interconnect-core: interconnect must provide interconnect-bandwidth to core
-    data-provision-interconnect-cache: cache must provide interconnect-bandwidth to interconnect
-    data-hitrate-core-cache: cache must provide cache-hit-rate to core
-    power-provision-core: power-system must provide core-power-capability to core
-    power-provision-cache: power-system must provide cache-power-capability to cache
-    thermal-management-core: thermal-system must manage core-power-consumption of core
-    thermal-management-cache: thermal-system must manage cache-power-consumption of cache
+  #goal-requirements
+  #  data-provision-interconnect-core: interconnect must provide interconnect-bandwidth to core
+  #  data-provision-interconnect-cache: cache must provide interconnect-bandwidth to interconnect
+  #  data-hitrate-core-cache: cache must provide cache-hit-rate to core
+  #  power-provision-core: power-system must provide core-power-capability to core
+  #  power-provision-cache: power-system must provide cache-power-capability to cache
+  #  thermal-management-core: thermal-system must manage core-power-consumption of core
+  #  thermal-management-cache: thermal-system must manage cache-power-consumption of cache
 
-  design-requirements
-    dr-temp-limit: core-max-temperature must be at most 373.0 [K]
-    dr-min-performance: core-computational-performance must be at least 100.0 [GFLOPS]
-    dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
+  #design-requirements
+  #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
+  #  dr-min-performance: core-computational-performance must be at least 100.0 [GFLOPS]
+  #  dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
+
+  relation
+    max-interconnect-data-rate: MaxInterconnectDataRate
+      relating arguments
+        * cache-bandwidth
+        * interconnect-bandwidth 
+        
