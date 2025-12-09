@@ -25,7 +25,9 @@ define verb
   convert into
 
 define relation 
-  DataRate
-    relating parameters
-      * cache-bandwidth is a Bandwidth
+  BandwidthRelation
+    requiring parameters
+      * bus-width is a BusWidth
+    
+    returning parameters
       * interconnect-bandwidth is a Bandwidth

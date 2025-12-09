@@ -11,3 +11,11 @@ define component CoreCacheInterconnect
   transformation-constraints
     tc-bandwidth:     does convert bus-width into bandwidth
     tc-latency:      does convert bandwidth and length into latency
+
+  relations
+    bandwidth-model: BandwidthRelation
+      relating arguments
+        * bus-width
+        
+      returning arguments
+        * bandwidth
