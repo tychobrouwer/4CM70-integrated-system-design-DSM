@@ -25,17 +25,37 @@ define verb
   convert into
 
 define relation 
-  BandwidthRelation
+  BandwidthModel
     requiring parameters
       * bus-width is a BusWidth
     
     returning parameters
-      * interconnect-bandwidth is a Bandwidth
+      * bandwidth is a Bandwidth
 
-  LatencyModel
+  InterconnectLatencyModel
     requiring parameters
       * length    is a Length
       * bandwidth is a Bandwidth
 
     returning parameters
       * latency   is a Latency
+
+  PerformanceModel
+    requiring parameters
+      * max-clock-frequency       is a Frequency
+      * voltage                   is a Voltage
+      * process-node              is a ProcessNode
+      * transistors               is a Count
+      * data-processing-speed     is a DataRate
+
+    returning parameters
+      * computational-performance is a Performance
+
+  PowerModel
+    requiring parameters
+      * voltage       is a Voltage
+      * transistors   is a Count
+      * process-node  is a ProcessNode
+
+    returning parameters
+      * power-consumption is a Power

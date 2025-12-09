@@ -14,14 +14,32 @@ define component CPUCore
     dr-core-voltage: voltage must be at least 0.5 [V]
     dr-core-freq:    max-clock-frequency must be at least 1.0 [Hz]
 
-  transformation-constraints
-    tc-performance:           does convert max-clock-frequency and voltage and process-node and transistors and data-processing-speed into computational-performance
-    
-    tc-transistors:           does convert die-area and process-node into transistors
-    tc-area:                  does convert transistors and process-node into die-area
+  #transformation-constraints
+    #tc-performance:           does convert max-clock-frequency and voltage and process-node and transistors and data-processing-speed into computational-performance
+    #tc-transistors:           does convert die-area and process-node into transistors
+    #tc-area:                  does convert transistors and process-node into die-area
+    #tc-power:                 does convert voltage and transistors and process-node into power-consumption
+    #tc-power-temperature:     does convert voltage and max-temperature and process-node into max-clock-frequency
+    #tc-performance-data-rate: does convert computational-performance into data-processing-speed
 
-    tc-power:                 does convert voltage and transistors and process-node into power-consumption
+  relations
+    core-performance-model: PerformanceModel
+      relating arguments
+        * computational-performance
+        * max-clock-frequency
+        * voltage
+        * process-node
+        * transistors
+        * data-processing-speed
 
-    tc-power-temperature:     does convert voltage and max-temperature and process-node into max-clock-frequency
+      returning arguments
+        * computational-performance
 
-    tc-performance-data-rate: does convert computational-performance into data-processing-speed
+    core-power-model: PowerModel
+      relating arguments
+        * voltage
+        * transistors
+        * process-node
+      
+      returning arguments
+        * power-consumption

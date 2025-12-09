@@ -83,10 +83,3 @@ world
   #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
   #  dr-min-performance: core-computational-performance must be at least 100.0 [GFLOPS]
   #  dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
-
-  relation
-    max-interconnect-data-rate: MaxInterconnectDataRate
-      relating arguments
-        * cache-bandwidth
-        * interconnect-bandwidth 
-        

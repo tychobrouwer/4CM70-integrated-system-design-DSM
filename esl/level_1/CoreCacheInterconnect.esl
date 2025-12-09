@@ -9,14 +9,14 @@ define component CoreCacheInterconnect
     dr-interconnect-bandwidth: bandwidth must be at least 100.0 [GB/s]
 
   relations
-    bandwidth-model: BandwidthRelation
+    bandwidth-model: BandwidthModel
       relating arguments
         * bus-width
 
       returning arguments
         * bandwidth
     
-    latency-model: LatencyModel
+    latency-model: InterconnectLatencyModel
       relating arguments
         * length
         * bandwidth
