@@ -8,9 +8,6 @@ define component CoreCacheInterconnect
   design-requirements
     dr-interconnect-bandwidth: bandwidth must be at least 100.0 [GB/s]
 
-  transformation-constraints
-    tc-latency:      does convert bandwidth and length into latency
-
   relations
     bandwidth-model: BandwidthRelation
       relating arguments
