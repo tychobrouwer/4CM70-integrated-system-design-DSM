@@ -31,3 +31,11 @@ define relation
     
     returning parameters
       * interconnect-bandwidth is a Bandwidth
+
+  LatencyModel
+    requiring parameters
+      * length    is a Length
+      * bandwidth is a Bandwidth
+
+    returning parameters
+      * latency   is a Latency

@@ -9,13 +9,20 @@ define component CoreCacheInterconnect
     dr-interconnect-bandwidth: bandwidth must be at least 100.0 [GB/s]
 
   transformation-constraints
-    tc-bandwidth:     does convert bus-width into bandwidth
     tc-latency:      does convert bandwidth and length into latency
 
   relations
     bandwidth-model: BandwidthRelation
       relating arguments
         * bus-width
-        
+
       returning arguments
         * bandwidth
+    
+    latency-model: LatencyModel
+      relating arguments
+        * length
+        * bandwidth
+
+      returning arguments
+        * latency
