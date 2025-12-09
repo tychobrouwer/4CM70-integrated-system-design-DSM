@@ -84,12 +84,12 @@ world
   #  dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
 
   relation
-    core-interconnect-data-rate: BandwidthRelation
+    core-interconnect-bandwidth-relation: BandwidthRelation
       relating arguments
         * interconnect-bandwidth
         * core-data-processing-speed
 
-    cache-interconnect-bandwidth: BandwidthRelation
+    cache-interconnect-bandwidth-relation: BandwidthRelation
       relating arguments
         * interconnect-bandwidth
         * cache-bandwidth
