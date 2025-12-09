@@ -1,17 +1,17 @@
 define component ThermalDissipationSystem
   parameters
-    core-thermal-tsv-density   is a Density            property
-    cache-thermal-tsv-density  is a Density            property
-    core-thermal-resistance    is a ThermalResistance  property
-    cache-thermal-resistance   is a ThermalResistance  property
-    core-thermal-capability    is a ThermalPower       property
-    cache-thermal-capability   is a ThermalPower       property
-    thermal-dissipation        is a ThermalPower       property
+    core-thermal-tsv-density         is a Density            property
+    cache-thermal-tsv-density        is a Density            property
+    core-thermal-resistance          is a ThermalResistance  property
+    cache-thermal-resistance         is a ThermalResistance  property
+    core-thermal-cooling-capability  is a ThermalPower       property
+    cache-thermal-cooling-capability is a ThermalPower       property
+    cooling-capability               is a ThermalPower       property
 
   #design-requirements
   #  dr-core-thermal-res:   core-thermal-resistance must be at most 1.0 [K/W]
   #  dr-cache-thermal-res:  cache-thermal-resistance must be at most 1.0 [K/W]
-  #  dr-max-dissipation:    thermal-dissipation must be at most 100.0 [W]
+  #  dr-max-dissipation:    cooling-capability must be at most 100.0 [W]
 
   relations
     core-thermal-capability-model: ThermalCapabilityModel
@@ -20,7 +20,7 @@ define component ThermalDissipationSystem
         * core-thermal-resistance
 
       returning arguments
-        * core-thermal-capability
+        * core-thermal-cooling-capability
 
     cache-thermal-capability-model: ThermalCapabilityModel
       requiring arguments
@@ -28,12 +28,12 @@ define component ThermalDissipationSystem
         * cache-thermal-resistance
 
       returning arguments
-        * cache-thermal-capability
+        * cache-thermal-cooling-capability
 
     thermal-dissipation-model: ThermalDissipationModel
       requiring arguments
-        * core-thermal-capability
-        * cache-thermal-capability
+        * core-thermal-cooling-capability
+        * cache-thermal-cooling-capability
 
       returning arguments
-        * thermal-dissipation
+        * cooling-capability

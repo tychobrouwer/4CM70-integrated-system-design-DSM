@@ -32,9 +32,9 @@ world
     cache-thermal-tsv-density           is a Density
     core-to-cooler-thermal-resistance   is a ThermalResistance
     cache-to-cooler-thermal-resistance  is a ThermalResistance
-    core-thermal-capability             is a ThermalPower
-    cache-thermal-capability            is a ThermalPower
-    thermal-dissipation                 is a ThermalPower
+    core-thermal-cooling-capability     is a ThermalPower
+    cache-thermal-cooling-capability    is a ThermalPower
+    cooling-capability                  is a ThermalPower
 
   components
     core is a CPUCore with arguments
@@ -74,9 +74,9 @@ world
       * cache-thermal-tsv-density
       * core-to-cooler-thermal-resistance
       * cache-to-cooler-thermal-resistance
-      * core-thermal-capability
-      * cache-thermal-capability
-      * thermal-dissipation
+      * core-thermal-cooling-capability
+      * cache-thermal-cooling-capability
+      * cooling-capability
 
   #design-requirements
   #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
@@ -94,12 +94,12 @@ world
         * interconnect-bandwidth
         * cache-bandwidth
     
-    core-power-relation: PowerRelation
+    core-power-management-relation: PowerRelation
       relating arguments
         * core-power-consumption
         * core-power-capability
 
-    cache-power-relation: PowerRelation
+    cache-power-management-relation: PowerRelation
       relating arguments
         * cache-power-consumption
         * cache-power-capability
@@ -107,12 +107,12 @@ world
     core-thermal-management-relation: ThermalPowerRelation
       relating arguments
         * core-power-consumption
-        * core-thermal-capability
+        * core-thermal-cooling-capability
 
     cache-thermal-management-relation: ThermalPowerRelation
       relating arguments
         * cache-power-consumption
-        * cache-thermal-capability
+        * cache-thermal-cooling-capability
 
     hitrate-performance-relation: HitRatePerformanceRelation
       relating arguments
