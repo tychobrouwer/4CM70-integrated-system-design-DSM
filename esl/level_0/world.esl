@@ -37,7 +37,7 @@ world
     core-power-capability               is a Power
     cache-power-capability              is a Power
     total-power-capability              is a Power
-
+    
     core-thermal-tsv-density            is a Density
     cache-thermal-tsv-density           is a Density
     core-thermal-tsv-diameter           is a Length
@@ -60,6 +60,7 @@ world
       * core-power-consumption
       * core-die-area
       * core-transistors
+
     cache is a SRAMCache with arguments
       * cache-capacity
       * cache-die-area
@@ -73,12 +74,14 @@ world
       * cache-transistors
       * cache-temperature
       * cache-clock-frequency
+
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-length
       * interconnect-bandwidth
       * interconnect-bus-width
       * interconnect-latency
       * interconnect-frequency
+
     power-system is a PowerDistributionSystem with arguments
       * core-power-tsv-density
       * cache-power-tsv-density
@@ -87,6 +90,7 @@ world
       * core-power-capability
       * cache-power-capability
       * total-power-capability
+
     thermal-system is a ThermalDissipationSystem with arguments
       * core-thermal-tsv-density
       * cache-thermal-tsv-density
