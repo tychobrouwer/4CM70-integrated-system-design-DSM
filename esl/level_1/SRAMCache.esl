@@ -4,11 +4,14 @@ define component SRAMCache
     die-area          is a Area           property
     voltage           is a Voltage        property
     bandwidth         is a Bandwidth      property
+    bus-width         is a BusWidth       property
     hit-rate          is a HitRate        property
     power-consumption is a Power          property
     process-node      is a ProcessNode    property
     latency           is a Latency        property
     transistors       is a Count          property
+    temperature       is a Temperature    property
+    clock-frequency   is a Frequency      property
 
   #design-requirements
   #  dr-cache-latency: latency must be at most 10.0 [ns]
@@ -25,13 +28,21 @@ define component SRAMCache
 
     cache-capacity-model: CapacityModel
       requiring arguments
-        * die-area
-        * process-node
+        * transistors
 
       returning arguments
         * capacity
+    
+    cache-performance-model: CachePerformanceModel
+      requiring arguments
+        * voltage
+        * temperature
+        * process-node
 
-    cache-power-model: CachePowerModel
+      returning arguments
+        * clock-frequency
+
+    cache-power-model: PowerModel
       requiring arguments
         * voltage
         * transistors
@@ -42,8 +53,9 @@ define component SRAMCache
 
     cache-bandwidth-model: CacheBandwidthModel
       requiring arguments
-        * voltage
-        * capacity
+        * bus-width
+        * clock-frequency
+        * process-node
 
       returning arguments
         * bandwidth
@@ -53,6 +65,7 @@ define component SRAMCache
         * capacity
         * process-node
         * die-area
+        * clock-frequency
 
       returning arguments
         * latency

@@ -1,8 +1,8 @@
 define component CPUCore
   parameters
-    max-temperature           is a Temperature        property
+    temperature               is a Temperature        property
     voltage                   is a Voltage            property
-    max-clock-frequency       is a Frequency          property
+    clock-frequency           is a Frequency          property
     computational-performance is a Performance        property
     data-processing-speed     is a Bandwidth          property
     required-data-bandwidth   is a Bandwidth          property
@@ -13,12 +13,12 @@ define component CPUCore
 
   #design-requirements
   #  dr-core-voltage: voltage must be at least 0.5 [V]
-  #  dr-core-freq:    max-clock-frequency must be at least 1.0 [Hz]
+  #  dr-core-freq:    clock-frequency must be at least 1.0 [Hz]
 
   relations
     core-performance-model: PerformanceModel
       requiring arguments
-        * max-clock-frequency
+        * clock-frequency
         * voltage
         * process-node
         * transistors
@@ -26,7 +26,6 @@ define component CPUCore
 
       returning arguments
         * computational-performance
-        * data-processing-speed
 
     core-power-model: PowerModel
       requiring arguments
@@ -50,20 +49,11 @@ define component CPUCore
         * required-data-bandwidth
         * data-processing-speed
 
-    core-temperature-model: CorePowerModel
-      requiring arguments
-        * voltage
-        * transistors
-        * process-node
-
-      returning arguments
-        * power-consumption
-
     core-frequency-model: FrequencyModel
       requiring arguments
         * voltage
-        * max-temperature
+        * temperature
         * process-node
 
       returning arguments
-        * max-clock-frequency
+        * clock-frequency

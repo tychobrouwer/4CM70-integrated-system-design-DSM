@@ -20,14 +20,14 @@ define component PowerDistributionSystem
 
     cache-power-relation: PowerCapabilityRelation
       requiring arguments
-        * core-tsv-density
+        * cache-tsv-density
       
       returning arguments
         * cache-power-capability
 
     core-power-relation: PowerCapabilityRelation
       requiring arguments
-        * cache-tsv-density
+        * core-tsv-density
       
       returning arguments
         * core-power-capability

@@ -1,8 +1,8 @@
 world
   variables
-    core-max-temperature                is a Temperature
+    core-temperature                    is a Temperature
     core-voltage                        is a Voltage
-    core-max-clock-frequency            is a Frequency
+    core-clock-frequency                is a Frequency
     core-computational-performance      is a Performance
     core-data-processing-speed          is a Bandwidth
     core-required-data-bandwidth        is a Bandwidth
@@ -14,11 +14,14 @@ world
     cache-die-area                      is a Area
     cache-voltage                       is a Voltage
     cache-bandwidth                     is a Bandwidth
+    cache-bus-width                     is a BusWidth
     cache-hit-rate                      is a HitRate
     cache-power-consumption             is a Power
     cache-process-node                  is a ProcessNode
     cache-latency                       is a Latency
     cache-transistors                   is a Count
+    cache-temperature                   is a Temperature
+    cache-clock-frequency               is a Frequency
     interconnect-length                 is a Length
     interconnect-bandwidth              is a Bandwidth
     interconnect-bus-width              is a BusWidth
@@ -38,9 +41,9 @@ world
 
   components
     core is a CPUCore with arguments
-      * core-max-temperature
+      * core-temperature
       * core-voltage
-      * core-max-clock-frequency
+      * core-clock-frequency
       * core-computational-performance
       * core-data-processing-speed
       * core-required-data-bandwidth
@@ -53,11 +56,14 @@ world
       * cache-die-area
       * cache-voltage
       * cache-bandwidth
+      * cache-bus-width
       * cache-hit-rate
       * cache-power-consumption
       * cache-process-node
       * cache-latency
       * cache-transistors
+      * cache-temperature
+      * cache-clock-frequency
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-length
       * interconnect-bandwidth
@@ -113,6 +119,22 @@ world
       relating arguments
         * cache-power-consumption
         * cache-thermal-cooling-capability
+
+    core-temperature-relation: TemperatureRelation
+      requiring arguments
+        * core-to-cooler-thermal-resistance
+        * core-power-consumption
+
+      returning arguments
+        * core-temperature
+
+    cache-temperature-relation: TemperatureRelation
+      requiring arguments
+        * cache-to-cooler-thermal-resistance
+        * cache-power-consumption
+
+      returning arguments
+        * cache-temperature
 
     hitrate-performance-relation: HitRatePerformanceRelation
       relating arguments

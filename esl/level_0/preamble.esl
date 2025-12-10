@@ -70,7 +70,7 @@ define relation
 
   PerformanceModel
     requiring parameters
-      * max-clock-frequency       is a Frequency
+      * clock-frequency           is a Frequency
       * voltage                   is a Voltage
       * process-node              is a ProcessNode
       * transistors               is a Count
@@ -78,7 +78,16 @@ define relation
 
     returning parameters
       * computational-performance is a Performance
-      * required-data-bandwidth   is a Bandwidth
+
+  CachePerformanceModel
+    requiring parameters
+      * voltage         is a Voltage
+      * temperature     is a Temperature
+      * process-node    is a ProcessNode
+
+    returning parameters
+      * cache-frequency is a Frequency
+
 
   PowerModel
     requiring parameters
@@ -99,8 +108,7 @@ define relation
 
   CapacityModel
     requiring parameters
-      * die-area    is a Area
-      * process-node is a ProcessNode
+      * transistors is a Count
 
     returning parameters
       * capacity is a CacheCapacity
@@ -108,43 +116,27 @@ define relation
   FrequencyModel
     requiring parameters
       * voltage         is a Voltage
-      * max-temperature is a Temperature
+      * temperature is a Temperature
       * process-node    is a ProcessNode
 
     returning parameters
-      * max-clock-frequency is a Frequency
-
-  CorePowerModel
-    requiring parameters
-      * voltage      is a Voltage
-      * transistors  is a Count
-      * process-node is a ProcessNode
-
-    returning parameters
-      * power-consumption is a Power
-
-  CachePowerModel
-    requiring parameters
-      * voltage      is a Voltage
-      * transistors  is a Count
-      * process-node is a ProcessNode
-
-    returning parameters
-      * power-consumption is a Power
+      * clock-frequency is a Frequency
 
   CacheBandwidthModel
     requiring parameters
-      * voltage  is a Voltage
-      * capacity is a CacheCapacity
+      * bus-width is a BusWidth
+      * frequency is a Frequency
+      * process-node is a ProcessNode
 
     returning parameters
       * bandwidth is a Bandwidth
 
   CacheLatencyModel
     requiring parameters
-      * capacity     is a CacheCapacity
-      * process-node is a ProcessNode
-      * die-area     is a Area
+      * capacity        is a CacheCapacity
+      * process-node    is a ProcessNode
+      * die-area        is a Area
+      * clock-frequency is a Frequency
 
     returning parameters
       * latency is a Latency
@@ -178,3 +170,11 @@ define relation
 
     returning parameters
       * thermal-dissipation is a ThermalPower
+
+  TemperatureRelation
+    requiring parameters
+      * to-cooler-resistance is a ThermalResistance
+      * thermal-power        is a Power
+
+    returning parameters
+      * temperature          is a Temperature

@@ -11,7 +11,7 @@ define component ThermalDissipationSystem
   #design-requirements
   #  dr-core-thermal-res:   core-thermal-resistance must be at most 1.0 [K/W]
   #  dr-cache-thermal-res:  cache-thermal-resistance must be at most 1.0 [K/W]
-  #  dr-max-dissipation:    cooling-capability must be at most 100.0 [W]
+  #  dr-dissipation:    cooling-capability must be at most 100.0 [W]
 
   relations
     core-thermal-capability-model: ThermalCapabilityModel
