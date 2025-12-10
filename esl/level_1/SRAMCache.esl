@@ -47,6 +47,7 @@ define component SRAMCache
         * voltage
         * transistors
         * process-node
+        * temperature
 
       returning arguments
         * power-consumption

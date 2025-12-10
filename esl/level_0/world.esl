@@ -10,6 +10,7 @@ world
     core-power-consumption              is a Power
     core-die-area                       is a Area
     core-transistors                    is a Count
+
     cache-capacity                      is a CacheCapacity
     cache-die-area                      is a Area
     cache-voltage                       is a Voltage
@@ -22,17 +23,25 @@ world
     cache-transistors                   is a Count
     cache-temperature                   is a Temperature
     cache-clock-frequency               is a Frequency
+
     interconnect-length                 is a Length
     interconnect-bandwidth              is a Bandwidth
     interconnect-bus-width              is a BusWidth
     interconnect-latency                is a Latency
+    interconnect-frequency              is a Frequency
+
     core-power-tsv-density              is a Density
     cache-power-tsv-density             is a Density
+    cache-power-tsv-diameter            is a Length
+    core-power-tsv-diameter             is a Length
     core-power-capability               is a Power
     cache-power-capability              is a Power
     total-power-capability              is a Power
+
     core-thermal-tsv-density            is a Density
     cache-thermal-tsv-density           is a Density
+    core-thermal-tsv-diameter           is a Length
+    cache-thermal-tsv-diameter          is a Length
     core-to-cooler-thermal-resistance   is a ThermalResistance
     cache-to-cooler-thermal-resistance  is a ThermalResistance
     core-thermal-cooling-capability     is a ThermalPower
@@ -69,15 +78,20 @@ world
       * interconnect-bandwidth
       * interconnect-bus-width
       * interconnect-latency
+      * interconnect-frequency
     power-system is a PowerDistributionSystem with arguments
       * core-power-tsv-density
       * cache-power-tsv-density
+      * cache-power-tsv-diameter
+      * core-power-tsv-diameter
       * core-power-capability
       * cache-power-capability
       * total-power-capability
     thermal-system is a ThermalDissipationSystem with arguments
       * core-thermal-tsv-density
       * cache-thermal-tsv-density
+      * core-thermal-tsv-diameter
+      * cache-thermal-tsv-diameter
       * core-to-cooler-thermal-resistance
       * cache-to-cooler-thermal-resistance
       * core-thermal-cooling-capability
@@ -141,3 +155,42 @@ world
         * cache-hit-rate
         * core-computational-performance
     
+    cache-power-relation: PowerCapabilityRelation
+      requiring arguments
+        * cache-power-tsv-density
+        * cache-power-tsv-diameter
+        * cache-voltage
+        * cache-die-area
+
+      returning arguments
+        * cache-power-capability
+    
+    core-power-relation: PowerCapabilityRelation
+      requiring arguments
+        * core-power-tsv-density
+        * core-power-tsv-diameter
+        * core-voltage
+        * core-die-area
+
+      returning arguments
+        * core-power-capability
+
+    core-thermal-capability-model: ThermalCapabilityModel
+      requiring arguments
+        * core-thermal-tsv-density
+        * core-thermal-tsv-diameter
+        * core-to-cooler-thermal-resistance
+        * core-die-area
+
+      returning arguments
+        * core-thermal-cooling-capability
+
+    cache-thermal-capability-model: ThermalCapabilityModel
+      requiring arguments
+        * cache-thermal-tsv-density
+        * cache-thermal-tsv-diameter
+        * cache-to-cooler-thermal-resistance
+        * cache-die-area
+
+      returning arguments
+        * cache-thermal-cooling-capability

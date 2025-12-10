@@ -1,12 +1,14 @@
 define component ThermalDissipationSystem
   parameters
-    core-thermal-tsv-density         is a Density            property
-    cache-thermal-tsv-density        is a Density            property
-    core-thermal-resistance          is a ThermalResistance  property
-    cache-thermal-resistance         is a ThermalResistance  property
-    core-thermal-cooling-capability  is a ThermalPower       property
-    cache-thermal-cooling-capability is a ThermalPower       property
-    cooling-capability               is a ThermalPower       property
+    core-tsv-density           is a Density            property
+    cache-tsv-density          is a Density            property
+    core-tsv-diameter          is a Length             property
+    cache-tsv-diameter         is a Length             property
+    core-to-cooler-resistance  is a ThermalResistance  property
+    cache-to-cooler-resistance is a ThermalResistance  property
+    core-cooling-capability    is a ThermalPower       property
+    cache-cooling-capability   is a ThermalPower       property
+    cooling-capability         is a ThermalPower       property
 
   #design-requirements
   #  dr-core-thermal-res:   core-thermal-resistance must be at most 1.0 [K/W]
@@ -14,26 +16,10 @@ define component ThermalDissipationSystem
   #  dr-dissipation:    cooling-capability must be at most 100.0 [W]
 
   relations
-    core-thermal-capability-model: ThermalCapabilityModel
-      requiring arguments
-        * core-thermal-tsv-density
-        * core-thermal-resistance
-
-      returning arguments
-        * core-thermal-cooling-capability
-
-    cache-thermal-capability-model: ThermalCapabilityModel
-      requiring arguments
-        * cache-thermal-tsv-density
-        * cache-thermal-resistance
-
-      returning arguments
-        * cache-thermal-cooling-capability
-
     thermal-dissipation-model: ThermalDissipationModel
       requiring arguments
-        * core-thermal-cooling-capability
-        * cache-thermal-cooling-capability
+        * core-cooling-capability
+        * cache-cooling-capability
 
       returning arguments
         * cooling-capability

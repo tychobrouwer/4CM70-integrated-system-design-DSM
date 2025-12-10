@@ -22,16 +22,17 @@ define component CPUCore
         * voltage
         * process-node
         * transistors
-        * data-processing-speed
 
       returning arguments
         * computational-performance
+        * data-processing-speed
 
     core-power-model: PowerModel
       requiring arguments
         * voltage
         * transistors
         * process-node
+        * temperature
       
       returning arguments
         * power-consumption

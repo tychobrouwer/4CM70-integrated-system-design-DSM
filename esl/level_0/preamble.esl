@@ -17,6 +17,7 @@ define type
   CacheCapacity     is a real with unit MB
   HitRate           is a real with unit percent
   Count             is a real with unit count
+  Current           is a real with unit Ampere
 
 define verb
   provide to
@@ -56,6 +57,7 @@ define relation
   BandwidthModel
     requiring parameters
       * bus-width is a BusWidth
+      * frequency is a Frequency
     
     returning parameters
       * bandwidth is a Bandwidth
@@ -64,6 +66,7 @@ define relation
     requiring parameters
       * length    is a Length
       * bandwidth is a Bandwidth
+      * frequency is a Frequency
 
     returning parameters
       * latency   is a Latency
@@ -74,10 +77,10 @@ define relation
       * voltage                   is a Voltage
       * process-node              is a ProcessNode
       * transistors               is a Count
-      * data-processing-speed     is a Bandwidth
 
     returning parameters
       * computational-performance is a Performance
+      * data-processing-speed     is a Bandwidth
 
   CachePerformanceModel
     requiring parameters
@@ -88,12 +91,12 @@ define relation
     returning parameters
       * cache-frequency is a Frequency
 
-
   PowerModel
     requiring parameters
       * voltage       is a Voltage
       * transistors   is a Count
       * process-node  is a ProcessNode
+      * temperature   is a Temperature
 
     returning parameters
       * power-consumption is a Power
@@ -139,29 +142,34 @@ define relation
       * clock-frequency is a Frequency
 
     returning parameters
-      * latency is a Latency
+      * latency         is a Latency
 
   HitRateModel
     requiring parameters
-      * capacity is a CacheCapacity
+      * capacity        is a CacheCapacity
 
     returning parameters
-      * hit-rate is a HitRate
+      * hit-rate        is a HitRate
 
   PowerCapabilityRelation
     requiring parameters
-      * tsv-density is a Density
+      * tsv-density         is a Density
+      * tsv-diameter        is a Length
+      * voltage             is a Voltage
+      * die-area            is a Area
 
     returning parameters
-      * power-capability is a Power
+      * power-capability    is a Power
 
   ThermalCapabilityModel
     requiring parameters
-      * tsv-density is a Density
-      * resistance  is a ThermalResistance
+      * tsv-density         is a Density
+      * tsv-diameter        is a Length
+      * resistance          is a ThermalResistance
+      * die-area            is a Area
 
     returning parameters
-      * thermal-capability is a ThermalPower
+      * thermal-capability  is a ThermalPower
 
   ThermalDissipationModel
     requiring parameters
