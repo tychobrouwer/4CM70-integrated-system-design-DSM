@@ -101,6 +101,24 @@ world
       * core-thermal-cooling-capability
       * cache-thermal-cooling-capability
       * cooling-capability
+      * heat                       
+      * input-temperature          
+      * output-temperature         
+      * heat-capacity              
+      * coolant-flowrate           
+      * core-temperature           
+      * ambient-temperature        
+      * power-dissipated          
+      * thermal-resistance         
+      * ambient-temperature        
+      * heat-flow                     
+      * area                          
+      * temperature-gradient          
+      * lateral-thermal-conductivity  
+      * tim-resistance                
+      * contact-resistance            
+      * thermal-conductivity          
+      * bond-line-thickness           
 
   #design-requirements
   #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
