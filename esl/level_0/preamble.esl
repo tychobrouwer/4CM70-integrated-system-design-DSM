@@ -18,6 +18,12 @@ define type
   HitRate           is a real with unit percent
   Count             is a real with unit count
   Current           is a real with unit Ampere
+  Mass              is a real with unit kg
+  Energy            is a real with unit J
+  Massflowrate      is a real with unit kg/s
+  HeatCapacity      is a real with unit J/(kg·K)
+  TemperatureGradient is a real with unit K/m
+  ThermalConductivity is a real with unit W/(m·K)
   Data              is a real with unit bytes
 
 define verb
@@ -185,3 +191,45 @@ define relation
 
     returning parameters
       * temperature          is a Temperature
+
+  CoolantFlowrateModel
+    requiring parameters
+      * heat                   is a Power
+      * input-temperature      is a Temperature
+      * output-temperature     is a Temperature
+      * heat-capacity          is a HeatCapacity
+
+    returning parameters
+      * coolant-flowrate       is a Massflowrate
+
+  AmbientInputTemperatureModel
+    requiring parameters
+      * core-temperature         is a Temperature
+      * ambient-temperature      is a Temperature
+      * power-dissipated         is a Power
+      * thermal-resistance       is a ThermalResistance
+
+
+    returning parameters
+      * ambient-temperature      is a Temperature
+
+  LateralThermalConductivityModel
+    requiring parameters
+      * heat-flow                     is a Power
+      * area                          is a Area
+      * temperature-gradient          is a TemperatureGradient
+
+
+    returning parameters
+      * lateral-thermal-conductivity  is a ThermalConductivity    
+
+  ThermalInterfaceMaterialModel
+    requiring parameters
+      * tim-resistance                is a ThermalResistance
+      * contact-resistance            is a ThermalResistance
+      * area                          is a Area
+      * thermal-conductivity          is a ThermalConductivity
+
+
+    returning parameters
+      * bond-line-thickness           is a Length 

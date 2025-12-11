@@ -104,6 +104,24 @@ world
       * thermal-core-cooling-capability
       * thermal-cache-cooling-capability
       * thermal-cooling-capability
+      * heat                       
+      * input-temperature          
+      * output-temperature         
+      * heat-capacity              
+      * coolant-flowrate           
+      * core-temperature           
+      * ambient-temperature        
+      * power-dissipated          
+      * thermal-resistance         
+      * ambient-temperature        
+      * heat-flow                     
+      * area                          
+      * temperature-gradient          
+      * lateral-thermal-conductivity  
+      * tim-resistance                
+      * contact-resistance            
+      * thermal-conductivity          
+      * bond-line-thickness           
 
   #goal-requirements
   #  provide-data-core: interconnect must provide data to core
