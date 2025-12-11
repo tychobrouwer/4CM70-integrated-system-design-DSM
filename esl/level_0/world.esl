@@ -47,6 +47,22 @@ world
     thermal-core-cooling-capability     is a ThermalPower
     thermal-cache-cooling-capability    is a ThermalPower
     thermal-cooling-capability          is a ThermalPower
+    thermal-heat                                is a Power
+    thermal-input-temperature                   is a Temperature
+    thermal-output-temperature                  is a Temperature
+    thermal-heat-capacity                       is a HeatCapacity
+    thermal-coolant-flowrate                    is a Massflowrate
+    thermal-ambient-temperature                 is a Temperature
+    thermal-power-dissipated                    is a Power
+    thermal-resistance                  is a ThermalResistance
+    thermal-heat-flow                           is a Power
+    thermal-area                                is a Area
+    thermal-temperature-gradient                is a TemperatureGradient
+    thermal-lateral-conductivity        is a ThermalConductivity
+    thermal-tim-resistance                      is a ThermalResistance
+    thermal-contact-resistance                  is a ThermalResistance
+    thermal-conductivity                is a ThermalConductivity
+    thermal-bond-line-thickness                 is a Length
 
     electrical-power                    is a Power
     data                                is a Data
@@ -104,24 +120,22 @@ world
       * thermal-core-cooling-capability
       * thermal-cache-cooling-capability
       * thermal-cooling-capability
-      * heat                       
-      * input-temperature          
-      * output-temperature         
-      * heat-capacity              
-      * coolant-flowrate           
-      * core-temperature           
-      * ambient-temperature        
-      * power-dissipated          
-      * thermal-resistance         
-      * ambient-temperature        
-      * heat-flow                     
-      * area                          
-      * temperature-gradient          
-      * lateral-thermal-conductivity  
-      * tim-resistance                
-      * contact-resistance            
-      * thermal-conductivity          
-      * bond-line-thickness           
+      * thermal-heat
+      * thermal-input-temperature
+      * thermal-output-temperature
+      * thermal-heat-capacity
+      * thermal-coolant-flowrate
+      * thermal-ambient-temperature
+      * thermal-power-dissipated
+      * thermal-resistance
+      * thermal-heat-flow
+      * thermal-area
+      * thermal-temperature-gradient
+      * thermal-lateral-conductivity
+      * thermal-tim-resistance                
+      * thermal-contact-resistance
+      * thermal-conductivity
+      * thermal-bond-line-thickness
 
   #goal-requirements
   #  provide-data-core: interconnect must provide data to core
@@ -227,3 +241,12 @@ world
       relating arguments
         * cache-hit-rate
         * core-computational-performance
+
+    thermal-ambient-input-temperature-model: AmbientInputTemperatureModel
+    requiring arguments
+      * core-temperature
+      * thermal-power-dissipated
+      * thermal-resistance
+
+    returning arguments
+      * thermal-ambient-temperature

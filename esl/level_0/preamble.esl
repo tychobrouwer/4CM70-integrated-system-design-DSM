@@ -205,10 +205,8 @@ define relation
   AmbientInputTemperatureModel
     requiring parameters
       * core-temperature         is a Temperature
-      * ambient-temperature      is a Temperature
       * power-dissipated         is a Power
       * thermal-resistance       is a ThermalResistance
-
 
     returning parameters
       * ambient-temperature      is a Temperature
