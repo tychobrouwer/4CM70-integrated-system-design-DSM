@@ -18,12 +18,11 @@ define type
   HitRate           is a real with unit percent
   Count             is a real with unit count
   Current           is a real with unit Ampere
+  Data              is a real with unit bytes
 
 define verb
   provide to
   connect to
-  manage of
-  convert into
 
 define relation 
   BandwidthRelation
