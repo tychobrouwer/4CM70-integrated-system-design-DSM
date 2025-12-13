@@ -25,21 +25,24 @@ world
     cache-voltage                       is a Voltage
     cache-latency                       is a Latency
     cache-capacity                      is a CacheCapacity
+    cache-associativity                 is a Associativity
+    cache-block-size                    is a BlockSize
     cache-bus-width                     is a BusWidth
     cache-process-node                  is a ProcessNode
     cache-transistors                   is a Count
     cache-clock-frequency               is a Frequency
 
-
     interconnect-bandwidth              is a Bandwidth
     interconnect-latency                is a Latency
     interconnect-length                 is a Length
     interconnect-bus-width              is a BusWidth
-    interconnect-frequency              is a Frequency
+    interconnect-frequency              is a Frequency    
+    main-memory-latency                 is a Latency
+    average-memory-access-time          is a Latency
 
     power-cache-capability              is a Power
     power-core-capability               is a Power
-    power-power-capability              is a Power
+    power-capability              is a Power
     power-cache-tsv-density             is a Density
     power-core-tsv-density              is a Density
     power-cache-tsv-diameter            is a Length
@@ -67,9 +70,6 @@ world
     thermal-tim-thickness               is a Length
     thermal-tim-conductivity            is a ThermalConductivity
 
-    electrical-power                    is a Power
-    data                                is a Data
-
   components
     core is a CPUCore with arguments
       * core-power-consumption
@@ -93,6 +93,8 @@ world
       * cache-voltage
       * cache-latency
       * cache-capacity
+      * cache-associativity
+      * cache-block-size
       * cache-bus-width
       * cache-process-node
       * cache-transistors
@@ -108,7 +110,7 @@ world
     power-system is a PowerDistributionSystem with arguments
       * power-cache-capability
       * power-core-capability
-      * power-power-capability
+      * power-capability
       * power-cache-tsv-density
       * power-core-tsv-density
       * power-cache-tsv-diameter
@@ -138,8 +140,10 @@ world
       * thermal-tim-conductivity
 
   design-requirements
-    dr-core-power-capability: power-cache-capability must be greater than core-max-power-consumption
-    dr-cache-power-capability: power-core-capability must be greater than cache-max-power-consumption
+    dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
+    dr-cache-power-capability: power-cache-capability must be greater than cache-max-power-consumption
+    dr-total-power-capability: power-capability must be greater than total-power-consumption
+    dr-bus-width-match: interconnect-bus-width must be equal to cache-bus-width
     dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-bandwidth
     dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
     dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
@@ -173,6 +177,15 @@ world
 
       returning arguments
         * total-die-area
+
+    amat-model: AMATModel
+      requiring arguments
+        * cache-hit-rate
+        * cache-latency
+        * main-memory-latency
+
+      returning arguments
+        * average-memory-access-time
 
     #------------------------------------------------------------#
     # CACHE MODELS
@@ -222,8 +235,7 @@ world
         * core-voltage
         * core-process-node
         * core-transistors
-        * cache-hit-rate
-        * cache-latency
+        * average-memory-access-time
         * interconnect-latency
 
       returning arguments
@@ -233,6 +245,7 @@ world
     #------------------------------------------------------------#
     # INTERCONNECT MODELS
     #------------------------------------------------------------#
+
 
 
     #------------------------------------------------------------#
@@ -264,14 +277,6 @@ world
 
       returning arguments
         * power-core-capability
-
-    cache-hit-rate-model: CacheHitRateModel
-      requiring arguments
-        * cache-capacity
-        * cache-bandwidth
-
-      returning arguments
-        * cache-hit-rate
 
     #------------------------------------------------------------#
     # THERMAL DISSIPATION SYSTEM MODELS

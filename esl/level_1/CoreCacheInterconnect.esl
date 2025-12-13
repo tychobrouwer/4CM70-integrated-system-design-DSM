@@ -1,10 +1,10 @@
 define component CoreCacheInterconnect
   parameters
-    bandwidth    is a Bandwidth       property
-    latency      is a Latency         property
-    length       is a Length          property
-    bus-width    is a BusWidth        property
-    frequency    is a Frequency       property
+    bandwidth         is a Bandwidth       property
+    latency           is a Latency         property
+    length            is a Length          property
+    bus-width         is a BusWidth        property
+    frequency         is a Frequency       property
 
   relations
     bandwidth-model: InterconnectBandwidthModel
@@ -23,3 +23,4 @@ define component CoreCacheInterconnect
 
       returning arguments
         * latency
+

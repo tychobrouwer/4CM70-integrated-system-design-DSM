@@ -26,6 +26,8 @@ define type
   ThermalConductivity is a real with unit W/(m·K)
   Data                is a real with unit bytes
   Percent             is a real with unit percent
+  Associativity       is a real with unit ways
+  BlockSize           is a real with unit bytes
 
 define relation
   TotalPowerModel
@@ -152,7 +154,8 @@ define relation
   CacheHitRateModel
     requiring parameters
       * capacity                   is a CacheCapacity
-      * bandwidth                  is a Bandwidth
+      * associativity              is a Associativity
+      * block-size                 is a BlockSize
 
     returning parameters
       * hit-rate                   is a HitRate
@@ -179,6 +182,7 @@ define relation
   CacheLatencyModel
     requiring parameters
       * capacity                   is a CacheCapacity
+      * associativity              is a Associativity
       * clock-frequency            is a Frequency
       * process-node               is a ProcessNode
       * die-area                   is a Area
@@ -192,8 +196,7 @@ define relation
       * voltage                    is a Voltage
       * process-node               is a ProcessNode
       * transistors                is a Count
-      * hit-rate                   is a HitRate
-      * cache-latency              is a Latency
+      * amat                       is a Latency
       * interconnect-latency       is a Latency
 
     returning parameters
@@ -224,3 +227,12 @@ define relation
 
     returning parameters
       * efficiency                 is a Percent
+
+  AMATModel
+    requiring parameters
+      * hit-rate                   is a HitRate
+      * cache-latency              is a Latency
+      * main-memory-latency        is a Latency
+
+    returning parameters
+      * amat                       is a Latency

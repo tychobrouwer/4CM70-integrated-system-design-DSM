@@ -3,12 +3,10 @@ define component PowerDistributionSystem
     cache-capability            is a Power                      property
     core-capability             is a Power                      property
     power-capability            is a Power                      property
-
     cache-tsv-density           is a Density                    property
     core-tsv-density            is a Density                    property
     cache-tsv-diameter          is a Length                     property
     core-tsv-diameter           is a Length                     property
-
     tsv-thermal-conductivity    is a ThermalConductivity        property
     tim-resistance              is a ThermalResistance          property
     contact-resistance          is a ThermalResistance          property
