@@ -1,5 +1,8 @@
 world
   variables
+    ambient-temperature                 is a Temperature
+    total-power-consumption             is a Power
+
     core-temperature                    is a Temperature
     core-voltage                        is a Voltage
     core-clock-frequency                is a Frequency
@@ -59,8 +62,8 @@ world
     thermal-area                                is a Area
     thermal-temperature-gradient                is a TemperatureGradient
     thermal-lateral-conductivity        is a ThermalConductivity
-    thermal-tim-resistance                      is a ThermalResistance
-    thermal-contact-resistance                  is a ThermalResistance
+    thermal-tim-resistance              is a ThermalResistance
+    thermal-contact-resistance          is a ThermalResistance
     thermal-conductivity                is a ThermalConductivity
     thermal-bond-line-thickness                 is a Length
 
@@ -168,7 +171,7 @@ world
     
     core-temperature-relation: TemperatureRelation
       requiring arguments
-        * thermal-core-to-cooler-resistance
+        * thermal-core-resistance
         * core-power-consumption
 
       returning arguments
@@ -227,26 +230,136 @@ world
       returning arguments
         * power-cache-capability
 
-    cache-thermal-capability-model: ThermalCapabilityModel
-      requiring arguments
-        * thermal-cache-tsv-density
-        * thermal-cache-tsv-diameter
-        * thermal-cache-to-cooler-resistance
-        * cache-die-area
+    #cache-thermal-capability-model: ThermalCapabilityModel
+    #  requiring arguments
+    #    * thermal-cache-tsv-density
+    #    * thermal-cache-tsv-diameter
+    #    * thermal-cache-to-cooler-resistance
+    #    * cache-die-area
 
-      returning arguments
-        * thermal-cache-cooling-capability
+    #  returning arguments
+    #    * thermal-cache-cooling-capability
+
+
   
     cache-hitrate-performance-relation: HitRatePerformanceRelation
       relating arguments
         * cache-hit-rate
         * core-computational-performance
 
-    thermal-ambient-input-temperature-model: AmbientInputTemperatureModel
-    requiring arguments
-      * core-temperature
-      * thermal-power-dissipated
-      * thermal-resistance
 
-    returning arguments
-      * thermal-ambient-temperature
+    #------------------------------------------------------------#
+    # SYSTEM MODELS
+    #------------------------------------------------------------#
+
+    total-power-model: TotalPowerModel
+      requiring arguments
+        * core-power-consumption
+        * cache-power-consumption
+
+      returning arguments
+        * total-power-consumption
+
+
+    #------------------------------------------------------------#
+    # CACHE MODELS
+    #------------------------------------------------------------#
+
+    cache-temperature-model: JunctionTemperatureModel
+      requiring arguments
+        * cache-power-consumption
+        * thermal-cache-resistance
+        * ambient-temperature
+
+      returning arguments
+        * cache-junction-temperature
+
+
+    #------------------------------------------------------------#
+    # CORE MODELS
+    #------------------------------------------------------------#
+
+    core-temperature-model: JunctionTemperatureModel
+      requiring arguments
+        * core-power-consumption
+        * thermal-core-resistance
+        * ambient-temperature
+
+      returning arguments
+        * core-junction-temperature
+
+    #------------------------------------------------------------#
+    # INTERCONNECT MODELS
+    #------------------------------------------------------------#
+
+
+    #------------------------------------------------------------#
+    # POWER DISTRIBUTION SYSTEM MODELS
+    #------------------------------------------------------------#
+
+
+    #------------------------------------------------------------#
+    # THERMAL DISSIPATION SYSTEM MODELS
+    #------------------------------------------------------------#
+
+    core-thermal-resistance-model: ThermalResistanceModel
+      requiring arguments
+        * core-area
+        * core-tsv-density
+        * core-tsv-diameter
+        * thermal-tsv-thermal-conductivity
+        * thermal-tim-resistance
+        * thermal-contact-resistance
+
+      returning arguments
+        * thermal-core-resistance
+
+    cache-thermal-resistance-model: ThermalResistanceModel
+      requiring arguments
+        * cache-area
+        * cache-tsv-density
+        * cache-tsv-diameter
+        * thermal-tsv-thermal-conductivity
+        * thermal-tim-resistance
+        * thermal-contact-resistance
+
+      returning arguments
+        * thermal-cache-resistance
+
+    coolant-flowrate-model: ThermalCoolingCapabilityModel
+      requiring arguments
+        * thermal-coolant-flowrate
+        * thermal-coolant-inlet-temperature
+        * thermal-coolant-outlet-temperature
+        * thermal-coolant-specific-heat
+
+      returning arguments
+        * thermal-cooling-capability
+
+    tim-resistance-model: TIMResistanceModel
+      requiring arguments
+        * thermal-tim-thickness
+        * thermal-tim-conductivity
+        * core-area
+        * cache-area
+
+      returning arguments
+        * thermal-tim-resistance
+
+    core-cooling-capability-model: ThermalCapabilityModel
+      requiring arguments
+        * core-power-consumption
+        * cache-power-consumption
+        * thermal-cooling-capability
+
+      returning arguments
+        * thermal-core-cooling-capability
+
+    cache-cooling-capability-model: ThermalCapabilityModel
+      requiring arguments
+        * core-power-consumption
+        * cache-power-consumption
+        * thermal-cooling-capability
+
+      returning arguments
+        * thermal-cache-cooling-capability

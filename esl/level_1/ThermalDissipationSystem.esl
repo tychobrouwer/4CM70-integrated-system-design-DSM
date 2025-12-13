@@ -1,70 +1,15 @@
 define component ThermalDissipationSystem
-  parameters
-    core-tsv-density              is a Density                property
-    cache-tsv-density             is a Density                property
-    core-tsv-diameter             is a Length                 property
-    cache-tsv-diameter            is a Length                 property
-    core-to-cooler-resistance     is a ThermalResistance      property
-    cache-to-cooler-resistance    is a ThermalResistance      property
-    core-cooling-capability       is a ThermalPower           property
-    cache-cooling-capability      is a ThermalPower           property
-    cooling-capability            is a ThermalPower           property
-    heat                          is a Power                  property
-    input-temperature             is a Temperature            property
-    output-temperature            is a Temperature            property
-    heat-capacity                 is a HeatCapacity           property
-    coolant-flowrate              is a Massflowrate           property
-    ambient-temperature           is a Temperature            property
-    power-dissipated              is a Power                  property
-    thermal-resistance            is a ThermalResistance      property
-    heat-flow                     is a Power                  property
-    area                          is a Area                   property
-    temperature-gradient          is a TemperatureGradient    property
-    lateral-thermal-conductivity  is a ThermalConductivity    property
-    tim-resistance                is a ThermalResistance      property
-    contact-resistance            is a ThermalResistance      property
-    thermal-conductivity          is a ThermalConductivity    property
-    bond-line-thickness           is a Length                 property
-
-  #design-requirements
-  #  dr-core-thermal-res:   core-thermal-resistance must be at most 1.0 [K/W]
-  #  dr-cache-thermal-res:  cache-thermal-resistance must be at most 1.0 [K/W]
-  #  dr-dissipation:    cooling-capability must be at most 100.0 [W]
-
-  relations
-    thermal-dissipation-model: ThermalDissipationModel
-      requiring arguments
-        * core-cooling-capability
-        * cache-cooling-capability
-
-      returning arguments
-        * cooling-capability
-
-    coolant-flowrate-model:  CoolantFlowrateModel
-    requiring arguments
-      * heat
-      * input-temperature
-      * output-temperature
-      * heat-capacity
-
-    returning arguments
-      * coolant-flowrate      
-
-    lateral-thermal-conductivity-model: LateralThermalConductivityModel
-    requiring arguments
-      * heat-flow
-      * area
-      * temperature-gradient
-
-    returning arguments
-      * lateral-thermal-conductivity    
-
-    thermal-interface-material-model: ThermalInterfaceMaterialModel
-    requiring arguments
-      * tim-resistance               
-      * contact-resistance            
-      * area                          
-      * thermal-conductivity         
-
-    returning arguments
-      * bond-line-thickness           
+  parameters  
+    thermal-cache-resistance            is a ThermalResistance
+    thermal-core-resistance             is a ThermalResistance
+    thermal-tsv-thermal-conductivity    is a ThermalConductivity
+    thermal-tim-resistance              is a ThermalResistance
+    thermal-contact-resistance          is a ThermalResistance
+    thermal-coolant-inlet-temperature   is a Temperature
+    thermal-coolant-outlet-temperature  is a Temperature
+    thermal-coolant-specific-heat       is a HeatCapacity
+    thermal-coolant-flowrate            is a Massflowrate
+    thermal-tim-thickness               is a Length
+    thermal-tim-conductivity            is a ThermalConductivity
+    thermal-cache-cooling-capability    is a ThermalPower
+    thermal-core-cooling-capability     is a ThermalPower

@@ -231,3 +231,13 @@ define relation
 
     returning parameters
       * bond-line-thickness           is a Length 
+
+
+  TotalPowerModel
+    requiring parameters
+      * power-1 is a Power
+      * power-2 is a Power
+    
+    returning parameters
+      * total-power is a Power
+      
