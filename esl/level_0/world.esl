@@ -148,7 +148,7 @@ world
     dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
     dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
     dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
-  
+
   relations
     #------------------------------------------------------------#
     # SYSTEM MODELS
