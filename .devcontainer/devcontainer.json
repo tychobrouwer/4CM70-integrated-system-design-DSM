@@ -13,7 +13,8 @@
 				"extensions": [
 					"ms-python.python",
 					"ms-toolsai.jupyter",
-					"ratio-inno.elephant-specification-language"
+					"ratio-inno.elephant-specification-language",
+					"github.copilot"
 				],
 				"settings": {
 					"terminal.integrated.defaultProfile.linux": "bash"

@@ -1,21 +1,18 @@
 define component SRAMCache
   parameters
-    capacity          is a CacheCapacity  property
-    die-area          is a Area           property
-    voltage           is a Voltage        property
-    bandwidth         is a Bandwidth      property
-    bus-width         is a BusWidth       property
-    hit-rate          is a HitRate        property
-    power-consumption is a Power          property
-    process-node      is a ProcessNode    property
-    latency           is a Latency        property
-    transistors       is a Count          property
-    temperature       is a Temperature    property
-    clock-frequency   is a Frequency      property
-
-  #design-requirements
-  #  dr-cache-latency: latency must be at most 10.0 [ns]
-  #  dr-hit-rate:      hit-rate must be at least 90.0 [percent]
+    power-consumption     is a Power            property
+    max-power-consumption is a Power            property
+    bandwidth             is a Bandwidth        property
+    temperature           is a Temperature      property
+    die-area              is a Area             property
+    hit-rate              is a HitRate          property
+    voltage               is a Voltage          property
+    latency               is a Latency          property
+    capacity              is a CacheCapacity    property
+    bus-width             is a BusWidth         property
+    process-node          is a ProcessNode      property
+    transistors           is a Count            property
+    clock-frequency       is a Frequency        property
 
   relations
     cache-area-model: AreaModel
@@ -33,7 +30,7 @@ define component SRAMCache
       returning arguments
         * capacity
     
-    cache-performance-model: CachePerformanceModel
+    cache-performance-model: FrequencyModel
       requiring arguments
         * voltage
         * temperature
@@ -64,16 +61,9 @@ define component SRAMCache
     cache-latency-model: CacheLatencyModel
       requiring arguments
         * capacity
+        * clock-frequency
         * process-node
         * die-area
-        * clock-frequency
 
       returning arguments
         * latency
-
-    cache-hit-rate-model: HitRateModel
-      requiring arguments
-        * capacity
-
-      returning arguments
-        * hit-rate

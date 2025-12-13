@@ -1,21 +1,23 @@
 define component PowerDistributionSystem
   parameters
-    core-tsv-density        is a Density property
-    cache-tsv-density       is a Density property
-    core-tsv-diameter       is a Length  property
-    cache-tsv-diameter      is a Length  property
-    core-power-capability   is a Power   property
-    cache-power-capability  is a Power   property
-    power-capability        is a Power   property
+    cache-capability            is a Power                      property
+    core-capability             is a Power                      property
+    power-capability            is a Power                      property
 
-  #design-requirements
-  #  dr-total-power-cap: power-capability must be at least 100.0 [W]
+    cache-tsv-density           is a Density                    property
+    core-tsv-density            is a Density                    property
+    cache-tsv-diameter          is a Length                     property
+    core-tsv-diameter           is a Length                     property
+
+    tsv-thermal-conductivity    is a ThermalConductivity        property
+    tim-resistance              is a ThermalResistance          property
+    contact-resistance          is a ThermalResistance          property
 
   relations
-    total-power-relation: TotalPowerRelation
+    total-power-relation: TotalPowerModel
       requiring arguments
-        * core-power-capability
-        * cache-power-capability
+        * core-capability
+        * cache-capability
 
       returning arguments
         * power-capability

@@ -1,16 +1,13 @@
 define component CoreCacheInterconnect
   parameters
-    length     is a Length     property
-    bandwidth  is a Bandwidth  property
-    bus-width  is a BusWidth   property
-    latency    is a Latency    property
-    frequency  is a Frequency  property
-
-  #design-requirements
-  #  dr-interconnect-bandwidth: bandwidth must be at least 100.0 [GB/s]
+    bandwidth    is a Bandwidth       property
+    latency      is a Latency         property
+    length       is a Length          property
+    bus-width    is a BusWidth        property
+    frequency    is a Frequency       property
 
   relations
-    bandwidth-model: BandwidthModel
+    bandwidth-model: InterconnectBandwidthModel
       requiring arguments
         * bus-width
         * frequency
