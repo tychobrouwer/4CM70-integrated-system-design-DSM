@@ -1,79 +1,126 @@
 define component SRAMCache
   parameters
+    # Core cache properties
     capacity          is a CacheCapacity  property
-    die-area          is a Area           property
-    voltage           is a Voltage        property
-    bandwidth         is a Bandwidth      property
-    bus-width         is a BusWidth       property
-    hit-rate          is a HitRate        property
-    power-consumption is a Power          property
-    process-node      is a ProcessNode    property
-    latency           is a Latency        property
-    transistors       is a Count          property
-    temperature       is a Temperature    property
+    cache-line-size   is a Data           property
+    associativity     is a Count          property
+    number-of-sets    is a Count          property
+    
+    # Performance parameters
     clock-frequency   is a Frequency      property
+    access-time       is a Latency        property
+    hit-rate          is a HitRate        property
+    miss-penalty      is a Latency        property
+    latency           is a Latency        property  # Effective AMAT
+    bandwidth         is a Bandwidth      property
+    
+    # Physical parameters
+    die-area          is a Area           property
+    cell-area         is a Area           property
+    peripheral-area   is a Area           property
+    array-efficiency  is a HitRate        property  # Reusing HitRate for percentage
+    transistors       is a Count          property
+    process-node      is a ProcessNode    property
+    
+    # Electrical parameters
+    voltage           is a Voltage        property
+    temperature       is a Temperature    property
+    power-consumption is a Power          property
+    dynamic-power     is a Power          property
+    leakage-power     is a Power          property
+    
+    # Interface
+    bus-width         is a BusWidth       property
 
-  #design-requirements
-  #  dr-cache-latency: latency must be at most 10.0 [ns]
-  #  dr-hit-rate:      hit-rate must be at least 90.0 [percent]
+  design-requirements
+    dr-cache-latency: latency must be at most 10.0 [ns]
+    dr-hit-rate:      hit-rate must be at least 90.0 [percent]
+    dr-associativity: associativity must be at least 1 [count]
+    dr-line-size:     cache-line-size must be at least 32 [bytes]
 
   relations
-    cache-area-model: AreaModel
+    # Organizational relations
+    cache-organization-model: CacheOrganizationModel
       requiring arguments
-        * transistors
-        * process-node
-
+        * capacity
+        * cache-line-size
+        * associativity
       returning arguments
+        * number-of-sets
+    
+    # Performance relations
+    cache-access-time-model: CacheAccessTimeModel
+      requiring arguments
+        * capacity
+        * associativity
+        * process-node
+        * voltage
+        * temperature
+      returning arguments
+        * access-time
+    
+    cache-hit-rate-enhanced-model: EnhancedHitRateModel
+      requiring arguments
+        * capacity
+        * associativity
+        * cache-line-size
+      returning arguments
+        * hit-rate
+    
+    cache-amat-model: CacheAMATModel
+      requiring arguments
+        * access-time
+        * hit-rate
+        * miss-penalty
+      returning arguments
+        * latency
+    
+    # Area relations
+    cache-area-breakdown-model: CacheAreaBreakdownModel
+      requiring arguments
+        * capacity
+        * associativity
+        * process-node
+        * transistors
+      returning arguments
+        * cell-area
+        * peripheral-area
         * die-area
-
+        * array-efficiency
+    
     cache-capacity-model: CapacityModel
       requiring arguments
         * transistors
-
       returning arguments
         * capacity
     
-    cache-performance-model: CachePerformanceModel
+    # Power relations
+    cache-power-breakdown-model: CachePowerBreakdownModel
       requiring arguments
         * voltage
-        * temperature
-        * process-node
-
-      returning arguments
         * clock-frequency
-
-    cache-power-model: PowerModel
-      requiring arguments
-        * voltage
-        * transistors
+        * capacity
         * process-node
         * temperature
-
+        * transistors
       returning arguments
+        * dynamic-power
+        * leakage-power
         * power-consumption
-
+    
+    # Bandwidth relations
     cache-bandwidth-model: CacheBandwidthModel
       requiring arguments
         * bus-width
         * clock-frequency
         * process-node
-
       returning arguments
         * bandwidth
-
-    cache-latency-model: CacheLatencyModel
+    
+    cache-frequency-model: CachePerformanceModel
       requiring arguments
-        * capacity
+        * voltage
+        * temperature
         * process-node
-        * die-area
+      returning arguments
         * clock-frequency
-
-      returning arguments
-        * latency
-
-    cache-hit-rate-model: HitRateModel
-      requiring arguments
-        * capacity
-
-      returning arguments
-        * hit-rate

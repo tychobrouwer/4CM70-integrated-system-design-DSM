@@ -23,6 +23,17 @@ world
     cache-transistors                   is a Count
     cache-temperature                   is a Temperature
     cache-clock-frequency               is a Frequency
+        # NEW CACHE VARIABLES
+    cache-associativity         is a Count
+    cache-line-size             is a Data
+    cache-number-of-sets        is a Count
+    cache-access-time           is a Latency
+    cache-miss-penalty          is a Latency
+    cache-dynamic-power         is a Power
+    cache-leakage-power         is a Power
+    cache-cell-area             is a Area
+    cache-peripheral-area       is a Area
+    cache-array-efficiency      is a HitRate
 
     interconnect-length                 is a Length
     interconnect-bandwidth              is a Bandwidth
@@ -82,14 +93,24 @@ world
 
     cache is a SRAMCache with arguments
       * cache-capacity
+      * cache-line-size
+      * cache-associativity
+      * cache-number-of-sets
       * cache-die-area
+      * cache-cell-area
+      * cache-peripheral-area
+      * cache-array-efficiency
       * cache-voltage
       * cache-bandwidth
       * cache-bus-width
       * cache-hit-rate
       * cache-power-consumption
+      * cache-dynamic-power
+      * cache-leakage-power
       * cache-process-node
       * cache-latency
+      * cache-access-time
+      * cache-miss-penalty
       * cache-transistors
       * cache-temperature
       * cache-clock-frequency
