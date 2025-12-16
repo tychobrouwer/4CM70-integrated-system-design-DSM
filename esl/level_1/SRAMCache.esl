@@ -16,8 +16,20 @@ define component SRAMCache
     transistors           is a Count            property
     clock-frequency       is a Frequency        property
     thermal-load          is a ThermalPower     property
+    access-time           is a Latency          property
+    miss-penalty          is a Latency          property
+    number-of-sets        is a Count            property
 
   relations
+    cache-organization-model: CacheOrganizationModel
+      requiring arguments
+        * capacity
+        * block-size
+        * associativity
+
+      returning arguments
+        * number-of-sets
+
     cache-area-model: AreaModel
       requiring arguments
         * transistors
@@ -25,6 +37,17 @@ define component SRAMCache
 
       returning arguments
         * die-area
+
+    cache-access-time-model: CacheAccessTimeModel
+      requiring arguments
+        * capacity
+        * associativity
+        * process-node
+        * voltage
+        * temperature
+
+      returning arguments
+        * access-time
 
     cache-capacity-model: CapacityModel
       requiring arguments
@@ -61,13 +84,11 @@ define component SRAMCache
       returning arguments
         * bandwidth
 
-    cache-latency-model: CacheLatencyModel
+    cache-latency-model: CacheAMATModel
       requiring arguments
-        * capacity
-        * associativity
-        * clock-frequency
-        * process-node
-        * die-area
+        * access-time
+        * hit-rate
+        * miss-penalty
 
       returning arguments
         * latency

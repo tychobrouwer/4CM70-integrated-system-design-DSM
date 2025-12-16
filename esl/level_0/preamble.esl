@@ -170,6 +170,26 @@ define relation
     returning parameters
       * power-consumption          is a Power
 
+  CacheOrganizationModel
+    requiring parameters
+      * capacity                   is a CacheCapacity
+      * block-size                 is a BlockSize
+      * associativity              is a Associativity
+
+    returning parameters
+      * number-of-sets             is a Count
+
+  CacheAccessTimeModel
+    requiring parameters
+      * capacity                   is a CacheCapacity
+      * associativity              is a Associativity
+      * process-node               is a ProcessNode
+      * voltage                    is a Voltage
+      * temperature                is a Temperature
+
+    returning parameters
+      * access-time                is a Latency
+
   CacheBandwidthModel
     requiring parameters
       * bus-width                  is a BusWidth
@@ -179,13 +199,11 @@ define relation
     returning parameters
       * bandwidth                  is a Bandwidth
   
-  CacheLatencyModel
+  CacheAMATModel
     requiring parameters
-      * capacity                   is a CacheCapacity
-      * associativity              is a Associativity
-      * clock-frequency            is a Frequency
-      * process-node               is a ProcessNode
-      * die-area                   is a Area
+      * access-time                is a Latency
+      * hit-rate                   is a HitRate
+      * miss-penalty               is a Latency
 
     returning parameters
       * latency                    is a Latency
