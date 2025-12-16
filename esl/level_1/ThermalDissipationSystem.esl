@@ -26,11 +26,6 @@ define component ThermalDissipationSystem
     thermal-conductivity          is a ThermalConductivity    property
     bond-line-thickness           is a Length                 property
 
-  #design-requirements
-  #  dr-core-thermal-res:   core-thermal-resistance must be at most 1.0 [K/W]
-  #  dr-cache-thermal-res:  cache-thermal-resistance must be at most 1.0 [K/W]
-  #  dr-dissipation:    cooling-capability must be at most 100.0 [W]
-
   relations
     thermal-dissipation-model: ThermalDissipationModel
       requiring arguments

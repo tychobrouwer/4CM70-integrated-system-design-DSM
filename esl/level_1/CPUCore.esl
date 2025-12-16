@@ -11,10 +11,6 @@ define component CPUCore
     die-area                  is a Area               property
     transistors               is a Count              property
 
-  #design-requirements
-  #  dr-core-voltage: voltage must be at least 0.5 [V]
-  #  dr-core-freq:    clock-frequency must be at least 1.0 [Hz]
-
   relations
     core-performance-model: PerformanceModel
       requiring arguments

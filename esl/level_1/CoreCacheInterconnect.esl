@@ -6,9 +6,6 @@ define component CoreCacheInterconnect
     latency    is a Latency    property
     frequency  is a Frequency  property
 
-  #design-requirements
-  #  dr-interconnect-bandwidth: bandwidth must be at least 100.0 [GB/s]
-
   relations
     bandwidth-model: BandwidthModel
       requiring arguments

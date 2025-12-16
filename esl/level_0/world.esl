@@ -158,19 +158,6 @@ world
       * thermal-conductivity
       * thermal-bond-line-thickness
 
-  #goal-requirements
-  #  provide-data-core: interconnect must provide data to core
-  #  provide-data-cache: interconnect must provide data to cache
-  #  provide-power-core: power-system must provide electrical-power to core
-  #  provide-power-cache: power-system must provide electrical-power to cache
-  #  provide-cooling-core: thermal-system must provide thermal-core-cooling-capability to core
-  #  provide-cooling-cache: thermal-system must provide thermal-cache-cooling-capability to cache
-
-  #design-requirements
-  #  dr-temp-limit: core-max-temperature must be at most 373.0 [K]
-  #  dr-min-performance: core-computational-performance must be at least 100.0 [GFLOPS]
-  #  dr-cache-capacity: cache-capacity must be at least 1.0 [MB]
-
   relation
     core-interconnect-bandwidth-relation: BandwidthRelation
       relating arguments

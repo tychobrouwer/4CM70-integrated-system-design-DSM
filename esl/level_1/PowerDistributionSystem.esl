@@ -8,9 +8,6 @@ define component PowerDistributionSystem
     cache-power-capability  is a Power   property
     power-capability        is a Power   property
 
-  #design-requirements
-  #  dr-total-power-cap: power-capability must be at least 100.0 [W]
-
   relations
     total-power-relation: TotalPowerRelation
       requiring arguments
