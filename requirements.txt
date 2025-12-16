@@ -4,6 +4,7 @@ pandas
 matplotlib
 networkx
 plotly
+kaleido
 
 # --- Notebook support for VS Code ---
 ipykernel

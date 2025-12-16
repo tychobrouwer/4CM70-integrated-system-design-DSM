@@ -236,3 +236,10 @@ define relation
 
     returning parameters
       * amat                       is a Latency
+
+  PowerThermalModel
+    requiring parameters
+      * power-consumption          is a Power
+
+    returning parameters
+      * thermal-load               is a ThermalPower

@@ -15,6 +15,7 @@ define component SRAMCache
     process-node          is a ProcessNode      property
     transistors           is a Count            property
     clock-frequency       is a Frequency        property
+    thermal-load          is a ThermalPower     property
 
   relations
     cache-area-model: AreaModel
@@ -79,3 +80,10 @@ define component SRAMCache
 
       returning arguments
         * hit-rate
+
+    cache-thermal-model: PowerThermalModel
+      requiring arguments
+        * power-consumption
+
+      returning arguments
+        * thermal-load

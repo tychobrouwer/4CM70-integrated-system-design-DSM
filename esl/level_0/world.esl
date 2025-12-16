@@ -15,6 +15,7 @@ world
     core-clock-frequency                is a Frequency
     core-process-node                   is a ProcessNode
     core-transistors                    is a Count
+    core-thermal-load                   is a ThermalPower
 
     cache-power-consumption             is a Power
     cache-max-power-consumption         is a Power
@@ -31,6 +32,7 @@ world
     cache-process-node                  is a ProcessNode
     cache-transistors                   is a Count
     cache-clock-frequency               is a Frequency
+    cache-thermal-load                  is a ThermalPower
 
     interconnect-bandwidth              is a Bandwidth
     interconnect-latency                is a Latency
@@ -82,6 +84,7 @@ world
       * core-clock-frequency
       * core-process-node
       * core-transistors
+      * core-thermal-load
 
     cache is a SRAMCache with arguments
       * cache-power-consumption
@@ -99,6 +102,7 @@ world
       * cache-process-node
       * cache-transistors
       * cache-clock-frequency
+      * cache-thermal-load
 
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-bandwidth
@@ -148,6 +152,8 @@ world
     dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
     dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
     dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
+    dr-core-thermal-capability: thermal-core-capability must be greater than core-thermal-load
+    dr-cache-thermal-capability: thermal-cache-capability must be greater than cache-thermal-load
 
   relations
     #------------------------------------------------------------#

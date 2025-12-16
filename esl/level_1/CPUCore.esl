@@ -10,6 +10,7 @@ define component CPUCore
     clock-frequency           is a Frequency          property
     process-node              is a ProcessNode        property
     transistors               is a Count              property
+    thermal-load              is a ThermalPower       property
 
   relations
     core-power-model: PowerModel
@@ -38,3 +39,10 @@ define component CPUCore
 
       returning arguments
         * clock-frequency
+
+    core-thermal-model: PowerThermalModel
+      requiring arguments
+        * power-consumption
+
+      returning arguments
+        * thermal-load
