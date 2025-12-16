@@ -96,24 +96,24 @@ world
       * cache-line-size
       * cache-associativity
       * cache-number-of-sets
+      * cache-clock-frequency
+      * cache-access-time
+      * cache-hit-rate
+      * cache-miss-penalty
+      * cache-latency
+      * cache-bandwidth
       * cache-die-area
       * cache-cell-area
       * cache-peripheral-area
       * cache-array-efficiency
+      * cache-transistors
+      * cache-process-node
       * cache-voltage
-      * cache-bandwidth
-      * cache-bus-width
-      * cache-hit-rate
+      * cache-temperature
       * cache-power-consumption
       * cache-dynamic-power
       * cache-leakage-power
-      * cache-process-node
-      * cache-latency
-      * cache-access-time
-      * cache-miss-penalty
-      * cache-transistors
-      * cache-temperature
-      * cache-clock-frequency
+      * cache-bus-width
 
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-length
