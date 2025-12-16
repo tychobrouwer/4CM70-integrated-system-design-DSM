@@ -14,7 +14,7 @@ define component SRAMCache
     latency           is a Latency        property  # Effective AMAT
     bandwidth         is a Bandwidth      property
     
-    # Physical parameters (edit)
+    # Physical parameters
     die-area          is a Area           property
     cell-area         is a Area           property
     peripheral-area   is a Area           property
