@@ -73,15 +73,29 @@ define relation
       * hit-rate                    is a HitRate
       * computational-performance   is a Performance
 
-  PowerCapabilityModel
+  TSVGeometryModel
     requiring parameters
       * die-area                    is a Area
-      * voltage                     is a Voltage
       * tsv-density                 is a Density
+
+    returning parameters
+      * number-of-tsvs              is a Count
+
+  TSVElectricalModel
+    requiring parameters
+      * tsv-count                   is a Count
       * tsv-diameter                is a Length
       * tsv-thermal-conductivity    is a ThermalConductivity
       * tim-resistance              is a ThermalResistance
       * contact-resistance          is a ThermalResistance
+
+    returning parameters
+      * max-current-capacity        is a Current
+
+  PowerLimitModel
+    requiring parameters
+      * voltage                     is a Voltage
+      * max-current-capacity        is a Current
 
     returning parameters
       * power-capability            is a Power
@@ -160,12 +174,21 @@ define relation
     returning parameters
       * hit-rate                   is a HitRate
 
-  PowerModel
+  CurrentModel
     requiring parameters
-      * voltage                    is a Voltage
       * transistors                is a Count
       * process-node               is a ProcessNode
       * temperature                is a Temperature
+      * voltage                    is a Voltage
+      * clock-frequency            is a Frequency
+
+    returning parameters
+      * current                    is a Current
+
+  PowerModel
+    requiring parameters
+      * voltage                    is a Voltage
+      * current                    is a Current
 
     returning parameters
       * power-consumption          is a Power

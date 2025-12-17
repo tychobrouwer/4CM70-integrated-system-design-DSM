@@ -7,6 +7,7 @@ define component SRAMCache
     die-area              is a Area             property
     hit-rate              is a HitRate          property
     voltage               is a Voltage          property
+    current               is a Current          property
     latency               is a Latency          property
     capacity              is a CacheCapacity    property
     associativity         is a Associativity    property
@@ -65,12 +66,21 @@ define component SRAMCache
       returning arguments
         * clock-frequency
 
-    cache-power-model: PowerModel
+    cache-current-model: CurrentModel
       requiring arguments
-        * voltage
         * transistors
         * process-node
         * temperature
+        * voltage
+        * clock-frequency
+
+      returning arguments
+        * current
+
+    cache-power-model: PowerModel
+      requiring arguments
+        * voltage
+        * current
 
       returning arguments
         * power-consumption

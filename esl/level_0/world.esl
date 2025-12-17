@@ -12,6 +12,7 @@ world
     core-computational-performance      is a Performance
     core-die-area                       is a Area
     core-voltage                        is a Voltage
+    core-current                        is a Current
     core-clock-frequency                is a Frequency
     core-process-node                   is a ProcessNode
     core-transistors                    is a Count
@@ -24,6 +25,7 @@ world
     cache-die-area                      is a Area
     cache-hit-rate                      is a HitRate
     cache-voltage                       is a Voltage
+    cache-current                       is a Current
     cache-latency                       is a Latency
     cache-capacity                      is a CacheCapacity
     cache-associativity                 is a Associativity
@@ -53,6 +55,10 @@ world
     power-tsv-thermal-conductivity      is a ThermalConductivity
     power-tim-resistance                is a ThermalResistance
     power-contact-resistance            is a ThermalResistance
+    power-cache-tsv-count               is a Count
+    power-cache-max-current-capacity    is a Current
+    power-core-tsv-count                is a Count
+    power-core-max-current-capacity     is a Current
     
     thermal-cooling-capability          is a ThermalPower
     thermal-cache-capability            is a ThermalPower
@@ -82,6 +88,7 @@ world
       * core-computational-performance
       * core-die-area
       * core-voltage
+      * core-current
       * core-clock-frequency
       * core-process-node
       * core-transistors
@@ -95,6 +102,7 @@ world
       * cache-die-area
       * cache-hit-rate
       * cache-voltage
+      * cache-current
       * cache-latency
       * cache-capacity
       * cache-associativity
@@ -126,6 +134,10 @@ world
       * power-tsv-thermal-conductivity
       * power-tim-resistance
       * power-contact-resistance
+      * power-cache-tsv-count
+      * power-cache-max-current-capacity
+      * power-core-tsv-count
+      * power-core-max-current-capacity
 
     thermal-system is a ThermalDissipationSystem with arguments
       * thermal-cooling-capability
@@ -253,28 +265,55 @@ world
     # POWER DISTRIBUTION SYSTEM MODELS
     #------------------------------------------------------------#
 
-    cache-power-relation: PowerCapabilityModel
+    cache-tsv-geometry-model: TSVGeometryModel
       requiring arguments
         * cache-die-area
-        * cache-voltage
         * power-cache-tsv-density
+
+      returning arguments
+        * power-cache-tsv-count
+
+    cache-tsv-electrical-model: TSVElectricalModel
+      requiring arguments
+        * power-cache-tsv-count
         * power-cache-tsv-diameter
         * power-tsv-thermal-conductivity
         * power-tim-resistance
         * power-contact-resistance
 
       returning arguments
+        * power-cache-max-current-capacity
+
+    cache-power-limit-model: PowerLimitModel
+      requiring arguments
+        * cache-voltage
+        * power-cache-max-current-capacity
+
+      returning arguments
         * power-cache-capability
 
-    core-power-relation: PowerCapabilityModel
+    core-tsv-geometry-model: TSVGeometryModel
       requiring arguments
         * core-die-area
-        * core-voltage
         * power-core-tsv-density
+
+      returning arguments
+        * power-core-tsv-count
+
+    core-tsv-electrical-model: TSVElectricalModel
+      requiring arguments
+        * power-core-tsv-count
         * power-core-tsv-diameter
         * power-tsv-thermal-conductivity
         * power-tim-resistance
         * power-contact-resistance
+      returning arguments
+        * power-core-max-current-capacity
+
+    core-power-limit-model: PowerLimitModel
+      requiring arguments
+        * core-voltage
+        * power-core-max-current-capacity
 
       returning arguments
         * power-core-capability

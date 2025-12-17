@@ -10,6 +10,10 @@ define component PowerDistributionSystem
     tsv-thermal-conductivity    is a ThermalConductivity        property
     tim-resistance              is a ThermalResistance          property
     contact-resistance          is a ThermalResistance          property
+    cache-tsv-count             is a Count                      property
+    cache-max-current-capacity  is a Current                    property
+    core-tsv-count              is a Count                      property
+    core-max-current-capacity   is a Current                    property
 
   relations
     total-power-relation: TotalPowerModel

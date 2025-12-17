@@ -7,18 +7,28 @@ define component CPUCore
     computational-performance is a Performance        property
     die-area                  is a Area               property
     voltage                   is a Voltage            property
+    current                   is a Current            property
     clock-frequency           is a Frequency          property
     process-node              is a ProcessNode        property
     transistors               is a Count              property
     thermal-load              is a ThermalPower       property
 
   relations
-    core-power-model: PowerModel
+    core-current-model: CurrentModel
       requiring arguments
-        * voltage
         * transistors
         * process-node
         * temperature
+        * voltage
+        * clock-frequency
+
+      returning arguments
+        * current
+
+    core-power-model: PowerModel
+      requiring arguments
+        * voltage
+        * current
       
       returning arguments
         * power-consumption
