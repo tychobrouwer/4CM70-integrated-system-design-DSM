@@ -1,9 +1,9 @@
 define component ThermalDissipationSystem
   parameters
     cooling-capability          is a ThermalPower             property
-    cache-cooling-capability    is a ThermalPower             property
+    cache-capability            is a ThermalPower             property
     cache-resistance            is a ThermalResistance        property
-    core-cooling-capability     is a ThermalPower             property
+    core-capability             is a ThermalPower             property
     core-resistance             is a ThermalResistance        property
     core-tsv-density            is a Density                  property
     core-tsv-diameter           is a Length                   property
@@ -17,4 +17,25 @@ define component ThermalDissipationSystem
     coolant-outlet-temperature  is a Temperature              property
     coolant-specific-heat       is a HeatCapacity             property
     tim-thickness               is a Length                   property
-    tim-conductivity            is a ThermalConductivity      property
+    tim-conductivity            is a ThermalConductivity      property    
+
+  relations
+    thermal-coolant-flowrate-model: ThermalCoolingCapabilityModel
+      requiring arguments
+        * coolant-flowrate
+        * coolant-inlet-temperature
+        * coolant-outlet-temperature
+        * coolant-specific-heat
+
+      returning arguments
+        * cooling-capability
+
+    thermal-cooling-capability-model: ThermalCapabilityModel
+      requiring arguments
+        * core-resistance
+        * cache-resistance
+        * cooling-capability
+
+      returning arguments
+        * core-capability
+        * cache-capability

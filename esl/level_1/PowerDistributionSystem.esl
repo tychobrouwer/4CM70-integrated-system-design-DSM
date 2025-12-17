@@ -23,3 +23,24 @@ define component PowerDistributionSystem
 
       returning arguments
         * power-capability
+
+    cache-tsv-electrical-model: TSVElectricalModel
+      requiring arguments
+        * cache-tsv-count
+        * cache-tsv-diameter
+        * tsv-thermal-conductivity
+        * tim-resistance
+        * contact-resistance
+
+      returning arguments
+        * cache-max-current-capacity
+
+    core-tsv-electrical-model: TSVElectricalModel
+      requiring arguments
+        * core-tsv-count
+        * core-tsv-diameter
+        * tsv-thermal-conductivity
+        * tim-resistance
+        * contact-resistance
+      returning arguments
+        * core-max-current-capacity

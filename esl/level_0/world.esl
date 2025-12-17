@@ -273,17 +273,6 @@ world
       returning arguments
         * power-cache-tsv-count
 
-    cache-tsv-electrical-model: TSVElectricalModel
-      requiring arguments
-        * power-cache-tsv-count
-        * power-cache-tsv-diameter
-        * power-tsv-thermal-conductivity
-        * power-tim-resistance
-        * power-contact-resistance
-
-      returning arguments
-        * power-cache-max-current-capacity
-
     cache-power-limit-model: PowerLimitModel
       requiring arguments
         * cache-voltage
@@ -299,16 +288,6 @@ world
 
       returning arguments
         * power-core-tsv-count
-
-    core-tsv-electrical-model: TSVElectricalModel
-      requiring arguments
-        * power-core-tsv-count
-        * power-core-tsv-diameter
-        * power-tsv-thermal-conductivity
-        * power-tim-resistance
-        * power-contact-resistance
-      returning arguments
-        * power-core-max-current-capacity
 
     core-power-limit-model: PowerLimitModel
       requiring arguments
@@ -345,26 +324,6 @@ world
 
       returning arguments
         * thermal-cache-resistance
-
-    thermal-coolant-flowrate-model: ThermalCoolingCapabilityModel
-      requiring arguments
-        * thermal-coolant-flowrate
-        * thermal-coolant-inlet-temperature
-        * thermal-coolant-outlet-temperature
-        * thermal-coolant-specific-heat
-
-      returning arguments
-        * thermal-cooling-capability
-
-    thermal-cooling-capability-model: ThermalCapabilityModel
-      requiring arguments
-        * thermal-core-resistance
-        * thermal-cache-resistance
-        * thermal-cooling-capability
-
-      returning arguments
-        * thermal-core-capability
-        * thermal-cache-capability
 
     thermal-tim-resistance-model: ThermalTimResistanceModel
       requiring arguments
