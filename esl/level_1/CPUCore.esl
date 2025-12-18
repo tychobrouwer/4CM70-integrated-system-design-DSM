@@ -1,56 +1,58 @@
 define component CPUCore
   parameters
-    temperature               is a Temperature        property
-    voltage                   is a Voltage            property
-    clock-frequency           is a Frequency          property
-    computational-performance is a Performance        property
-    data-processing-speed     is a Bandwidth          property
-    required-data-bandwidth   is a Bandwidth          property
-    process-node              is a ProcessNode        property
     power-consumption         is a Power              property
+    max-power-consumption     is a Power              property
+    temperature               is a Temperature        property
+    required-bandwidth        is a Bandwidth          property
+    computational-performance is a Performance        property
     die-area                  is a Area               property
+    voltage                   is a Voltage            property
+    current                   is a Current            property
+    clock-frequency           is a Frequency          property
+    process-node              is a ProcessNode        property
     transistors               is a Count              property
+    thermal-load              is a ThermalPower       property
 
   relations
-    core-performance-model: PerformanceModel
+    core-current-model: CurrentModel
       requiring arguments
-        * clock-frequency
-        * voltage
-        * process-node
-        * transistors
+        * transistors           #< @weight 0.5
+        * process-node          #< @weight 0.5
+        * temperature           #< @weight 0.5
+        * voltage               #< @weight 0.5
+        * clock-frequency       #< @weight 0.5
 
       returning arguments
-        * computational-performance
-        * data-processing-speed
+        * current
 
     core-power-model: PowerModel
       requiring arguments
-        * voltage
-        * transistors
-        * process-node
-        * temperature
+        * voltage               #< @weight 0.5
+        * current               #< @weight 0.5
       
       returning arguments
         * power-consumption
 
     core-area-model: AreaModel
       requiring arguments
-        * transistors
-        * process-node
+        * transistors           #< @weight 0.5
+        * process-node          #< @weight 0.5
 
       returning arguments
         * die-area
 
-    core-bandwidth-relation: BandwidthRelation
-      relating arguments
-        * required-data-bandwidth
-        * data-processing-speed
-
     core-frequency-model: FrequencyModel
       requiring arguments
-        * voltage
-        * temperature
-        * process-node
+        * voltage               #< @weight 0.5
+        * temperature           #< @weight 0.5
+        * process-node          #< @weight 0.5
 
       returning arguments
         * clock-frequency
+
+    core-thermal-model: PowerThermalModel
+      requiring arguments
+        * power-consumption     #< @weight 0.5
+
+      returning arguments
+        * thermal-load

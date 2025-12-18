@@ -1,292 +1,279 @@
 define type
-  Temperature       is a real with unit K
-  Voltage           is a real with unit V
-  Frequency         is a real with unit Hz
-  Performance       is a real with unit GFLOPS
-  DataRate          is a real with unit GB/s
-  ProcessNode       is a real with unit nm
-  Power             is a real with unit W
-  Area              is a real with unit mm2
-  Bandwidth         is a real with unit GB/s
-  Length            is a real with unit um
-  BusWidth          is a real with unit bits
-  Latency           is a real with unit ns
-  Density           is a real with unit count/mm2
-  ThermalResistance is a real with unit K/W
-  ThermalPower      is a real with unit W
-  CacheCapacity     is a real with unit MB
-  HitRate           is a real with unit percent
-  Count             is a real with unit count
-  Current           is a real with unit Ampere
-  Mass              is a real with unit kg
-  Energy            is a real with unit J
-  Massflowrate      is a real with unit kg/s
-  HeatCapacity      is a real with unit J/(kg·K)
+  Temperature         is a real with unit K
+  Voltage             is a real with unit V
+  Frequency           is a real with unit Hz
+  Performance         is a real with unit GFLOPS
+  DataRate            is a real with unit GB/s
+  ProcessNode         is a real with unit nm
+  Power               is a real with unit W
+  Area                is a real with unit mm2
+  Bandwidth           is a real with unit GB/s
+  Length              is a real with unit um
+  BusWidth            is a real with unit bits
+  Latency             is a real with unit ns
+  Density             is a real with unit count/mm2
+  ThermalResistance   is a real with unit K/W
+  ThermalPower        is a real with unit W
+  CacheCapacity       is a real with unit MB
+  HitRate             is a real with unit percent
+  Count               is a real with unit count
+  Current             is a real with unit Ampere
+  Mass                is a real with unit kg
+  Energy              is a real with unit J
+  Massflowrate        is a real with unit kg/s
+  HeatCapacity        is a real with unit J/(kg·K)
   TemperatureGradient is a real with unit K/m
   ThermalConductivity is a real with unit W/(m·K)
-  Data              is a real with unit bytes
+  Data                is a real with unit bytes
   String            is a string with unit none
-define verb
-  provide to
-  connect to
+  Percent             is a real with unit percent
+  Associativity       is a real with unit ways
+  BlockSize           is a real with unit bytes
 
-define relation 
+define relation
+  TotalPowerModel
+    requiring parameters
+      * power-1                     is a Power
+      * power-2                     is a Power
+    
+    returning parameters
+      * total-power                 is a Power
+
+  TotalDieAreaModel
+    requiring parameters
+      * die-area-1                  is a Area
+      * die-area-2                  is a Area
+
+    returning parameters
+      * total-die-area              is a Area
+
   BandwidthRelation
     relating parameters
-      * bandwidth-1 is a Bandwidth
-      * bandwidth-2 is a Bandwidth
+      * bandwidth-1                 is a Bandwidth
+      * bandwidth-2                 is a Bandwidth
 
-  PowerRelation
-    relating parameters
-      * power-1 is a Power
-      * power-2 is a Power
+  PowerConsumptionRelation
+    requiring parameters
+      * cooling-capability          is a ThermalPower
+      * power-capability            is a Power
 
-  ThermalPowerRelation
-    relating parameters
-      * thermal-power is a Power
-      * thermal-capability is a ThermalPower
+    returning parameters
+      * power-consumption           is a Power
 
+  TemperatureModel
+    requiring parameters
+      * power-consumption           is a Power
+      * thermal-resistance          is a ThermalResistance
+      * ambient-temperature         is a Temperature
+
+    returning parameters
+      * temperature                 is a Temperature
+  
   HitRatePerformanceRelation
     relating parameters
-      * hit-rate                  is a HitRate
-      * computational-performance is a Performance
+      * hit-rate                    is a HitRate
+      * computational-performance   is a Performance
 
-  TotalPowerRelation
+  TSVGeometryModel
     requiring parameters
-      * power-1 is a Power
-      * power-2 is a Power
-    
-    returning parameters
-      * total-power is a Power
-
-  BandwidthModel
-    requiring parameters
-      * bus-width is a BusWidth
-      * frequency is a Frequency
-    
-    returning parameters
-      * bandwidth is a Bandwidth
-
-  InterconnectLatencyModel
-    requiring parameters
-      * length    is a Length
-      * bandwidth is a Bandwidth
-      * frequency is a Frequency
+      * die-area                    is a Area
+      * tsv-density                 is a Density
 
     returning parameters
-      * latency   is a Latency
+      * number-of-tsvs              is a Count
 
-  PerformanceModel
+  TSVElectricalModel
     requiring parameters
-      * clock-frequency           is a Frequency
-      * voltage                   is a Voltage
-      * process-node              is a ProcessNode
-      * transistors               is a Count
+      * tsv-count                   is a Count
+      * tsv-diameter                is a Length
+      * tsv-thermal-conductivity    is a ThermalConductivity
+      * tim-resistance              is a ThermalResistance
+      * contact-resistance          is a ThermalResistance
 
     returning parameters
-      * computational-performance is a Performance
-      * data-processing-speed     is a Bandwidth
+      * max-current-capacity        is a Current
 
-  CachePerformanceModel
+  ThermalResistanceModel
     requiring parameters
-      * voltage         is a Voltage
-      * temperature     is a Temperature
-      * process-node    is a ProcessNode
+      * die-area                    is a Area
+      * tsv-density                 is a Density
+      * tsv-diameter                is a Length
+      * tsv-thermal-conductivity    is a ThermalConductivity
+      * tim-resistance              is a ThermalResistance
+      * contact-resistance          is a ThermalResistance
 
     returning parameters
-      * cache-frequency is a Frequency
+      * thermal-resistance          is a ThermalResistance
 
-  PowerModel
+  ThermalCoolingCapabilityModel
     requiring parameters
-      * voltage       is a Voltage
-      * transistors   is a Count
-      * process-node  is a ProcessNode
-      * temperature   is a Temperature
+      * coolant-flowrate           is a Massflowrate
+      * coolant-inlet-temperature  is a Temperature
+      * coolant-outlet-temperature is a Temperature
+      * coolant-specific-heat      is a HeatCapacity
 
     returning parameters
-      * power-consumption is a Power
-
-  AreaModel
-    requiring parameters
-      * transistors  is a Count
-      * process-node is a ProcessNode
-
-    returning parameters
-      * die-area is a Area
-
-  CapacityModel
-    requiring parameters
-      * transistors is a Count
-
-    returning parameters
-      * capacity is a CacheCapacity
-
-  FrequencyModel
-    requiring parameters
-      * voltage         is a Voltage
-      * temperature is a Temperature
-      * process-node    is a ProcessNode
-
-    returning parameters
-      * clock-frequency is a Frequency
-
-  CacheBandwidthModel
-    requiring parameters
-      * bus-width is a BusWidth
-      * frequency is a Frequency
-      * process-node is a ProcessNode
-
-    returning parameters
-      * bandwidth is a Bandwidth
-
-  CacheLatencyModel
-    requiring parameters
-      * capacity        is a CacheCapacity
-      * process-node    is a ProcessNode
-      * die-area        is a Area
-      * clock-frequency is a Frequency
-
-    returning parameters
-      * latency         is a Latency
-
-  HitRateModel
-    requiring parameters
-      * capacity        is a CacheCapacity
-
-    returning parameters
-      * hit-rate        is a HitRate
-
-  PowerCapabilityRelation
-    requiring parameters
-      * tsv-density         is a Density
-      * tsv-diameter        is a Length
-      * voltage             is a Voltage
-      * die-area            is a Area
-
-    returning parameters
-      * power-capability    is a Power
+      * cooling-capability         is a ThermalPower
 
   ThermalCapabilityModel
     requiring parameters
-      * tsv-density         is a Density
-      * tsv-diameter        is a Length
-      * resistance          is a ThermalResistance
-      * die-area            is a Area
+      * core-resistance            is a ThermalResistance
+      * cache-resistance           is a ThermalResistance
+      * cooling-capability         is a ThermalPower
 
     returning parameters
-      * thermal-capability  is a ThermalPower
+      * core-thermal-capability    is a ThermalPower
+      * cache-thermal-capability   is a ThermalPower
 
-  ThermalDissipationModel
+  ThermalTimResistanceModel
     requiring parameters
-      * core-thermal-capability  is a ThermalPower
-      * cache-thermal-capability is a ThermalPower
+      * die-area                   is a Area
+      * tim-thickness              is a Length
+      * tim-conductivity           is a ThermalConductivity
 
     returning parameters
-      * thermal-dissipation is a ThermalPower
+      * tim-resistance             is a ThermalResistance
 
-  TemperatureRelation
+  AreaModel
     requiring parameters
-      * to-cooler-resistance is a ThermalResistance
-      * thermal-power        is a Power
+      * transistors                is a Count
+      * process-node               is a ProcessNode
 
     returning parameters
-      * temperature          is a Temperature
+      * die-area                   is a Area
 
-  CoolantFlowrateModel
+  CapacityModel
     requiring parameters
-      * heat                   is a Power
-      * input-temperature      is a Temperature
-      * output-temperature     is a Temperature
-      * heat-capacity          is a HeatCapacity
+      * transistors                is a Count
 
     returning parameters
-      * coolant-flowrate       is a Massflowrate
+      * capacity                   is a CacheCapacity
 
-  AmbientInputTemperatureModel
+  FrequencyModel
     requiring parameters
-      * core-temperature         is a Temperature
-      * power-dissipated         is a Power
-      * thermal-resistance       is a ThermalResistance
+      * voltage                    is a Voltage
+      * temperature                is a Temperature
+      * process-node               is a ProcessNode
 
     returning parameters
-      * ambient-temperature      is a Temperature
+      * clock-frequency            is a Frequency
 
-  LateralThermalConductivityModel
+  CacheHitRateModel
     requiring parameters
-      * heat-flow                     is a Power
-      * area                          is a Area
-      * temperature-gradient          is a TemperatureGradient
-
+      * capacity                   is a CacheCapacity
+      * associativity              is a Associativity
+      * block-size                 is a BlockSize
 
     returning parameters
-      * lateral-thermal-conductivity  is a ThermalConductivity    
+      * hit-rate                   is a HitRate
 
-  ThermalInterfaceMaterialModel
+  CurrentModel
     requiring parameters
-      * tim-resistance                is a ThermalResistance
-      * contact-resistance            is a ThermalResistance
-      * area                          is a Area
-      * thermal-conductivity          is a ThermalConductivity
-
+      * transistors                is a Count
+      * process-node               is a ProcessNode
+      * temperature                is a Temperature
+      * voltage                    is a Voltage
+      * clock-frequency            is a Frequency
 
     returning parameters
-      * bond-line-thickness           is a Length 
+      * current                    is a Current
+
+  PowerModel
+    requiring parameters
+      * voltage                    is a Voltage
+      * current                    is a Current
+
+    returning parameters
+      * power-consumption          is a Power
 
   CacheOrganizationModel
     requiring parameters
-      * capacity        is a CacheCapacity
-      * cache-line-size is a Data
-      * associativity   is a Count
+      * capacity                   is a CacheCapacity
+      * block-size                 is a BlockSize
+      * associativity              is a Associativity
+
     returning parameters
-      * number-of-sets  is a Count
-  
+      * number-of-sets             is a Count
+
   CacheAccessTimeModel
     requiring parameters
-      * capacity       is a CacheCapacity
-      * associativity  is a Count
-      * process-node   is a ProcessNode
-      * voltage        is a Voltage
-      * temperature    is a Temperature
+      * capacity                   is a CacheCapacity
+      * associativity              is a Associativity
+      * process-node               is a ProcessNode
+      * voltage                    is a Voltage
+      * temperature                is a Temperature
+
     returning parameters
-      * access-time    is a Latency
-  
-  EnhancedHitRateModel
+      * access-time                is a Latency
+
+  CacheBandwidthModel
     requiring parameters
-      * capacity        is a CacheCapacity
-      * associativity   is a Count
-      * cache-line-size is a Data
+      * bus-width                  is a BusWidth
+      * clock-frequency            is a Frequency
+      * process-node               is a ProcessNode
+
     returning parameters
-      * hit-rate        is a HitRate
+      * bandwidth                  is a Bandwidth
   
   CacheAMATModel
     requiring parameters
-      * access-time    is a Latency
-      * hit-rate       is a HitRate
-      * miss-penalty   is a Latency
+      * access-time                is a Latency
+      * hit-rate                   is a HitRate
+      * miss-penalty               is a Latency
+
     returning parameters
-      * latency        is a Latency
-  
-  CacheAreaBreakdownModel
+      * latency                    is a Latency
+
+  PerformanceModel
     requiring parameters
-      * capacity       is a CacheCapacity
-      * associativity  is a Count
-      * process-node   is a ProcessNode
-      * transistors    is a Count
+      * clock-frequency            is a Frequency
+      * voltage                    is a Voltage
+      * process-node               is a ProcessNode
+      * transistors                is a Count
+      * amat                       is a Latency
+      * interconnect-latency       is a Latency
+
     returning parameters
-      * cell-area         is a Area
-      * peripheral-area   is a Area
-      * die-area          is a Area
-      * array-efficiency  is a HitRate
-  
-  CachePowerBreakdownModel
+      * computational-performance  is a Performance
+      * required-bandwidth         is a Bandwidth
+
+  InterconnectBandwidthModel
     requiring parameters
-      * voltage         is a Voltage
-      * clock-frequency is a Frequency
-      * capacity        is a CacheCapacity
-      * process-node    is a ProcessNode
-      * temperature     is a Temperature
-      * transistors     is a Count
+      * bus-width                  is a BusWidth
+      * frequency                  is a Frequency
+
     returning parameters
-      * dynamic-power     is a Power
-      * leakage-power     is a Power
-      * power-consumption is a Power
+      * bandwidth                  is a Bandwidth
+
+  InterconnectLatencyModel
+    requiring parameters
+      * length                     is a Length
+      * bandwidth                  is a Bandwidth
+      * frequency                  is a Frequency
+
+    returning parameters
+      * latency                    is a Latency
+
+  EfficiencyModel
+    requiring parameters
+      * electrical-power           is a Power
+      * computational-performance  is a Performance
+
+    returning parameters
+      * efficiency                 is a Percent
+
+  AMATModel
+    requiring parameters
+      * hit-rate                   is a HitRate
+      * cache-latency              is a Latency
+      * main-memory-latency        is a Latency
+
+    returning parameters
+      * amat                       is a Latency
+
+  PowerThermalModel
+    requiring parameters
+      * power-consumption          is a Power
+
+    returning parameters
+      * thermal-load               is a ThermalPower
