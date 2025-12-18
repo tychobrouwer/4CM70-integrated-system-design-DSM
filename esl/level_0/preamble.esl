@@ -92,14 +92,6 @@ define relation
     returning parameters
       * max-current-capacity        is a Current
 
-  PowerLimitModel
-    requiring parameters
-      * voltage                     is a Voltage
-      * max-current-capacity        is a Current
-
-    returning parameters
-      * power-capability            is a Power
-
   ThermalResistanceModel
     requiring parameters
       * die-area                    is a Area

@@ -18,29 +18,29 @@ define component PowerDistributionSystem
   relations
     total-power-relation: TotalPowerModel
       requiring arguments
-        * core-capability
-        * cache-capability
+        * core-capability             #< @weight 0.5
+        * cache-capability            #< @weight 0.5
 
       returning arguments
         * power-capability
 
     cache-tsv-electrical-model: TSVElectricalModel
       requiring arguments
-        * cache-tsv-count
-        * cache-tsv-diameter
-        * tsv-thermal-conductivity
-        * tim-resistance
-        * contact-resistance
+        * cache-tsv-count             #< @weight 0.5
+        * cache-tsv-diameter          #< @weight 0.5
+        * tsv-thermal-conductivity    #< @weight 0.5
+        * tim-resistance              #< @weight 0.5
+        * contact-resistance          #< @weight 0.5
 
       returning arguments
         * cache-max-current-capacity
 
     core-tsv-electrical-model: TSVElectricalModel
       requiring arguments
-        * core-tsv-count
-        * core-tsv-diameter
-        * tsv-thermal-conductivity
-        * tim-resistance
-        * contact-resistance
+        * core-tsv-count              #< @weight 0.5
+        * core-tsv-diameter           #< @weight 0.5
+        * tsv-thermal-conductivity    #< @weight 0.5
+        * tim-resistance              #< @weight 0.5
+        * contact-resistance          #< @weight 0.5
       returning arguments
         * core-max-current-capacity
