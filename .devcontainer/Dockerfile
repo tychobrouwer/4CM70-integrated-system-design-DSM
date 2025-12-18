@@ -11,6 +11,7 @@ RUN apt-get update \
     build-essential \
     sudo \
     ca-certificates \
+    chromium \
  && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user 'vscode' to match common devcontainer setups
