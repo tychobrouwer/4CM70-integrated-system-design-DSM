@@ -33,40 +33,10 @@ define component SRAMCache
 
     cache-area-model: AreaModel
       requiring arguments
-        * capacity
-        * associativity
-        * process-node
-        * voltage
-        * temperature
-      returning arguments
-        * access-time
-    
-    cache-hit-rate-enhanced-model: EnhancedHitRateModel
-      requiring arguments
-        * capacity
-        * associativity
-        * cache-line-size
-      returning arguments
-        * hit-rate
-    
-    cache-amat-model: CacheAMATModel
-      requiring arguments
-        * access-time
-        * hit-rate
-        * miss-penalty
-      returning arguments
-        * latency
-    
-    # Area relations
-    cache-area-breakdown-model: CacheAreaBreakdownModel
-      requiring arguments
-        * capacity
-        * associativity
-        * process-node
         * transistors
+        * process-node
+
       returning arguments
-        * cell-area
-        * peripheral-area
         * die-area
 
     cache-access-time-model: CacheAccessTimeModel
@@ -83,12 +53,17 @@ define component SRAMCache
     cache-capacity-model: CapacityModel
       requiring arguments
         * transistors
+
       returning arguments
         * capacity
     
     cache-performance-model: FrequencyModel
       requiring arguments
         * voltage
+        * temperature
+        * process-node
+
+      returning arguments
         * clock-frequency
 
     cache-current-model: CurrentModel
@@ -108,16 +83,14 @@ define component SRAMCache
         * current
 
       returning arguments
-        * dynamic-power
-        * leakage-power
         * power-consumption
-    
-    # Bandwidth relations
+
     cache-bandwidth-model: CacheBandwidthModel
       requiring arguments
         * bus-width
         * clock-frequency
         * process-node
+
       returning arguments
         * bandwidth
 
