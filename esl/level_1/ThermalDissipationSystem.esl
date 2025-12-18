@@ -22,19 +22,19 @@ define component ThermalDissipationSystem
   relations
     thermal-coolant-flowrate-model: ThermalCoolingCapabilityModel
       requiring arguments
-        * coolant-flowrate              #< @weight 0.5
-        * coolant-inlet-temperature     #< @weight 0.5
-        * coolant-outlet-temperature    #< @weight 0.5
-        * coolant-specific-heat         #< @weight 0.5
+        * coolant-flowrate
+        * coolant-inlet-temperature
+        * coolant-outlet-temperature
+        * coolant-specific-heat
 
       returning arguments
         * cooling-capability
 
     thermal-cooling-capability-model: ThermalCapabilityModel
       requiring arguments
-        * core-resistance               #< @weight 0.5  
-        * cache-resistance              #< @weight 0.5
-        * cooling-capability            #< @weight 0.5
+        * core-resistance
+        * cache-resistance
+        * cooling-capability
 
       returning arguments
         * core-capability

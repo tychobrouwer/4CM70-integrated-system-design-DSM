@@ -16,43 +16,43 @@ define component CPUCore
   relations
     core-current-model: CurrentModel
       requiring arguments
-        * transistors           #< @weight 0.5
-        * process-node          #< @weight 0.5
-        * temperature           #< @weight 0.5
-        * voltage               #< @weight 0.5
-        * clock-frequency       #< @weight 0.5
+        * transistors
+        * process-node
+        * temperature
+        * voltage
+        * clock-frequency
 
       returning arguments
         * current
 
     core-power-model: PowerModel
       requiring arguments
-        * voltage               #< @weight 0.5
-        * current               #< @weight 0.5
+        * voltage
+        * current
       
       returning arguments
         * power-consumption
 
     core-area-model: AreaModel
       requiring arguments
-        * transistors           #< @weight 0.5
-        * process-node          #< @weight 0.5
+        * transistors
+        * process-node
 
       returning arguments
         * die-area
 
     core-frequency-model: FrequencyModel
       requiring arguments
-        * voltage               #< @weight 0.5
-        * temperature           #< @weight 0.5
-        * process-node          #< @weight 0.5
+        * voltage
+        * temperature
+        * process-node
 
       returning arguments
         * clock-frequency
 
     core-thermal-model: PowerThermalModel
       requiring arguments
-        * power-consumption     #< @weight 0.5
+        * power-consumption
 
       returning arguments
         * thermal-load
