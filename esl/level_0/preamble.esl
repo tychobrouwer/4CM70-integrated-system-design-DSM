@@ -25,10 +25,11 @@ define type
   TemperatureGradient is a real with unit K/m
   ThermalConductivity is a real with unit W/(m·K)
   Data                is a real with unit bytes
-  String            is a string with unit none
+  String              is a string with unit none
   Percent             is a real with unit percent
   Associativity       is a real with unit ways
   BlockSize           is a real with unit bytes
+  Resistivity         is a real with unit ohm·m
 
 define relation
   TotalPowerModel
@@ -84,14 +85,16 @@ define relation
 
   TSVElectricalModel
     requiring parameters
-      * tsv-count                   is a Count
-      * tsv-diameter                is a Length
-      * tsv-thermal-conductivity    is a ThermalConductivity
-      * tim-resistance              is a ThermalResistance
-      * contact-resistance          is a ThermalResistance
-
-    returning parameters
-      * max-current-capacity        is a Current
+        * tsv-count                 is a Count
+        * tsv-diameter              is a Length
+        * tsv-length                is a Length
+        * max-temp-budget           is a Temperature
+        * tsv-thermal-conductivity  is a ThermalConductivity
+        * tsv-resistivity           is a Resistivity
+        * tim-resistance            is a ThermalResistance
+        * contact-resistance        is a ThermalResistance      
+      returning parameters
+        * max-current-capacity      is a Current
 
   ThermalResistanceModel
     requiring parameters
