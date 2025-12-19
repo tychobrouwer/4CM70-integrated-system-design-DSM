@@ -46,19 +46,25 @@ world
     interconnect-frequency              is a Frequency
 
     power-cache-capability              is a Power
-    power-core-capability               is a Power
-    power-capability                    is a Power
-    power-cache-tsv-density             is a Density
-    power-core-tsv-density              is a Density
-    power-cache-tsv-diameter            is a Length
-    power-core-tsv-diameter             is a Length
-    power-tsv-thermal-conductivity      is a ThermalConductivity
-    power-tim-resistance                is a ThermalResistance
-    power-contact-resistance            is a ThermalResistance
-    power-cache-tsv-count               is a Count
-    power-cache-max-current-capacity    is a Current
-    power-core-tsv-count                is a Count
-    power-core-max-current-capacity     is a Current
+    power-core-capability                     is a Power 
+    power-cache-tsv-density                   is a Density
+    power-core-tsv-density                    is a Density
+    power-cache-tsv-diameter                  is a Length
+    power-core-tsv-diameter                   is a Length
+    power-cache-tsv-length                    is a Length
+    power-core-tsv-length                     is a Length
+    power-cache-max-temp-budget               is a Temperature
+    power-core-max-temp-budget                is a Temperature
+    power-cache-tsv-count                     is a Count
+    power-core-tsv-count                      is a Count
+    power-cache-max-current-capacity          is a Current
+    power-core-max-current-capacity           is a Current
+    power-tsv-thermal-conductivity            is a ThermalConductivity
+    power-tsv-resistivity                     is a Resistivity
+    power-max-temp-budget                     is a Temperature
+    power-tim-resistance                      is a ThermalResistance
+    power-contact-resistance                  is a ThermalResistance
+    power-capability                    is a Power   
     
     thermal-cooling-capability          is a ThermalPower
     thermal-cache-capability            is a ThermalPower
@@ -126,18 +132,24 @@ world
     power-system is a PowerDistributionSystem with arguments
       * power-cache-capability
       * power-core-capability
-      * power-capability
       * power-cache-tsv-density
       * power-core-tsv-density
       * power-cache-tsv-diameter
-      * power-core-tsv-diameter
+      * power-core-tsv-diameter 
+      * power-cache-tsv-length
+      * power-core-tsv-length
+      * power-cache-max-temp-budget
+      * power-core-max-temp-budget
+      * power-cache-tsv-count
+      * power-core-tsv-count
+      * power-cache-max-current-capacity
+      * power-core-max-current-capacity
       * power-tsv-thermal-conductivity
+      * power-tsv-resistivity
+      * power-max-temp-budget
       * power-tim-resistance
       * power-contact-resistance
-      * power-cache-tsv-count
-      * power-cache-max-current-capacity
-      * power-core-tsv-count
-      * power-core-max-current-capacity
+      * power-capability 
 
     thermal-system is a ThermalDissipationSystem with arguments
       * thermal-cooling-capability

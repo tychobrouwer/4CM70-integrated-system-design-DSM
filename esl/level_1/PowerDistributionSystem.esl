@@ -2,45 +2,56 @@ define component PowerDistributionSystem
   parameters
     cache-capability            is a Power                      property
     core-capability             is a Power                      property
-    power-capability            is a Power                      property
     cache-tsv-density           is a Density                    property
     core-tsv-density            is a Density                    property
     cache-tsv-diameter          is a Length                     property
     core-tsv-diameter           is a Length                     property
+    cache-tsv-length            is a Length                     property
+    core-tsv-length             is a Length                     property
+    cache-max-temp-budget       is a Temperature                property
+    core-max-temp-budget        is a Temperature                property
+    cache-tsv-count             is a Count                      property
+    core-tsv-count              is a Count                      property
+    cache-max-current-capacity  is a Current                    property
+    core-max-current-capacity   is a Current                    property
     tsv-thermal-conductivity    is a ThermalConductivity        property
+    tsv-resistivity             is a Resistivity                property
+    max-temp-budget             is a Temperature                property
     tim-resistance              is a ThermalResistance          property
     contact-resistance          is a ThermalResistance          property
-    cache-tsv-count             is a Count                      property
-    cache-max-current-capacity  is a Current                    property
-    core-tsv-count              is a Count                      property
-    core-max-current-capacity   is a Current                    property
+    power-capability            is a Power                      property
 
   relations
     total-power-relation: TotalPowerModel
       requiring arguments
-        * core-capability
-        * cache-capability
+        * core-capability     #< @weight 1
+        * cache-capability    #< @weight 1
 
       returning arguments
         * power-capability
 
     cache-tsv-electrical-model: TSVElectricalModel
       requiring arguments
-        * cache-tsv-count
-        * cache-tsv-diameter
-        * tsv-thermal-conductivity
-        * tim-resistance
-        * contact-resistance
-
-      returning arguments
+        * cache-tsv-count               #< @weight 1
+        * cache-tsv-diameter            #< @weight 2
+        * cache-tsv-length              #< @weight 0.5
+        * cache-max-temp-budget         #< @weight 0.5
+        * tsv-thermal-conductivity      #< @weight -1
+        * tsv-resistivity               #< @weight -0.5
+        * tim-resistance                #< @weight -0.5
+        * contact-resistance            #< @weight -0.5       
+      returning arguments 
         * cache-max-current-capacity
 
     core-tsv-electrical-model: TSVElectricalModel
       requiring arguments
-        * core-tsv-count
-        * core-tsv-diameter
-        * tsv-thermal-conductivity
-        * tim-resistance
-        * contact-resistance
+        * core-tsv-count                #< @weight 1
+        * core-tsv-diameter             #< @weight 2
+        * core-tsv-length               #< @weight -1
+        * core-max-temp-budget          #< @weight 0.5
+        * tsv-thermal-conductivity      #< @weight 0.5
+        * tsv-resistivity               #< @weight -0.5
+        * tim-resistance                #< @weight -0.5
+        * contact-resistance            #< @weight -0.5      
       returning arguments
         * core-max-current-capacity
