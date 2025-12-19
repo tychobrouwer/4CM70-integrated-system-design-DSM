@@ -24,97 +24,97 @@ define component SRAMCache
   relations
     cache-organization-model: CacheOrganizationModel
       requiring arguments
-        * capacity
-        * block-size
-        * associativity
+        * capacity                  #< @weight 1
+        * block-size                #< @weight -1
+        * associativity             #< @weight -1
 
       returning arguments
         * number-of-sets
 
     cache-area-model: AreaModel
       requiring arguments
-        * transistors
-        * process-node
+        * transistors               #< @weight 1
+        * process-node              #< @weight 1
 
       returning arguments
         * die-area
 
     cache-access-time-model: CacheAccessTimeModel
       requiring arguments
-        * capacity
-        * associativity
-        * process-node
-        * voltage
-        * temperature
+        * capacity                  #< @weight 0.5
+        * associativity             #< @weight 0.5
+        * process-node              #< @weight -1
+        * voltage                   #< @weight -1
+        * temperature               #< @weight 1
 
       returning arguments
         * access-time
 
     cache-capacity-model: CapacityModel
       requiring arguments
-        * transistors
+        * transistors               #< @weight 1
 
       returning arguments
         * capacity
     
     cache-performance-model: FrequencyModel
       requiring arguments
-        * voltage
-        * temperature
-        * process-node
+        * voltage                   #< @weight 1
+        * temperature               #< @weight 1
+        * process-node              #< @weight -1
 
       returning arguments
         * clock-frequency
 
     cache-current-model: CurrentModel
       requiring arguments
-        * transistors
-        * process-node
-        * temperature
-        * voltage
-        * clock-frequency
+        * transistors               #< @weight 1
+        * process-node              #< @weight -0.5
+        * temperature               #< @weight 2
+        * voltage                   #< @weight 1
+        * clock-frequency           #< @weight 1
 
       returning arguments
         * current
 
     cache-power-model: PowerModel
       requiring arguments
-        * voltage
-        * current
+        * voltage                   #< @weight 1
+        * current                   #< @weight 1
 
       returning arguments
         * power-consumption
 
     cache-bandwidth-model: CacheBandwidthModel
       requiring arguments
-        * bus-width
-        * clock-frequency
-        * process-node
+        * bus-width                 #< @weight 1
+        * clock-frequency           #< @weight 1
+        * process-node              #< @weight -0.5
 
       returning arguments
         * bandwidth
 
     cache-latency-model: CacheAMATModel
       requiring arguments
-        * access-time
-        * hit-rate
-        * miss-penalty
+        * access-time               #< @weight 1
+        * hit-rate                  #< @weight -1
+        * miss-penalty              #< @weight 1
 
       returning arguments
         * latency
 
     cache-hit-rate-model: CacheHitRateModel
       requiring arguments
-        * capacity
-        * associativity
-        * block-size
+        * capacity                  #< @weight 1  
+        * associativity             #< @weight 0.5
+        * block-size                #< @weight 0.2
 
       returning arguments
         * hit-rate
 
     cache-thermal-model: PowerThermalModel
       requiring arguments
-        * power-consumption
+        * power-consumption         #< @weight 1
 
       returning arguments
         * thermal-load

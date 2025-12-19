@@ -12,15 +12,13 @@ This model aggregates the power requirements of the individual chip components t
   P_{\text{total}} = P_{\text{core}} + P_{\text{cache}}
   $$
   Where:
-  - $P_{\text{total}}$ = `power-capability`
-  - $P_{\text{core}}$ = `core-capability`
-  - $P_{\text{cache}}$ = `cache-capability`
+  * $P_{\text{total}}$ = `power-capability`
+  * $P_{\text{core}}$ = `core-capability`
+  * $P_{\text{cache}}$ = `cache-capability`
 
 * **Arguments:**
   * `core-capability` (@weight 1): Power demand from the processing cores.
   * `cache-capability` (@weight 1): Power demand from the memory cache.
-
-
 
 ---
 
@@ -56,16 +54,16 @@ Determines the maximum safe current for the cache layer based on thermal and mat
   $$
 
   Where:
-  - $I_{\max,\text{cache}}$ = `cache-max-current-capacity`
-  - $N_{\text{cache}}$ = `cache-tsv-count`
-  - $d_{\text{cache}}$ = `cache-tsv-diameter`
-  - $L_{\text{cache}}$ = `cache-tsv-length`
-  - $\Delta T_{\text{cache}}$ = `cache-max-temp-budget`
-  - $k_{\text{tsv}}$ = `tsv-thermal-conductivity`
-  - $\rho_{\text{tsv}}$ = `tsv-resistivity`
-  - $R_{\text{tim}}$ = `tim-resistance`
-  - $R_{\text{contact}}$ = `contact-resistance`
-  - $K$ = model constant (captures geometry/unit normalization)
+  * $I_{\max,\text{cache}}$ = `cache-max-current-capacity`
+  * $N_{\text{cache}}$ = `cache-tsv-count`
+  * $d_{\text{cache}}$ = `cache-tsv-diameter`
+  * $L_{\text{cache}}$ = `cache-tsv-length`
+  * $\Delta T_{\text{cache}}$ = `cache-max-temp-budget`
+  * $k_{\text{tsv}}$ = `tsv-thermal-conductivity`
+  * $\rho_{\text{tsv}}$ = `tsv-resistivity`
+  * $R_{\text{tim}}$ = `tim-resistance`
+  * $R_{\text{contact}}$ = `contact-resistance`
+  * $K$ = model constant (captures geometry/unit normalization)
 
 * **Key Arguments & Weights:**
   * `cache-tsv-count` (@weight 1): Linear scaling of current paths.
@@ -76,8 +74,6 @@ Determines the maximum safe current for the cache layer based on thermal and mat
   * `tsv-resistivity` (@weight -0.5): Higher resistivity reduces capacity.
   * `tim-resistance` (@weight -0.5): Higher thermal resistance reduces capacity.
   * `contact-resistance` (@weight -0.5): Higher localized thermal resistance reduces capacity.
-
-
 
 ---
 
@@ -113,16 +109,16 @@ Determines the maximum safe current for the compute core layer. While it uses th
   $$
 
   Where:
-  - $I_{\max,\text{core}}$ = `core-max-current-capacity`
-  - $N_{\text{core}}$ = `core-tsv-count`
-  - $d_{\text{core}}$ = `core-tsv-diameter`
-  - $L_{\text{core}}$ = `core-tsv-length`
-  - $\Delta T_{\text{core}}$ = `core-max-temp-budget`
-  - $k_{\text{tsv}}$ = `tsv-thermal-conductivity`
-  - $\rho_{\text{tsv}}$ = `tsv-resistivity`
-  - $R_{\text{tim}}$ = `tim-resistance`
-  - $R_{\text{contact}}$ = `contact-resistance`
-  - $K$ = model constant (captures geometry/unit normalization)
+  * $I_{\max,\text{core}}$ = `core-max-current-capacity`
+  * $N_{\text{core}}$ = `core-tsv-count`
+  * $d_{\text{core}}$ = `core-tsv-diameter`
+  * $L_{\text{core}}$ = `core-tsv-length`
+  * $\Delta T_{\text{core}}$ = `core-max-temp-budget`
+  * $k_{\text{tsv}}$ = `tsv-thermal-conductivity`
+  * $\rho_{\text{tsv}}$ = `tsv-resistivity`
+  * $R_{\text{tim}}$ = `tim-resistance`
+  * $R_{\text{contact}}$ = `contact-resistance`
+  * $K$ = model constant (captures geometry/unit normalization)
 
 * **Key Arguments & Weights:**
   * `core-tsv-count` (@weight 1)

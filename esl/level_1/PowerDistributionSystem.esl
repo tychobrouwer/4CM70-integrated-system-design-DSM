@@ -39,7 +39,8 @@ define component PowerDistributionSystem
         * tsv-thermal-conductivity      #< @weight -1
         * tsv-resistivity               #< @weight -0.5
         * tim-resistance                #< @weight -0.5
-        * contact-resistance            #< @weight -0.5       
+        * contact-resistance            #< @weight -0.5
+
       returning arguments 
         * cache-max-current-capacity
 
@@ -52,6 +53,7 @@ define component PowerDistributionSystem
         * tsv-thermal-conductivity      #< @weight 0.5
         * tsv-resistivity               #< @weight -0.5
         * tim-resistance                #< @weight -0.5
-        * contact-resistance            #< @weight -0.5      
+        * contact-resistance            #< @weight -0.5
+
       returning arguments
         * core-max-current-capacity

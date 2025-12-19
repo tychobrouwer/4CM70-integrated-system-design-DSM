@@ -190,24 +190,24 @@ world
 
     total-power-model: TotalPowerModel
       requiring arguments
-        * core-power-consumption                  #< @weight 0.8
-        * cache-power-consumption                 #< @weight 0.2
+        * core-power-consumption                  #< @weight 1
+        * cache-power-consumption                 #< @weight 1
 
       returning arguments
         * total-power-consumption
 
     efficiency-model: EfficiencyModel
       requiring arguments
-        * total-power-consumption                 #< @weight -0.5
-        * core-computational-performance          #< @weight 0.5
+        * total-power-consumption                 #< @weight -1
+        * core-computational-performance          #< @weight 1
 
       returning arguments
         * efficiency
 
     total-die-area-model: TotalDieAreaModel
       requiring arguments
-        * core-die-area                           #< @weight 0.67
-        * cache-die-area                          #< @weight 0.33
+        * core-die-area                           #< @weight 1
+        * cache-die-area                          #< @weight 1
 
       returning arguments
         * total-die-area
@@ -218,17 +218,17 @@ world
 
     cache-thermal-management-relation: PowerConsumptionRelation
       requiring arguments
-        * thermal-cache-capability                #< @weight 0.5
-        * power-cache-capability                  #< @weight 0.5
+        * thermal-cache-capability                #< @weight 1
+        * power-cache-capability                  #< @weight 1
 
       returning arguments
         * cache-max-power-consumption
 
     cache-temperature-model: TemperatureModel
       requiring arguments
-        * cache-power-consumption                 #< @weight 0.59
-        * thermal-cache-resistance                #< @weight 0.59
-        * ambient-temperature                     #< @weight 0.41
+        * cache-thermal-load                      #< @weight 1
+        * thermal-cache-resistance                #< @weight 1
+        * ambient-temperature                     #< @weight 1
 
       returning arguments
         * cache-temperature
@@ -239,17 +239,17 @@ world
 
     core-thermal-management-relation: PowerConsumptionRelation
       requiring arguments
-        * thermal-core-capability                 #< @weight 0.5
-        * power-core-capability                   #< @weight 0.5
+        * thermal-core-capability                 #< @weight 1
+        * power-core-capability                   #< @weight 1
 
       returning arguments
         * core-max-power-consumption
 
     core-temperature-model: TemperatureModel
       requiring arguments
-        * core-power-consumption                  #< @weight 0.59
-        * thermal-core-resistance                 #< @weight 0.59
-        * ambient-temperature                     #< @weight 0.41
+        * core-thermal-load                       #< @weight 1
+        * thermal-core-resistance                 #< @weight 1
+        * ambient-temperature                     #< @weight 1
 
       returning arguments
         * core-temperature
@@ -279,32 +279,32 @@ world
 
     cache-tsv-geometry-model: TSVGeometryModel
       requiring arguments
-        * cache-die-area                          #< @weight 0.5
-        * power-cache-tsv-density                 #< @weight 0.5
+        * cache-die-area                          #< @weight 
+        * power-cache-tsv-density                 #< @weight 
 
       returning arguments
         * power-cache-tsv-count
 
     cache-power-limit-model: PowerModel
       requiring arguments
-        * cache-voltage                           #< @weight 0.5
-        * power-cache-max-current-capacity        #< @weight 0.5
+        * cache-voltage                           #< @weight 1
+        * power-cache-max-current-capacity        #< @weight 1
 
       returning arguments
         * power-cache-capability
 
     core-tsv-geometry-model: TSVGeometryModel
       requiring arguments
-        * core-die-area                           #< @weight 0.5
-        * power-core-tsv-density                  #< @weight 0.5
+        * core-die-area                           #< @weight 
+        * power-core-tsv-density                  #< @weight 
 
       returning arguments
         * power-core-tsv-count
 
     core-power-limit-model: PowerModel
       requiring arguments
-        * core-voltage                            #< @weight 0.5
-        * power-core-max-current-capacity         #< @weight 0.5
+        * core-voltage                            #< @weight 1
+        * power-core-max-current-capacity         #< @weight 1
 
       returning arguments
         * power-core-capability

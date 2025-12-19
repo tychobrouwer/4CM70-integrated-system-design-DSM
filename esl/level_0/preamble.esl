@@ -63,7 +63,7 @@ define relation
 
   TemperatureModel
     requiring parameters
-      * power-consumption           is a Power
+      * thermal-load                is a ThermalPower
       * thermal-resistance          is a ThermalResistance
       * ambient-temperature         is a Temperature
 
