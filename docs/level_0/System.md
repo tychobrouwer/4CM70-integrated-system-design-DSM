@@ -55,4 +55,3 @@ This model calculates the total die area of the system by summing the die areas 
 * **Arguments:**
   * `core-die-area` (@weight 1): Die area occupied by the processing core.
   * `cache-die-area` (@weight 1): Die area occupied by the cache.
-

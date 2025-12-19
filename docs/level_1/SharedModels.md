@@ -149,6 +149,3 @@ This model estimates the operating temperature of the cache based on thermal loa
   * `thermal-load` (@weight 1): Thermal load.
   * `thermal-resistance` (@weight 1): Thermal resistance.
   * `ambient-temperature` (@weight 1): Ambient temperature.
-
----
-
