@@ -40,10 +40,14 @@ world
     cache-number-of-sets                is a Count
 
     interconnect-bandwidth              is a Bandwidth
+    interconnect-die-area               is a Area
     interconnect-latency                is a Latency
     interconnect-length                 is a Length
+    interconnect-length2D               is a Length
+    interconnect-length3D               is a Length
     interconnect-bus-width              is a BusWidth
     interconnect-frequency              is a Frequency
+    interconnect-process-node           is a ProcessNode
 
     power-cache-capability              is a Power
     power-core-capability                     is a Power 
@@ -124,10 +128,14 @@ world
 
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-bandwidth
+      * interconnect-die-area
       * interconnect-latency
       * interconnect-length
+      * interconnect-length2D
+      * interconnect-length3D
       * interconnect-bus-width
       * interconnect-frequency
+      * interconnect-process-node
 
     power-system is a PowerDistributionSystem with arguments
       * power-cache-capability
@@ -271,7 +279,39 @@ world
     # INTERCONNECT MODELS
     #------------------------------------------------------------#
 
+    bandwidth-model: InterconnectBandwidthModel
+      requiring arguments
+        * interconnect-bus-width           #< @weight 1
+        * core-clock-frequency             #< @weight 1
 
+      returning arguments
+        * interconnect-bandwidth
+    
+    latency-model: InterconnectLatencyModel
+      requiring arguments
+        * interconnect-length              #< @weight 1
+        * interconnect-bandwidth           #< @weight -1
+        * core-clock-frequency             #< @weight -1
+
+      returning arguments
+        * interconnect-latency
+
+
+   length-model2D: InterconnectLengthModel2D
+    requiring arguments
+      * total-die-area                      #< @weight 0.5
+      * interconnect-process-node           #< @weight 0.5
+
+      returning arguments
+      * interconnect-length2D
+
+    length-model3D: InterconnectLengthModel3D
+    requiring arguments
+      * total-die-area                      #< @weight 0.25
+      * interconnect-process-node           #< @weight 1
+
+      returning arguments
+      * interconnect-length3D
 
     #------------------------------------------------------------#
     # POWER DISTRIBUTION SYSTEM MODELS

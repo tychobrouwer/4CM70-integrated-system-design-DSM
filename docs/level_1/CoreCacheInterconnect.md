@@ -45,3 +45,44 @@ This very simplified model gives an indication of the latency of an interconnect
   * `frequency` (@weight -1): Core frequency
 
 ---
+
+### InterconnectLengthModel2D
+
+This very simplified model gives an indication of the length an interconnect has to be in a 2D architecture. It does not have a specific formula, but we know that the interconnect length scales with the square root of die area. We also know that the process node has influence on the mean interconnect length, as the smaller features are, the shorter interconnects will be.
+
+* **Model:** `InterconnectLatencyModel`
+* **Formula:**
+  $$
+  L = \sqrt{A_{die}} * \sqrt{N_{process_node}}
+  $$
+  Where:
+  * $L$ = `Length of the interconnect`
+  * $A_{die}$ = `Die area of cpu`
+  * *$N_{process_node}$ = `Factor for influence of the process node
+  
+* **Arguments:**
+  * `die-area` (@weight 0.5): area of the die
+  * `process-node` (@weight 0.5): Process node that is used in manufacturing
+
+---
+
+
+### InterconnectLengthModel3D
+
+This very simplified model gives an indication of the length an interconnect has to be in a 3D architecture. It does not have a specific formula, but we know that the interconnect length scales with the square root of die area. We also know that the process node has influence on the mean interconnect length, as the smaller features are, the shorter interconnects will be. Because core and cache are stacked on top of each other in a 3D architecture, this has a smaller influence than in a 2D situation.
+
+* **Model:** `InterconnectLatencyModel`
+* **Formula:**
+  $$
+  L = \sqrt{A_{die}} * N_{process_node}^{/frac{1}{4}}
+  $$
+  Where:
+  * $L$ = `Length of the interconnect`
+  * $A_{die}$ = `Die area of cpu`
+  * *$N_{process_node}$ = `Factor for influence of the process node
+  
+* **Arguments:**
+  * `die-area` (@weight 0.5): area of the die
+  * `process-node` (@weight 0.25): Process node that is used in manufacturing
+
+---

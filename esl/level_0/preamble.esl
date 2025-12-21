@@ -257,6 +257,22 @@ define relation
     returning parameters
       * latency                    is a Latency
 
+  InterconnectLengthModel2D
+    requiring parameters
+      * die-area                     is a Area
+      * process-node                 is a ProcessNode
+
+    returning parameters
+      * length2D                       is a Length
+
+  InterconnectLengthModel3D
+    requiring parameters
+      * die-area                     is a Area
+      * process-node                 is a ProcessNode
+
+    returning parameters
+      * length3D                       is a Length
+
   EfficiencyModel
     requiring parameters
       * electrical-power           is a Power

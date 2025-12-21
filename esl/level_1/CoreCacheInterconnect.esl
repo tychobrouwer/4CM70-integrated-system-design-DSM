@@ -1,10 +1,14 @@
 define component CoreCacheInterconnect
   parameters
     bandwidth         is a Bandwidth       property
+    die-area          is a Area            property
     latency           is a Latency         property
     length            is a Length          property
+    length2D          is a Length          property
+    length3D          is a Length          property
     bus-width         is a BusWidth        property
     frequency         is a Frequency       property
+    process-node      is a ProcessNode     property
 
   relations
     bandwidth-model: InterconnectBandwidthModel
@@ -23,3 +27,20 @@ define component CoreCacheInterconnect
 
       returning arguments
         * latency
+
+
+   length-model2D: InterconnectLengthModel2D
+    requiring arguments
+      * die-area               #< @weight 0.5
+      * process-node           #< @weight 0.5
+
+      returning arguments
+      * length2D
+
+    length-model3D: InterconnectLengthModel3D
+    requiring arguments
+      * die-area               #< @weight 0.25
+      * process-node           #< @weight 1
+
+      returning arguments
+      * length3D
