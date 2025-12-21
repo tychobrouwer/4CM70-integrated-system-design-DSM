@@ -257,15 +257,6 @@ define relation
     returning parameters
       * latency                    is a Latency
 
-  InterconnectFrequencyModel
-     requiring parameters
-      * bandwidth                   is a Bandwidth
-      * bus-width                   is a BusWidth
-      * latency                     is a Latency
-
-     returning parameters
-      * frequency                   is a Frequency
-
   EfficiencyModel
     requiring parameters
       * electrical-power           is a Power

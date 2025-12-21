@@ -18,17 +18,8 @@ define component CoreCacheInterconnect
     latency-model: InterconnectLatencyModel
       requiring arguments
         * length              #< @weight 1
-        * bandwidth           #< @weight 1
-        * frequency
+        * bandwidth           #< @weight -1
+        * frequency           #< @weight -1
 
       returning arguments
         * latency
-
-frequency-model: InterconnectFrequencyModel
-      requiring arguments
-        * bandwidth           #< @weight 1
-        * bus-width           #< @weight 1
-        * latency             #< @weight 1
-
-      returning arguments
-        * frequency
