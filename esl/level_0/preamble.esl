@@ -30,6 +30,7 @@ define type
   Associativity       is a real with unit ways
   BlockSize           is a real with unit bytes
   Resistivity         is a real with unit ohm·m
+#test
 
 define relation
   TotalPowerModel
