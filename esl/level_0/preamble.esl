@@ -205,6 +205,7 @@ define relation
       * process-node               is a ProcessNode
       * voltage                    is a Voltage
       * temperature                is a Temperature
+      * internal-wire-length       is a Length
 
     returning parameters
       * access-time                is a Latency
@@ -213,7 +214,6 @@ define relation
     requiring parameters
       * bus-width                  is a BusWidth
       * clock-frequency            is a Frequency
-      * process-node               is a ProcessNode
 
     returning parameters
       * bandwidth                  is a Bandwidth
@@ -296,3 +296,90 @@ define relation
 
     returning parameters
       * thermal-load               is a ThermalPower
+
+  CacheTransistorModel
+    requiring parameters
+      * capacity                    is a CacheCapacity
+      * associativity               is a Associativity
+      * block-size                  is a BlockSize
+
+    returning parameters
+      * transistors                 is a Count
+
+  CacheWireLengthModel
+    requiring parameters
+      * die-area                    is a Area
+      * number-of-banks             is a Count
+      * process-node                is a ProcessNode
+
+    returning parameters
+      * internal-wire-length        is a Length
+
+  CacheLeakageCurrentModel
+    requiring parameters
+      * transistors                 is a Count
+      * process-node                is a ProcessNode
+      * temperature                 is a Temperature
+      * voltage                     is a Voltage
+
+    returning parameters
+      * leakage-current             is a Current
+
+  CacheDynamicCurrentModel
+    requiring parameters
+      * transistors                 is a Count
+      * process-node                is a ProcessNode
+      * voltage                     is a Voltage
+      * clock-frequency             is a Frequency
+
+    returning parameters
+      * dynamic-current             is a Current
+
+  CacheTotalCurrentModel
+    requiring parameters
+      * dynamic-current             is a Current
+      * leakage-current             is a Current
+
+    returning parameters
+      * total-current               is a Current
+
+  CacheDynamicPowerModel
+    requiring parameters
+      * voltage                     is a Voltage
+      * dynamic-current             is a Current
+
+    returning parameters
+      * dynamic-power               is a Power
+
+  CacheLeakagePowerModel
+    requiring parameters
+      * voltage                     is a Voltage
+      * leakage-current             is a Current
+
+    returning parameters
+      * leakage-power               is a Power
+
+  CacheTotalPowerModel
+    requiring parameters
+      * dynamic-power               is a Power
+      * leakage-power               is a Power
+
+    returning parameters
+      * total-power                 is a Power
+
+  CacheReadEnergyModel
+    requiring parameters
+      * dynamic-power               is a Power
+      * access-time                 is a Latency
+      * clock-frequency             is a Frequency
+
+    returning parameters
+      * read-energy                 is a Energy
+
+  CacheWriteEnergyModel
+    requiring parameters
+      * read-energy                 is a Energy
+      * associativity               is a Associativity
+
+    returning parameters
+      * write-energy                is a Energy

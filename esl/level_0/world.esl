@@ -18,6 +18,15 @@ world
     core-transistors                    is a Count
     core-thermal-load                   is a ThermalPower
 
+    cache-internal-wire-length          is a Length
+    cache-leakage-power                 is a Power
+    cache-dynamic-current               is a Current
+    cache-leakage-current               is a Current
+    cache-total-current                 is a Current
+    cache-number-of-banks               is a Count
+    cache-read-energy                   is a Energy
+    cache-write-energy                  is a Energy
+    cache-dynamic-power                 is a Power
     cache-power-consumption             is a Power
     cache-max-power-consumption         is a Power
     cache-bandwidth                     is a Bandwidth
@@ -107,25 +116,38 @@ world
     cache is a SRAMCache with arguments
       * cache-power-consumption
       * cache-max-power-consumption
-      * cache-bandwidth
-      * cache-temperature
-      * cache-die-area
-      * cache-hit-rate
+      * cache-dynamic-power
+      * cache-leakage-power
       * cache-voltage
-      * cache-current
+      * cache-dynamic-current
+      * cache-leakage-current
+      * cache-total-current
+    # Performance
+      * cache-bandwidth
       * cache-latency
+      * cache-access-time
+      * cache-miss-penalty
+      * cache-hit-rate
+      * cache-clock-frequency
+    # Organization
       * cache-capacity
       * cache-associativity
       * cache-block-size
       * cache-bus-width
+      * cache-number-of-sets
+      * cache-number-of-banks
+    # Physical
+      * cache-die-area
       * cache-process-node
       * cache-transistors
-      * cache-clock-frequency
+      * cache-internal-wire-length
+    # Thermal
+      * cache-temperature
       * cache-thermal-load
-      * cache-access-time
-      * cache-miss-penalty
-      * cache-number-of-sets
-
+    # Energy (per access)
+      * cache-read-energy
+      * cache-write-energy
+      
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-bandwidth
       * interconnect-die-area
