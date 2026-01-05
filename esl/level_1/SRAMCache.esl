@@ -1,27 +1,51 @@
 define component SRAMCache
   parameters
+    # Electrical
     power-consumption     is a Power            property
     max-power-consumption is a Power            property
-    bandwidth             is a Bandwidth        property
-    temperature           is a Temperature      property
-    die-area              is a Area             property
-    hit-rate              is a HitRate          property
+    dynamic-power         is a Power            property
+    leakage-power         is a Power            property
     voltage               is a Voltage          property
-    current               is a Current          property
+    dynamic-current       is a Current          property
+    leakage-current       is a Current          property
+    total-current         is a Current          property
+    
+    # Performance
+    bandwidth             is a Bandwidth        property
     latency               is a Latency          property
+    access-time           is a Latency          property
+    miss-penalty          is a Latency          property
+    hit-rate              is a HitRate          property
+    clock-frequency       is a Frequency        property
+    
+    # Organization
     capacity              is a CacheCapacity    property
     associativity         is a Associativity    property
     block-size            is a BlockSize        property
     bus-width             is a BusWidth         property
+    number-of-sets        is a Count            property
+    number-of-banks       is a Count            property
+    
+    # Physical
+    die-area              is a Area             property
     process-node          is a ProcessNode      property
     transistors           is a Count            property
-    clock-frequency       is a Frequency        property
+    internal-wire-length  is a Length           property
+    
+    # Thermal
+    temperature           is a Temperature      property
     thermal-load          is a ThermalPower     property
-    access-time           is a Latency          property
-    miss-penalty          is a Latency          property
-    number-of-sets        is a Count            property
+    
+    # Energy (per access)
+    read-energy           is a Energy           property
+    write-energy          is a Energy           property
 
   relations
+    #============================================================#
+    # CACHE ORGANIZATION MODELS
+    #============================================================#
+    
+    # Sets = Capacity / (BlockSize × Associativity)
     cache-organization-model: CacheOrganizationModel
       requiring arguments
         * capacity                  #< @weight 1
@@ -31,69 +55,86 @@ define component SRAMCache
       returning arguments
         * number-of-sets
 
+    # Transistors ≈ 6 × Capacity(bits) + overhead(associativity, decoders)
+    # Transistors ~ capacity × associativity^0.1 (small overhead for comparators)
+    cache-transistor-model: CacheTransistorModel
+      requiring arguments
+        * capacity                  #< @weight 1
+        * associativity             #< @weight 0.1
+        * block-size                #< @weight 0
+
+      returning arguments
+        * transistors
+
+    #============================================================#
+    # PHYSICAL MODELS
+    #============================================================#
+
+    # Area = Transistors × (ProcessNode)^2 × density_factor
     cache-area-model: AreaModel
       requiring arguments
         * transistors               #< @weight 1
-        * process-node              #< @weight 1
+        * process-node              #< @weight 2
 
       returning arguments
         * die-area
 
+    # Internal wire length scales with sqrt(area) for 2D
+    # Important for comparing 2D vs 3D: in 3D this would scale differently
+    cache-wire-length-model: CacheWireLengthModel
+      requiring arguments
+        * die-area                  #< @weight 0.5
+        * number-of-banks           #< @weight -0.5
+        * process-node              #< @weight 0.5
+
+      returning arguments
+        * internal-wire-length
+
+    #============================================================#
+    # TIMING MODELS
+    #============================================================#
+
+    # Access time based on CACTI-style model
+    # t_access ~ log(capacity) × sqrt(associativity) × (V/Vnom)^-1 × temp_factor
     cache-access-time-model: CacheAccessTimeModel
       requiring arguments
-        * capacity                  #< @weight 0.5
+        * capacity                  #< @weight 0.3
         * associativity             #< @weight 0.5
         * process-node              #< @weight -1
         * voltage                   #< @weight -1
-        * temperature               #< @weight 1
+        * temperature               #< @weight 0.3
+        * internal-wire-length      #< @weight 0.5
 
       returning arguments
         * access-time
 
-    cache-capacity-model: CapacityModel
-      requiring arguments
-        * transistors               #< @weight 1
-
-      returning arguments
-        * capacity
-    
-    cache-performance-model: FrequencyModel
+    # Clock frequency model (max achievable)
+    # f_max ~ V / (process_node × temp_factor)
+    cache-frequency-model: FrequencyModel
       requiring arguments
         * voltage                   #< @weight 1
-        * temperature               #< @weight 1
+        * temperature               #< @weight -0.5
         * process-node              #< @weight -1
 
       returning arguments
         * clock-frequency
 
-    cache-current-model: CurrentModel
+    #============================================================#
+    # PERFORMANCE MODELS
+    #============================================================#
+
+    # Hit rate model - based on working set locality
+    # Higher capacity and associativity improve hit rate (diminishing returns)
+    cache-hit-rate-model: CacheHitRateModel
       requiring arguments
-        * transistors               #< @weight 1
-        * process-node              #< @weight -0.5
-        * temperature               #< @weight 2
-        * voltage                   #< @weight 1
-        * clock-frequency           #< @weight 1
+        * capacity                  #< @weight 0.7
+        * associativity             #< @weight 0.3
+        * block-size                #< @weight 0.15
 
       returning arguments
-        * current
+        * hit-rate
 
-    cache-power-model: PowerModel
-      requiring arguments
-        * voltage                   #< @weight 1
-        * current                   #< @weight 1
-
-      returning arguments
-        * power-consumption
-
-    cache-bandwidth-model: CacheBandwidthModel
-      requiring arguments
-        * bus-width                 #< @weight 1
-        * clock-frequency           #< @weight 1
-        * process-node              #< @weight -0.5
-
-      returning arguments
-        * bandwidth
-
+    # AMAT = AccessTime + (1 - HitRate) × MissPenalty
     cache-latency-model: CacheAMATModel
       requiring arguments
         * access-time               #< @weight 1
@@ -103,15 +144,107 @@ define component SRAMCache
       returning arguments
         * latency
 
-    cache-hit-rate-model: CacheHitRateModel
+    # Bandwidth = BusWidth × ClockFrequency / 8
+    cache-bandwidth-model: CacheBandwidthModel
       requiring arguments
-        * capacity                  #< @weight 1  
-        * associativity             #< @weight 0.5
-        * block-size                #< @weight 0.2
+        * bus-width                 #< @weight 1
+        * clock-frequency           #< @weight 1
 
       returning arguments
-        * hit-rate
+        * bandwidth
 
+    #============================================================#
+    # POWER/CURRENT MODELS
+    #============================================================#
+
+    # Dynamic current: I_dyn ~ C × V × f
+    # C scales with transistors and process node
+    cache-dynamic-current-model: CacheDynamicCurrentModel
+      requiring arguments
+        * transistors               #< @weight 0.7
+        * process-node              #< @weight -1
+        * voltage                   #< @weight 1
+        * clock-frequency           #< @weight 1
+
+      returning arguments
+        * dynamic-current
+
+    # Leakage current: I_leak ~ transistors × exp(T/T0) × (V/Vth)
+    # CRITICAL for 3D stacking thermal analysis
+    cache-leakage-current-model: CacheLeakageCurrentModel
+      requiring arguments
+        * transistors               #< @weight 1
+        * process-node              #< @weight -2
+        * temperature               #< @weight 2.5
+        * voltage                   #< @weight 1.5
+
+      returning arguments
+        * leakage-current
+
+    # Total current = dynamic + leakage
+    cache-total-current-model: CacheTotalCurrentModel
+      requiring arguments
+        * dynamic-current           #< @weight 1
+        * leakage-current           #< @weight 1
+
+      returning arguments
+        * total-current
+
+    # Dynamic power: P_dyn = V × I_dyn
+    cache-dynamic-power-model: CacheDynamicPowerModel
+      requiring arguments
+        * voltage                   #< @weight 1
+        * dynamic-current           #< @weight 1
+
+      returning arguments
+        * dynamic-power
+
+    # Leakage power: P_leak = V × I_leak
+    cache-leakage-power-model: CacheLeakagePowerModel
+      requiring arguments
+        * voltage                   #< @weight 1
+        * leakage-current           #< @weight 1
+
+      returning arguments
+        * leakage-power
+
+    # Total power consumption
+    cache-power-model: CacheTotalPowerModel
+      requiring arguments
+        * dynamic-power             #< @weight 1
+        * leakage-power             #< @weight 1
+
+      returning arguments
+        * power-consumption
+
+    #============================================================#
+    # ENERGY MODELS (per access)
+    #============================================================#
+
+    # Read energy ~ access_time × dynamic_power / frequency
+    cache-read-energy-model: CacheReadEnergyModel
+      requiring arguments
+        * dynamic-power             #< @weight 1
+        * access-time               #< @weight 1
+        * clock-frequency           #< @weight -1
+
+      returning arguments
+        * read-energy
+
+    # Write energy typically 1.2-2x read energy
+    cache-write-energy-model: CacheWriteEnergyModel
+      requiring arguments
+        * read-energy               #< @weight 1
+        * associativity             #< @weight 0.2
+
+      returning arguments
+        * write-energy
+
+    #============================================================#
+    # THERMAL MODEL
+    #============================================================#
+
+    # Thermal load equals total power dissipation
     cache-thermal-model: PowerThermalModel
       requiring arguments
         * power-consumption         #< @weight 1
