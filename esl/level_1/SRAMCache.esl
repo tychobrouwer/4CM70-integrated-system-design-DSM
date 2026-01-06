@@ -41,11 +41,6 @@ define component SRAMCache
     write-energy          is a Energy           property
 
   relations
-    #============================================================#
-    # CACHE ORGANIZATION MODELS
-    #============================================================#
-    
-    # Sets = Capacity / (BlockSize × Associativity)
     cache-organization-model: CacheOrganizationModel
       requiring arguments
         * capacity                  #< @weight 1
@@ -55,8 +50,6 @@ define component SRAMCache
       returning arguments
         * number-of-sets
 
-    # Transistors ≈ 6 × Capacity(bits) + overhead(associativity, decoders)
-    # Transistors ~ capacity × associativity^0.1 (small overhead for comparators)
     cache-transistor-model: CacheTransistorModel
       requiring arguments
         * capacity                  #< @weight 1
@@ -66,11 +59,6 @@ define component SRAMCache
       returning arguments
         * transistors
 
-    #============================================================#
-    # PHYSICAL MODELS
-    #============================================================#
-
-    # Area = Transistors × (ProcessNode)^2 × density_factor
     cache-area-model: AreaModel
       requiring arguments
         * transistors               #< @weight 1
@@ -79,8 +67,6 @@ define component SRAMCache
       returning arguments
         * die-area
 
-    # Internal wire length scales with sqrt(area) for 2D
-    # Important for comparing 2D vs 3D: in 3D this would scale differently
     cache-wire-length-model: CacheWireLengthModel
       requiring arguments
         * die-area                  #< @weight 0.5
@@ -90,12 +76,6 @@ define component SRAMCache
       returning arguments
         * internal-wire-length
 
-    #============================================================#
-    # TIMING MODELS
-    #============================================================#
-
-    # Access time based on CACTI-style model
-    # t_access ~ log(capacity) × sqrt(associativity) × (V/Vnom)^-1 × temp_factor
     cache-access-time-model: CacheAccessTimeModel
       requiring arguments
         * capacity                  #< @weight 0.3
@@ -108,8 +88,6 @@ define component SRAMCache
       returning arguments
         * access-time
 
-    # Clock frequency model (max achievable)
-    # f_max ~ V / (process_node × temp_factor)
     cache-frequency-model: FrequencyModel
       requiring arguments
         * voltage                   #< @weight 1
@@ -119,12 +97,6 @@ define component SRAMCache
       returning arguments
         * clock-frequency
 
-    #============================================================#
-    # PERFORMANCE MODELS
-    #============================================================#
-
-    # Hit rate model - based on working set locality
-    # Higher capacity and associativity improve hit rate (diminishing returns)
     cache-hit-rate-model: CacheHitRateModel
       requiring arguments
         * capacity                  #< @weight 0.7
@@ -134,7 +106,6 @@ define component SRAMCache
       returning arguments
         * hit-rate
 
-    # AMAT = AccessTime + (1 - HitRate) × MissPenalty
     cache-latency-model: CacheAMATModel
       requiring arguments
         * access-time               #< @weight 1
@@ -144,7 +115,6 @@ define component SRAMCache
       returning arguments
         * latency
 
-    # Bandwidth = BusWidth × ClockFrequency / 8
     cache-bandwidth-model: CacheBandwidthModel
       requiring arguments
         * bus-width                 #< @weight 1
@@ -153,12 +123,6 @@ define component SRAMCache
       returning arguments
         * bandwidth
 
-    #============================================================#
-    # POWER/CURRENT MODELS
-    #============================================================#
-
-    # Dynamic current: I_dyn ~ C × V × f
-    # C scales with transistors and process node
     cache-dynamic-current-model: CacheDynamicCurrentModel
       requiring arguments
         * transistors               #< @weight 0.7
@@ -169,8 +133,6 @@ define component SRAMCache
       returning arguments
         * dynamic-current
 
-    # Leakage current: I_leak ~ transistors × exp(T/T0) × (V/Vth)
-    # CRITICAL for 3D stacking thermal analysis
     cache-leakage-current-model: CacheLeakageCurrentModel
       requiring arguments
         * transistors               #< @weight 1
@@ -181,7 +143,6 @@ define component SRAMCache
       returning arguments
         * leakage-current
 
-    # Total current = dynamic + leakage
     cache-total-current-model: CacheTotalCurrentModel
       requiring arguments
         * dynamic-current           #< @weight 1
@@ -190,7 +151,6 @@ define component SRAMCache
       returning arguments
         * total-current
 
-    # Dynamic power: P_dyn = V × I_dyn
     cache-dynamic-power-model: CacheDynamicPowerModel
       requiring arguments
         * voltage                   #< @weight 1
@@ -199,7 +159,6 @@ define component SRAMCache
       returning arguments
         * dynamic-power
 
-    # Leakage power: P_leak = V × I_leak
     cache-leakage-power-model: CacheLeakagePowerModel
       requiring arguments
         * voltage                   #< @weight 1
@@ -208,7 +167,6 @@ define component SRAMCache
       returning arguments
         * leakage-power
 
-    # Total power consumption
     cache-power-model: CacheTotalPowerModel
       requiring arguments
         * dynamic-power             #< @weight 1
@@ -217,11 +175,6 @@ define component SRAMCache
       returning arguments
         * power-consumption
 
-    #============================================================#
-    # ENERGY MODELS (per access)
-    #============================================================#
-
-    # Read energy ~ access_time × dynamic_power / frequency
     cache-read-energy-model: CacheReadEnergyModel
       requiring arguments
         * dynamic-power             #< @weight 1
@@ -240,11 +193,6 @@ define component SRAMCache
       returning arguments
         * write-energy
 
-    #============================================================#
-    # THERMAL MODEL
-    #============================================================#
-
-    # Thermal load equals total power dissipation
     cache-thermal-model: PowerThermalModel
       requiring arguments
         * power-consumption         #< @weight 1

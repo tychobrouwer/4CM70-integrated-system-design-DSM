@@ -24,8 +24,8 @@ define component PowerDistributionSystem
   relations
     total-power-relation: TotalPowerModel
       requiring arguments
-        * core-capability     #< @weight 1
-        * cache-capability    #< @weight 1
+        * core-capability               #< @weight 1
+        * cache-capability              #< @weight 1
 
       returning arguments
         * power-capability
