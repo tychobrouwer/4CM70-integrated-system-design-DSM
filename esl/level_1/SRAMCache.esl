@@ -1,6 +1,5 @@
 define component SRAMCache
   parameters
-    # Electrical
     power-consumption     is a Power            property
     max-power-consumption is a Power            property
     dynamic-power         is a Power            property
@@ -9,34 +8,24 @@ define component SRAMCache
     dynamic-current       is a Current          property
     leakage-current       is a Current          property
     total-current         is a Current          property
-    
-    # Performance
     bandwidth             is a Bandwidth        property
     latency               is a Latency          property
     access-time           is a Latency          property
     miss-penalty          is a Latency          property
     hit-rate              is a HitRate          property
     clock-frequency       is a Frequency        property
-    
-    # Organization
     capacity              is a CacheCapacity    property
     associativity         is a Associativity    property
     block-size            is a BlockSize        property
     bus-width             is a BusWidth         property
     number-of-sets        is a Count            property
     number-of-banks       is a Count            property
-    
-    # Physical
     die-area              is a Area             property
     process-node          is a ProcessNode      property
     transistors           is a Count            property
     internal-wire-length  is a Length           property
-    
-    # Thermal
     temperature           is a Temperature      property
     thermal-load          is a ThermalPower     property
-    
-    # Energy (per access)
     read-energy           is a Energy           property
     write-energy          is a Energy           property
 

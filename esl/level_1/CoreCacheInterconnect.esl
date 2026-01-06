@@ -28,7 +28,6 @@ define component CoreCacheInterconnect
       returning arguments
         * latency
 
-
     length-model2D: InterconnectLengthModel2D
       requiring arguments
         * die-area               #< @weight 0.5

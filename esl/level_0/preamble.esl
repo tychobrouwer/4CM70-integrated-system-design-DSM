@@ -191,14 +191,14 @@ define relation
     returning parameters
       * power-consumption             is a Power
 
-  CacheOrganizationModel
-    requiring parameters
-      * capacity                      is a CacheCapacity
-      * block-size                    is a BlockSize
-      * associativity                 is a Associativity
-
-    returning parameters
-      * number-of-sets                is a Count
+#  CacheOrganizationModel
+#    requiring parameters
+#      * capacity                      is a CacheCapacity
+#      * block-size                    is a BlockSize
+#      * associativity                 is a Associativity
+#
+#    returning parameters
+#      * number-of-sets                is a Count
 
   CacheAccessTimeModel
     requiring parameters
@@ -282,15 +282,6 @@ define relation
 
     returning parameters
       * efficiency                    is a Percent
-
-  AMATModel
-    requiring parameters
-      * hit-rate                      is a HitRate
-      * cache-latency                 is a Latency
-      * main-memory-latency           is a Latency
-
-    returning parameters
-      * amat                          is a Latency
 
   PowerThermalModel
     requiring parameters
@@ -402,7 +393,6 @@ define relation
       * power-dissipated              is a Power
       * thermal-resistance            is a ThermalResistance
 
-
     returning parameters
       * ambient-temperature           is a Temperature
 
@@ -411,7 +401,6 @@ define relation
       * heat-flow                     is a Power
       * area                          is a Area
       * temperature-gradient          is a TemperatureGradient
-
 
     returning parameters
       * lateral-thermal-conductivity  is a ThermalConductivity    
@@ -422,7 +411,6 @@ define relation
       * contact-resistance            is a ThermalResistance
       * area                          is a Area
       * thermal-conductivity          is a ThermalConductivity
-
 
     returning parameters
       * bond-line-thickness           is a Length
