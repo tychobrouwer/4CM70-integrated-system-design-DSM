@@ -79,27 +79,46 @@ world
     power-contact-resistance              is a ThermalResistance
     power-capability                      is a Power   
     
-    thermal-core-capability			         is a ThermalPower		  
-    thermal-cache-capability			       is a ThermalPower		     
-    thermal-cooling-capability		       is a ThermalPower		      
-    thermal-heat                 		     is a Power                 
-    thermal-input-temperature    		     is a Temperature           	
-    thermal-output-temperature     		   is a Temperature           
-    thermal-heat-capacity  			         is a HeatCapacity          	     
-    thermal-coolant-flowrate      		   is a Massflowrate         
-    thermal-core-temperature         		 is a Temperature           
-    thermal-power-dissipated         		 is a Power                 	
-    thermal-resistance       		         is a ThermalResistance     	
-    thermal-heat-flow        			       is a Power                 	             
-    thermal-area                      	 is a Area                     
-    thermal-temperature-gradient      	 is a TemperatureGradient        
-    thermal-lateral-conductivity         is a ThermalConductivity     
-    thermal-tim-resistance             	 is a ThermalResistance        
-    thermal-contact-resistance 		       is a ThermalResistance                                           
-    thermal-conductivity     	        	 is a ThermalConductivity        
-    thermal-bond-line-thickness		       is a Length                 
-    thermal-cache-resistance             is a ThermalResistance
-    thermal-core-resistance              is a ThermalResistance
+    #thermal-core-capability			         is a ThermalPower		  
+    #thermal-cache-capability			       is a ThermalPower		     
+    #thermal-cooling-capability		       is a ThermalPower		      
+    #thermal-heat                 		     is a Power                 
+    #thermal-input-temperature    		     is a Temperature           	
+    #thermal-output-temperature     		   is a Temperature           
+    #thermal-heat-capacity  			         is a HeatCapacity          	     
+    #thermal-coolant-flowrate      		   is a Massflowrate         
+    #thermal-core-temperature         		 is a Temperature           
+    #thermal-power-dissipated         		 is a Power                 	
+    #thermal-resistance       		         is a ThermalResistance     	
+    #thermal-heat-flow        			       is a Power                 	             
+    #thermal-area                      	 is a Area                     
+    #thermal-temperature-gradient      	 is a TemperatureGradient        
+    #thermal-lateral-conductivity         is a ThermalConductivity     
+    #thermal-tim-resistance             	 is a ThermalResistance        
+    #thermal-contact-resistance 		       is a ThermalResistance                                           
+    #thermal-conductivity     	        	 is a ThermalConductivity        
+    #thermal-bond-line-thickness		       is a Length                 
+    #thermal-cache-resistance             is a ThermalResistance
+    #thermal-core-resistance              is a ThermalResistance
+
+    thermal-cooling-capability          is a ThermalPower
+    thermal-cache-capability            is a ThermalPower
+    thermal-cache-resistance            is a ThermalResistance
+    thermal-core-capability             is a ThermalPower
+    thermal-core-resistance             is a ThermalResistance
+    thermal-core-tsv-density            is a Density
+    thermal-core-tsv-diameter           is a Length
+    thermal-cache-tsv-density           is a Density
+    thermal-cache-tsv-diameter          is a Length
+    thermal-tsv-thermal-conductivity    is a ThermalConductivity
+    thermal-tim-resistance              is a ThermalResistance
+    thermal-contact-resistance          is a ThermalResistance
+    thermal-coolant-flowrate            is a Massflowrate
+    thermal-coolant-inlet-temperature   is a Temperature
+    thermal-coolant-outlet-temperature  is a Temperature
+    thermal-coolant-specific-heat       is a HeatCapacity
+    thermal-tim-thickness               is a Length
+    thermal-tim-conductivity            is a ThermalConductivity
 
   components
     core is a CPUCore with arguments
@@ -180,24 +199,43 @@ world
       * power-capability 
 
     thermal-system is a ThermalDissipationSystem with arguments
-      * thermal-core-capability			            
-      * thermal-cache-capability			         
-      * thermal-cooling-capability		          
-      * thermal-heat                 		         
-      * thermal-input-temperature    		        
-      * thermal-output-temperature     		      
-      * thermal-heat-capacity  			                
-      * thermal-coolant-flowrate      		     
-      * thermal-power-dissipated         		    
-      * thermal-resistance       		    
-      * thermal-heat-flow        			                      
-      * thermal-area                      	      
-      * thermal-temperature-gradient      	   
-      * thermal-lateral-conductivity   	
-      * thermal-tim-resistance             	   
-      * thermal-contact-resistance 		                                              
-      * thermal-conductivity     		       
-      * thermal-bond-line-thickness		          
+      #* thermal-core-capability			            
+      #* thermal-cache-capability			         
+      #* thermal-cooling-capability		          
+      #* thermal-heat                 		         
+      #* thermal-input-temperature    		        
+      #* thermal-output-temperature     		      
+      #* thermal-heat-capacity  			                
+      #* thermal-coolant-flowrate      		     
+      #* thermal-power-dissipated         		    
+      #* thermal-resistance       		    
+      #* thermal-heat-flow        			                      
+      #* thermal-area                      	      
+      #* thermal-temperature-gradient      	   
+      #* thermal-lateral-conductivity   	
+      #* thermal-tim-resistance             	   
+      #* thermal-contact-resistance 		                                              
+      #* thermal-conductivity     		       
+      #* thermal-bond-line-thickness		          
+
+      * thermal-cooling-capability
+      * thermal-cache-capability
+      * thermal-cache-resistance
+      * thermal-core-capability
+      * thermal-core-resistance
+      * thermal-core-tsv-density
+      * thermal-core-tsv-diameter
+      * thermal-cache-tsv-density
+      * thermal-cache-tsv-diameter
+      * thermal-tsv-thermal-conductivity
+      * thermal-tim-resistance
+      * thermal-contact-resistance
+      * thermal-coolant-flowrate
+      * thermal-coolant-inlet-temperature
+      * thermal-coolant-outlet-temperature
+      * thermal-coolant-specific-heat
+      * thermal-tim-thickness
+      * thermal-tim-conductivity
 
   design-requirement
     dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption

@@ -97,18 +97,30 @@ define relation
       returning parameters
         * max-current-capacity        is a Current
 
+#  ThermalResistanceModel
+#    requiring parameters
+#      * die-area                      is a Area
+#      * tsv-density                   is a Density
+#      * tsv-diameter                  is a Length
+#      * tsv-thermal-conductivity      is a ThermalConductivity
+#      * lateral-thermal-conductivity  is a ThermalConductivity
+#      * tim-resistance                is a ThermalResistance
+#      * contact-resistance            is a ThermalResistance
+#
+#    returning parameters
+#      * thermal-resistance            is a ThermalResistance
+
   ThermalResistanceModel
     requiring parameters
-      * die-area                      is a Area
-      * tsv-density                   is a Density
-      * tsv-diameter                  is a Length
-      * tsv-thermal-conductivity      is a ThermalConductivity
-      * lateral-thermal-conductivity  is a ThermalConductivity
-      * tim-resistance                is a ThermalResistance
-      * contact-resistance            is a ThermalResistance
+      * die-area                    is a Area
+      * tsv-density                 is a Density
+      * tsv-diameter                is a Length
+      * tsv-thermal-conductivity    is a ThermalConductivity
+      * tim-resistance              is a ThermalResistance
+      * contact-resistance          is a ThermalResistance
 
     returning parameters
-      * thermal-resistance            is a ThermalResistance
+      * thermal-resistance          is a ThermalResistance
 
   ThermalCoolingCapabilityModel
     requiring parameters
@@ -191,14 +203,14 @@ define relation
     returning parameters
       * power-consumption             is a Power
 
-#  CacheOrganizationModel
-#    requiring parameters
-#      * capacity                      is a CacheCapacity
-#      * block-size                    is a BlockSize
-#      * associativity                 is a Associativity
-#
-#    returning parameters
-#      * number-of-sets                is a Count
+  CacheOrganizationModel
+    requiring parameters
+      * capacity                      is a CacheCapacity
+      * block-size                    is a BlockSize
+      * associativity                 is a Associativity
+
+    returning parameters
+      * number-of-sets                is a Count
 
   CacheAccessTimeModel
     requiring parameters
