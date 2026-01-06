@@ -72,7 +72,7 @@ world
     power-core-tsv-count                  is a Count
     power-cache-max-current-capacity      is a Current
     power-core-max-current-capacity       is a Current
-    power-tsv-thermal-conductivity        is a ThermalConductivity
+    power-tsv-conductivity                is a ThermalConductivity
     power-tsv-resistivity                 is a Resistivity
     power-max-temp-budget                 is a Temperature
     power-tim-resistance                  is a ThermalResistance
@@ -110,7 +110,7 @@ world
     thermal-core-tsv-diameter           is a Length
     thermal-cache-tsv-density           is a Density
     thermal-cache-tsv-diameter          is a Length
-    thermal-tsv-thermal-conductivity    is a ThermalConductivity
+    thermal-tsv-conductivity            is a ThermalConductivity
     thermal-tim-resistance              is a ThermalResistance
     thermal-contact-resistance          is a ThermalResistance
     thermal-coolant-flowrate            is a Massflowrate
@@ -191,7 +191,7 @@ world
       * power-core-tsv-count
       * power-cache-max-current-capacity
       * power-core-max-current-capacity
-      * power-tsv-thermal-conductivity
+      * power-tsv-conductivity
       * power-tsv-resistivity
       * power-max-temp-budget
       * power-tim-resistance
@@ -227,7 +227,7 @@ world
       * thermal-core-tsv-diameter
       * thermal-cache-tsv-density
       * thermal-cache-tsv-diameter
-      * thermal-tsv-thermal-conductivity
+      * thermal-tsv-conductivity
       * thermal-tim-resistance
       * thermal-contact-resistance
       * thermal-coolant-flowrate
@@ -412,103 +412,31 @@ world
 
     thermal-core-capability-model: ThermalResistanceModel
       requiring arguments
-        * core-die-area
-        * thermal-core-tsv-density
-        * thermal-core-tsv-diameter
-        * thermal-tsv-thermal-conductivity
-        * thermal-tim-resistance
-        * thermal-contact-resistance
+        * core-die-area                           #< @weight 1
+        * thermal-core-tsv-density                #< @weight 1
+        * thermal-core-tsv-diameter               #< @weight 1
+        * thermal-tsv-conductivity                #< @weight 1
+        * thermal-tim-resistance                  #< @weight 1
 
       returning arguments
         * thermal-core-resistance
 
     thermal-cache-capability-model: ThermalResistanceModel
       requiring arguments
-        * cache-die-area
-        * thermal-cache-tsv-density
-        * thermal-cache-tsv-diameter
-        * thermal-tsv-thermal-conductivity
-        * thermal-tim-resistance
-        * thermal-contact-resistance
-
+        * cache-die-area                          #< @weight 1
+        * thermal-cache-tsv-density               #< @weight 1
+        * thermal-cache-tsv-diameter              #< @weight 1
+        * thermal-tsv-conductivity                #< @weight 1
+        * thermal-tim-resistance                  #< @weight 1
       returning arguments
         * thermal-cache-resistance
 
     thermal-tim-resistance-model: ThermalTimResistanceModel
       requiring arguments
-        * total-die-area
-        * thermal-tim-thickness
-        * thermal-tim-conductivity
+        * total-die-area                          #< @weight 1
+        * thermal-tim-thickness                   #< @weight 1
+        * thermal-tim-conductivity                #< @weight 1
+        * thermal-contact-resistance              #< @weight 1
 
       returning arguments
         * thermal-tim-resistance
-
-#    thermal-coolant-flowrate-model: CoolantFlowrateModel
-#      requiring arguments
-#        * thermal-heat                            #< @weight 1
-#        * thermal-input-temperature               #< @weight -1
-#        * thermal-output-temperature              #< @weight -1
-#        * thermal-heat-capacity                   #< @weight -1
-#
-#      returning arguments
-#        * thermal-coolant-flowrate             
-#
-#    thermal-ambient-input-temperature-model: AmbientInputTemperatureModel
-#      requiring arguments
-#        * core-temperature                        #< @weight 1
-#        * thermal-power-dissipated                #< @weight -1
-#        * thermal-resistance                      #< @weight -1
-#
-#      returning arguments
-#        * ambient-temperature
-#
-#    thermal-resistance-model: ThermalResistanceModel
-#      requiring arguments
-#        * thermal-area                            #< @weight -1
-#        * power-core-tsv-density                  #< @weight -1
-#        * power-core-tsv-diameter                 #< @weight -1
-#        * power-tsv-thermal-conductivity          #< @weight -1
-#        * thermal-lateral-conductivity            #< @weight -1
-#        * thermal-tim-resistance                  #< @weight 1
-#        * thermal-contact-resistance              #< @weight 1
-#
-#      returning arguments
-#        * thermal-resistance
-#
-#    thermal-cooling-capability-model: ThermalCoolingCapabilityModel
-#      requiring arguments
-#        * thermal-coolant-flowrate                #< @weight 1
-#        * thermal-input-temperature               #< @weight 1
-#        * thermal-output-temperature              #< @weight 1
-#        * thermal-heat-capacity                   #< @weight 1
-#
-#      returning arguments
-#        * thermal-cooling-capability
-#
-#    thermal-capability-distribution: ThermalCapabilityModel
-#      requiring arguments
-#        * thermal-core-resistance                 #< @weight 1
-#        * thermal-cache-resistance                #< @weight 1
-#        * thermal-cooling-capability              #< @weight 1
-#      
-#      returning arguments
-#        * thermal-core-capability
-#        * thermal-cache-capability
-#
-#    thermal-lateral-conductivity-model: LateralThermalConductivityModel
-#      requiring arguments
-#        * thermal-heat-flow                       #< @weight 1
-#        * thermal-area                            #< @weight -1
-#        * thermal-temperature-gradient            #< @weight -1
-#
-#      returning arguments
-#        * thermal-lateral-conductivity     
-#
-#    ambient-input-temperature-model: AmbientInputTemperatureModel
-#      requiring arguments
-#        * core-temperature                        #< @weight 1
-#        * thermal-power-dissipated                #< @weight -1
-#        * thermal-resistance                      #< @weight -1
-#
-#      returning arguments
-#        * ambient-temperature      

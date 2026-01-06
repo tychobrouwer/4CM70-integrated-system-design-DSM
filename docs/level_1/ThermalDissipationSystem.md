@@ -1,88 +1,94 @@
-### CoolantFlowrateModel
+# Core Cache Interconnect System
 
-This is the rate at which water or dielectric fluid is pumped through the cold plate or micro-channels.
+## Relations
 
-* **Model:** `CoolantFlowrateModel`
+### ThermalCoolingCapabilityModel
+
+This is how much heat the coolant can carry away.
+
+* **Model:** `ThermalCoolingCapabilityModel`
 * **Formula:**
   $$
-  dm/dt = \frac{Q}{c_p*(T_o-T_i)}
-  $$
+  Q = (dm/dt)*c_p*(T_o-T_i)
+  $$  $$
   Where:
-  * $dm/dt$ = `coolant flowrate`
-  * $Q$ = `heat`
-  * *$c_p$ = `heat capacity`
-  * *$T_o$ = `temperature in`
-  * *$T_i$ = `temperature out`
+  * $Q$ = `cooling-capability`
+  * $dm/dt$ = `coolant-flowrate`
+  * *$c_p$ = `heat-capacity`
+  * *$T_o$ = `input-temperature`
+  * *$T_i$ = `output-temperature`
   
 * **Arguments:**
-  * `heat` (@weight 1): heat
-  * `input-temperature` (@weight -1): coolant temperature in
-  * `output-temperature` (@weight -1): coolant temperature out
-  * `heat-capacity` (@weight -1): heat capacity of coolant
+  * `coolant-flowrate` (@weight 1): coolant flowrate
+  * `input-temperature` (@weight 1): coolant temperature in
+  * `output-temperature` (@weight 1): coolant temperature out
+  * `heat-capacity` (@weight 1): heat capacity of coolant
 
 ---
-### AmbientInputTemperatureModel
 
-This is the temperature of the air or fluid before it touches the chip. It sets the baseline.
+### ThermalTimResistanceModel
 
-* **Model:** `AmbientInputTemperatureModel`
+The resistance to heat flow through the Thermal Interface Material (TIM) between the die and the heat spreader or heat sink.
+
+* **Model:** `ThermalTimResistanceModel`
 * **Formula:**
   $$
-  T_a = \frac{T_c}{P_{tot}*R_{tot}}
+  R_{TIM} = \frac{d_{TIM}}{k_{TIM}*A} + R_{contact}
   $$
   Where:
-  * $T_a$ = `ambient temperature`
-  * $T_c$ = `core temperature`
-  * *$P_{tot}$ = `power dissipated`
-  * *$R_{tot}$ = `total thermal resistance`
-  
+  * $d_{TIM}$ = `tim-thickness`
+  * $k_{TIM}$ = `tim-conductivity`
+  * $A$ = `total-die-area`
+  * $R_{TIM}$ = `tim-resistance`
+  * $R_{contact}$ = `contact-resistance`
+
 * **Arguments:**
-  * `core-temperature` (@weight 1): temperature of core
-  * `power-dissipated` (@weight -1): power that dissipates
-  * `thermal-resistance` (@weight -1): thermal resistance
+  * `total-die-area` (@weight 1): total die area
+  * `tim-thickness` (@weight 1): thickness of TIM
+  * `tim-conductivity` (@weight 1): conductivity of TIM
 
 ---
-### LateralThermalConductivityModel
 
-How well heat spreads sideways.
+### ThermalResistanceModel
 
-* **Model:** `LateralThermalConductivityModel`
+The total thermal resistance to the cooler through the thermal TSVs and TIM.
+
+* **Model:** `ThermalResistanceModel`
 * **Formula:**
   $$
-  k_{xy} = -\frac{q_x}{A*(dT/dx)}
+  R = \frac{1}{D*\pi*(d/2)^2*k} + R_{TIM} + R_{contact}
   $$
   Where:
-  * $k_{xy}$ = `lateral thermal conductivity`
-  * $q_x$ = `heat flow`
-  * *$A$ = `area`
-  * *$dT/dx$ = `temperature gradient`
-  
+  * $R$ = `thermal-resistance`
+  * $D$ = `thermal-tsv-density`
+  * $d$ = `thermal-tsv-diameter`
+  * $k$ = `thermal-tsv-conductivity`
+  * $R_{TIM}$ = `tim-resistance`
+
 * **Arguments:**
-  * `heat-flow` (@weight 1): flow of heat
-  * `area` (@weight -1): area
-  * `temperature-gradient` (@weight -1): change of temperature with distance
+  * `die-area` (@weight 1): die area
+  * `tsv-density` (@weight 1): TSV density
+  * `tsv-diameter` (@weight 1): TSV diameter
+  * `tsv-thermal-conductivity` (@weight 1): TSV thermal conductivity
+  * `tim-resistance` (@weight 1): TIM resistance
 
 ---
-### ThermalInterfaceMaterialModel
 
-The material between the dies. In 3D stacking, one might use "Hybrid Bonding" (Copper-to-Copper), which eliminates the TIM entirely, or micro-bumps with underfill.
+### ThermalCapabilityModel
 
-* **Model:** `ThermalInterfaceMaterialModel`
+This is the thermal capability of the core or cache given its thermal resistance and the cooling capability of the cooling system.
+
+* **Model:** `ThermalCapabilityModel`
 * **Formula:**
   $$
-  BLT = k_{TIM}*A*(R_{TIM}-R_{contact})
+  Q_{capability} = \frac{Q_{cooling}}{R_{thermal}}
   $$
   Where:
-  * $BLT$ = `bond line thickness`
-  * $k_{TIM}$ = `thermal conductivity`
-  * *$A$ = `area`
-  * *$R_{TIM}$ = `TIM resistance`
-  * *$R_{contact}$ = `conntact resistance`
-  
-* **Arguments:**
-  * `tim-resistance` (@weight 1): thermal interface material resistance
-  * `contact-resistance` (@weight 1): contact resistance
-  * `area` (@weight 1): area of contact
-  * `thermal-conductivity` (@weight 1): conductivity of interface material
+  * $Q_{capability}$ = `core-cooling-capability` or `cache-cooling-capability`
+  * $Q_{cooling}$ = `cooling-capability`
+  * $R_{thermal}$ = `core-resistance` or `cache-resistance`
 
----
+* **Arguments:**
+  * `cooling-capability` (@weight 1): cooling capability
+  * `core-resistance` (@weight 1): core thermal resistance to cooler
+  * `cache-resistance` (@weight 1): cache thermal resistance to cooler

@@ -1,55 +1,3 @@
-#define component ThermalDissipationSystem
-#  parameters
-#    core-capability			            is a ThermalPower		        property	
-#    cache-capability			          is a ThermalPower		        property
-#    cooling-capability		          is a ThermalPower		        property
-#    heat                 		        is a Power                 	property  
-#    input-temperature    		        is a Temperature           	property  
-#    output-temperature     		      is a Temperature           	property
-#    heat-capacity  			            is a HeatCapacity          	property       
-#    coolant-flowrate      		      is a Massflowrate          	property
-#    power-dissipated         		    is a Power                 	property
-#    thermal-resistance       		    is a ThermalResistance     	property
-#    heat-flow        			          is a Power                 	property             
-#    area                      	    is a Area                   property  
-#    temperature-gradient      	    is a TemperatureGradient    property    
-#    lateral-thermal-conductivity   	is a ThermalConductivity    property 
-#    tim-resistance             	    is a ThermalResistance      property  
-#    contact-resistance 		          is a ThermalResistance      property                                     
-#    thermal-conductivity     		    is a ThermalConductivity    property    
-#    bond-line-thickness		          is a Length                 property
-#
-#  relations
-#    coolant-flowrate-model:  CoolantFlowrateModel
-#    requiring arguments
-#      * heat                      #< @weight 1
-#      * input-temperature         #< @weight -1
-#      * output-temperature        #< @weight -1
-#      * heat-capacity             #< @weight -1
-#
-#    returning arguments
-#      * coolant-flowrate      
-#
-#    lateral-thermal-conductivity-model: LateralThermalConductivityModel
-#    requiring arguments
-#      * heat-flow                 #< @weight 1       
-#      * area                      #< @weight -1  
-#      * temperature-gradient      #< @weight -1    
-#
-#    returning arguments
-#      * lateral-thermal-conductivity    
-#
-#    thermal-interface-material-model: ThermalInterfaceMaterialModel
-#    requiring arguments
-#      * tim-resistance            #< @weight 1
-#      * contact-resistance        #< @weight 1
-#      * area                      #< @weight 1  
-#      * thermal-conductivity      #< @weight 1 
-#
-#    returning arguments
-#      * bond-line-thickness
-
-
 define component ThermalDissipationSystem
   parameters
     cooling-capability          is a ThermalPower             property
@@ -74,19 +22,19 @@ define component ThermalDissipationSystem
   relations
     thermal-coolant-flowrate-model: ThermalCoolingCapabilityModel
       requiring arguments
-        * coolant-flowrate
-        * coolant-inlet-temperature
-        * coolant-outlet-temperature
-        * coolant-specific-heat
+        * coolant-flowrate            #< @weight 1
+        * coolant-inlet-temperature   #< @weight 1
+        * coolant-outlet-temperature  #< @weight 1
+        * coolant-specific-heat       #< @weight 1
 
       returning arguments
         * cooling-capability
 
     thermal-cooling-capability-model: ThermalCapabilityModel
       requiring arguments
-        * core-resistance
-        * cache-resistance
-        * cooling-capability
+        * core-resistance             #< @weight 1
+        * cache-resistance            #< @weight 1
+        * cooling-capability          #< @weight 1
 
       returning arguments
         * core-capability
