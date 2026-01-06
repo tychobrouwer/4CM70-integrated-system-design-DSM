@@ -29,18 +29,26 @@ define component CoreCacheInterconnect
         * latency
 
 
-   length-model2D: InterconnectLengthModel2D
-    requiring arguments
-      * die-area               #< @weight 0.5
-      * process-node           #< @weight 0.5
+    length-model2D: InterconnectLengthModel2D
+      requiring arguments
+        * die-area               #< @weight 0.5
+        * process-node           #< @weight 0.5
 
       returning arguments
-      * length2D
+        * length2D
 
     length-model3D: InterconnectLengthModel3D
-    requiring arguments
-      * die-area               #< @weight 0.25
-      * process-node           #< @weight 1
+      requiring arguments
+        * die-area               #< @weight 0.25
+        * process-node           #< @weight 1
 
       returning arguments
-      * length3D
+        * length3D
+
+    interconnect-length-connector: InterconnectLengthConnector
+      requiring arguments
+        * length2D               #< @weight 1
+        * length3D               #< @weight 1
+
+      returning arguments
+        * length
