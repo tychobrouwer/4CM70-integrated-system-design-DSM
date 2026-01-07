@@ -4,34 +4,50 @@ There are multiple models that are shared between different components in the sy
 
 ## Relations
 
+### BandwidthModel
+
+This model calculates the peak bandwidth of core-cache interconnects.
+
+* **Model:** `BandwidthModel`
+* **Formula:**
+  $$
+  BW = N_{\text{bus_width_bytes}} \cdot f_{bus}
+  $$
+  Where:
+  * $BW$ = `bandwidth`
+  * $N_{\text{bus_width_bytes}}$ = `bus-width`
+  * $f_{bus}$ = `frequency`
+  
+* **Arguments:**
+  * `bus-width` (@weight 1): Wider bus increases bandwidth.
+  * `frequency` (@weight 1): Higher frequency increases bandwidth.
+
 ### AreaModel
 
-This model calculates the area of the cache based the number of transistors and the process node.
+This model calculates the physical die area occupied by the cache based on transistor count and process technology.
 
 * **Model:** `AreaModel`
 * **Formula:**
   $$
-  A = N_{\text{transistors}} \cdot f(L_{gate})
+  A = N_{transistors} \cdot f(L_{gate})^2
   $$
   Where:
-  * $A$ = `area`
-  * $N_{\text{transistors}}$ = `number-of-transistors`
+  * $A$ = `die-area`
+  * $N_{transistors}$ = `transistors`
   * $L_{gate}$ = `process-node`
-  
-* **Arguments:**
-  * `number-of-transistors` (@weight 1): Total number of transistors.
-  * `process-node` (@weight 1): Represents the process node factor.
 
----
+* **Arguments:**
+  * `transistors` (@weight 1): More transistors require proportionally more area.
+  * `process-node` (@weight 2): Area scales quadratically with feature size (2D scaling).
 
 ### FrequencyModel
 
-This model determines the operational clock frequency as a function of voltage, temperature, and the manufacturing process node.
+This model determines the maximum operating frequency of the cache based on voltage, temperature, and process node.
 
 * **Model:** `FrequencyModel`
 * **Formula:**
   $$
-  f = \alpha \cdot \frac{(V - V_{th})^\beta}{T} \cdot \frac{1}{f(L_{gate})}
+  f = \alpha \cdot \frac{(V - V_{th})^\beta}{T} \cdot \frac{1}{L_{gate}}
   $$
   Where:
   * $f$ = `clock-frequency`
@@ -40,40 +56,41 @@ This model determines the operational clock frequency as a function of voltage, 
   * $L_{gate}$ = `process-node`
 
 * **Arguments:**
-  * `voltage` (@weight 1): Operating voltage.
-  * `temperature` (@weight 1): Operating temperature.
-  * `process-node` (@weight -1): Represents the process node factor.
+  * `voltage` (@weight 1): Higher voltage enables faster switching.
+  * `temperature` (@weight -0.5): Higher temperature reduces carrier mobility.
+  * `process-node` (@weight -1): Smaller nodes enable higher frequencies.
 
 ---
 
 ### CurrentModel
 
-This model calculates the total electrical current drawn by the component, accounting for both dynamic switching and static leakage.
+This model calculates the current drawn by the cache during active switching operations.
 
 * **Model:** `CurrentModel`
 * **Formula:**
   $$
-  I = I_{dynamic} + I_{static} \approx (k_1 \cdot N \cdot f \cdot V) + (k_2 \cdot N \cdot e^{k_3 \cdot T})
+  I \approx k_1 \cdot N_{transistors} \cdot f \cdot V \cdot \frac{1}{\sqrt{L_{gate}}} \cdot e^{k_2 \cdot T}
   $$
   Where:
   * $I$ = `current`
-  * $N$ = `transistors`
+  * $N_{transistors}$ = `transistors`
   * $f$ = `clock-frequency`
   * $V$ = `voltage`
   * $T$ = `temperature`
+  * $L_{gate}$ = `process-node`
 
-* **Arguments**
-  * `transistors` (@weight 1): Total number of transistors.
-  * `process-node` (@weight -0.5): Manufacturing process node.
-  * `temperature` (@weight 2): Operating temperature.
-  * `clock-frequency` (@weight 1): Operating clock frequency.
-  * `voltage` (@weight 1): Operating voltage.
-  
+* **Arguments:**
+  * `transistors` (@weight 1): More transistors increase switching current.
+  * `process-node` (@weight -0.5): Smaller nodes reduce capacitance per transistor.
+  * `temperature` (@weight 2): Temperature strongly affects leakage and mobility (exponential).
+  * `voltage` (@weight 1): Current scales linearly with voltage.
+  * `clock-frequency` (@weight 1): Higher frequency increases switching events per second.
+
 ---
 
 ### PowerModel
 
-This model calculates the power consumption based on voltage and current.
+This model calculates the power consumption of the component.
 
 * **Model:** `PowerModel`
 * **Formula:**
@@ -81,34 +98,59 @@ This model calculates the power consumption based on voltage and current.
   P = V \cdot I
   $$
   Where:
-  * $P$ = `power-consumption`
+  * $P$ = `power`
   * $V$ = `voltage`
   * $I$ = `current`
 
 * **Arguments:**
-  * `voltage` (@weight 1): Operating voltage.
-  * `current` (@weight 1): Operating current.
+  * `voltage` (@weight 1): Power scales linearly with voltage (for a given current).
+  * `dynamic-current` (@weight 1): Power scales linearly with current.
+
+---
+
+### TotalPowerModel
+
+This model sums the powers to get total power consumption.
+
+* **Model:** `TotalPowerModel`
+* **Formula:**
+  $$
+  P_{total} = P_1 + P_2
+  $$
+  Where:
+  * $P_{total}$ = `power-consumption`
+  * $P_1$ = `power-1`
+  * $P_2$ = `power-2`
+
+* **Arguments:**
+  * `power-1` (@weight 1): Power consumed during active operations.
+  * `power-2` (@weight 1): Power consumed in standby/idle state.
 
 ---
 
 ### PowerThermalModel
 
-This model transforms the electrical power consumption of the cache into a thermal load based (power -> thermal power).
+This model converts electrical power consumption into thermal load for thermal management analysis.
 
 * **Model:** `PowerThermalModel`
 * **Formula:**
   $$
-  P_{\text{cons}} = Q_{\text{load}}
+  Q_{thermal} = P_{electrical}
   $$
   Where:
-  * $P_{\text{cons}}$ = `power-consumption`
-  * $Q_{\text{load}}$ = `thermal-load`
+  * $Q_{thermal}$ = `thermal-load`
+  * $P_{electrical}$ = `power-consumption`
 
 * **Arguments:**
-  * `power-consumption` (@weight 1): Power consumption.
-  * `thermal-load` (@weight 1): Thermal load.
+  * `power-consumption` (@weight 1): All electrical power is converted to heat.
 
 ---
+
+
+
+
+
+
 
 ### PowerConsumptionRelation
 
