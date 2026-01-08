@@ -2,25 +2,48 @@
 
 ## Relations
 
-### CacheOrganizationModel
+### CacheTransistorModel
 
-This model determines the internal structure of the cache (number of sets) based on its total capacity and configuration.
+This model estimates the number of transistors required to implement the cache based on its capacity, associativity, and block size.
 
-* **Model:** `CacheOrganizationModel`
+* **Model:** `CacheTransistorModel`
 * **Formula:**
   $$
-  N_{sets} = \frac{C}{B \cdot A}
+  N_{transistors} = \frac{C \cdot 8}{N_{bits\_per\_cell}} \cdot (A + 1) + f(B)
   $$
   Where:
-  * $N_{sets}$ = `number-of-sets`
-  * $C$ = `capacity`
-  * $B$ = `block-size`
+  * $N_{transistors}$ = `transistors`
+  * $C$ = `capacity` (in bytes)
   * $A$ = `associativity`
+  * $B$ = `block-size`
+  * $N_{bits\_per\_cell}$ ≈ 6 for 6T SRAM cells
 
 * **Arguments:**
-  * `capacity` (@weight 1): Total cache capacity.
-  * `block-size` (@weight -1): Size of a single cache block (line).
-  * `associativity` (@weight -1): Number of ways (blocks per set).
+  * `capacity` (@weight 1): Primary driver of transistor count - larger caches need more cells.
+  * `associativity` (@weight 0.1): Additional tag storage and comparison logic for each way.
+  * `block-size` (@weight 0): Minimal impact - affects organization but not total cell count significantly.
+
+---
+
+### CacheWireLengthModel
+
+This model estimates the average wire length within the cache, which affects access time and power.
+
+* **Model:** `CacheWireLengthModel`
+* **Formula:**
+  $$
+  L_{wire} \approx \sqrt{A_{die}} \cdot \frac{1}{\sqrt{N_{banks}}} \cdot f(L_{gate})
+  $$
+  Where:
+  * $L_{wire}$ = `internal-wire-length`
+  * $A_{die}$ = `die-area`
+  * $N_{banks}$ = `number-of-banks`
+  * $L_{gate}$ = `process-node`
+
+* **Arguments:**
+  * `die-area` (@weight 0.5): Wire length scales with square root of area.
+  * `number-of-banks` (@weight -0.5): More banks reduce average wire length per access.
+  * `process-node` (@weight 0.5): Smaller nodes have proportionally shorter wires.
 
 ---
 
@@ -31,60 +54,46 @@ This model estimates the time required to access data in the cache, influenced b
 * **Model:** `CacheAccessTimeModel`
 * **Formula:**
   $$
-  t_{access} \approx k \cdot \sqrt{C} \cdot (1 + \alpha \cdot A) \cdot f(V, T, L_{gate})
+  t_{access} \approx k \cdot C^{0.3} \cdot (1 + \alpha \cdot A^{0.5}) \cdot \frac{L_{wire}^{0.5}}{V} \cdot (1 + \beta \cdot T) \cdot L_{gate}
   $$
   Where:
   * $t_{access}$ = `access-time`
   * $C$ = `capacity`
   * $A$ = `associativity`
-  * $V, T, L_{gate}$ Represent voltage, temperature, and process node factors.
+  * $L_{wire}$ = `internal-wire-length`
+  * $V$ = `voltage`
+  * $T$ = `temperature`
+  * $L_{gate}$ = `process-node`
 
 * **Arguments:**
-  * `capacity` (@weight 0.5): Larger caches generally have longer wire delays.
-  * `associativity` (@weight 0.5): Higher associativity adds logic depth (muxing delay).
+  * `capacity` (@weight 0.3): Larger caches have longer wire delays.
+  * `associativity` (@weight 0.5): Higher associativity adds multiplexing delay.
   * `process-node` (@weight -1): Smaller nodes reduce intrinsic gate delay.
-  * `voltage` (@weight -1): Higher voltage generally reduces delay.
-  * `temperature` (@weight 1): Higher temperature increases resistance and delay.
+  * `voltage` (@weight -1): Higher voltage reduces delay.
+  * `temperature` (@weight 0.3): Higher temperature increases resistance and delay.
+  * `internal-wire-length` (@weight 0.5): Longer wires increase RC delay.
 
 ---
 
-### CapacityModel
+### CacheHitRateModel
 
-This model relates the physical transistor count to the effective storage capacity of the SRAM.
+This model estimates the cache hit probability based on its size and organization parameters.
 
-* **Model:** `CapacityModel`
+* **Model:** `CacheHitRateModel`
 * **Formula:**
   $$
-  C \approx \frac{N_{transistors}}{N_{per\_bit} + N_{overhead}}
+  H \approx 1 - \frac{k}{C^{0.7} \cdot A^{0.3} \cdot B^{0.15}}
   $$
   Where:
+  * $H$ = `hit-rate`
   * $C$ = `capacity`
-  * $N_{transistors}$ = `transistors`
-  * $N_{per\_bit}$ $\approx$ 6 (for 6T SRAM)
+  * $A$ = `associativity`
+  * $B$ = `block-size`
 
 * **Arguments:**
-  * `transistors` (@weight 1): Total number of transistors available for the array and control logic.
-
----
-
-### CacheBandwidthModel
-
-This model calculates the theoretical maximum data throughput of the cache interface.
-
-* **Model:** `CacheBandwidthModel`
-* **Formula:**
-  $$
-  BW = W_{bus} \cdot f_{clock}
-  $$
-  Where:
-  * $BW$ = `bandwidth`
-  * $W_{bus}$ = `bus-width`
-  * $f_{clock}$ = `clock-frequency`
-
-* **Arguments:**
-  * `bus-width` (@weight 1): Width of the data interface in bits/bytes.
-  * `clock-frequency` (@weight 1): Rate at which data is transferred.
-  * `process-node` (@weight -0.5): Indirectly affects achievable frequency and signal integrity.
+  * `capacity` (@weight 0.7): Larger capacity significantly reduces capacity misses.
+  * `associativity` (@weight 0.3): Higher associativity reduces conflict misses.
+  * `block-size` (@weight 0.15): Larger blocks exploit spatial locality.
 
 ---
 
@@ -109,22 +118,3 @@ This model calculates the Average Memory Access Time (AMAT), which is the effect
   * `miss-penalty` (@weight 1): Time required to fetch data from the next level of memory.
 
 ---
-
-### CacheHitRateModel
-
-This model estimates the cache hit probability based on its size and organization parameters.
-
-* **Model:** `CacheHitRateModel`
-* **Formula:**
-  $$
-  H \approx 1 - \frac{k}{C^\alpha \cdot A^\beta}
-  $$
-  Where:
-  * $H$ = `hit-rate`
-  * $C$ = `capacity`
-  * $A$ = `associativity`
-
-* **Arguments:**
-  * `capacity` (@weight 1): Larger capacity significantly reduces capacity misses.
-  * `associativity` (@weight 0.5): Higher associativity reduces conflict misses.
-  * `block-size` (@weight 0.2): Larger blocks exploit spatial locality but may increase conflict misses if too large.

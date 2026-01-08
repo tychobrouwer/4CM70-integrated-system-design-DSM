@@ -1,88 +1,103 @@
-### CoolantFlowrateModel
+# Core Cache Interconnect System
 
-This is the rate at which water or dielectric fluid is pumped through the cold plate or micro-channels.
+## Relations
 
-* **Model:** `CoolantFlowrateModel`
+### ThermalCoolingCapabilityModel
+
+This model calculates the heat removal capacity of the cooling system based on coolant properties and flow characteristics.
+
+* **Model:** `ThermalCoolingCapabilityModel`
 * **Formula:**
   $$
-  dm/dt = \frac{Q}{c_p*(T_o-T_i)}
+  Q_{cool} = \dot{m} \cdot c_p \cdot (T_{out} - T_{in})
   $$
   Where:
-  * $dm/dt$ = `coolant flowrate`
-  * $Q$ = `heat`
-  * *$c_p$ = `heat capacity`
-  * *$T_o$ = `temperature in`
-  * *$T_i$ = `temperature out`
-  
+  * $Q_{cool}$ = `cooling-capability` (heat removal capacity)
+  * $\dot{m}$ = `coolant-flowrate` (mass flow rate of coolant)
+  * $c_p$ = `coolant-specific-heat` (specific heat capacity of coolant)
+  * $T_{out}$ = `coolant-outlet-temperature` (temperature leaving heat exchanger)
+  * $T_{in}$ = `coolant-inlet-temperature` (temperature entering heat exchanger)
+
 * **Arguments:**
-  * `heat` (@weight 1): heat
-  * `input-temperature` (@weight -1): coolant temperature in
-  * `output-temperature` (@weight -1): coolant temperature out
-  * `heat-capacity` (@weight -1): heat capacity of coolant
+  * `coolant-flowrate` (@weight 1): Higher flow rate increases heat removal capacity linearly.
+  * `coolant-inlet-temperature` (@weight -1): Lower inlet temperature increases cooling effectiveness.
+  * `coolant-outlet-temperature` (@weight 1): Higher outlet temperature indicates more heat absorbed.
+  * `coolant-specific-heat` (@weight 1): Higher specific heat allows more energy absorption per unit mass.
 
 ---
-### AmbientInputTemperatureModel
 
-This is the temperature of the air or fluid before it touches the chip. It sets the baseline.
+### ThermalCapabilityModel
 
-* **Model:** `AmbientInputTemperatureModel`
+This model distributes the total cooling capability between the core and cache components based on their respective thermal resistances to the cooler.
+
+* **Model:** `ThermalCapabilityModel`
 * **Formula:**
   $$
-  T_a = \frac{T_c}{P_{tot}*R_{tot}}
+  Q_{core} = \frac{Q_{cool}}{R_{core}} \quad , \quad Q_{cache} = \frac{Q_{cool}}{R_{cache}}
   $$
   Where:
-  * $T_a$ = `ambient temperature`
-  * $T_c$ = `core temperature`
-  * *$P_{tot}$ = `power dissipated`
-  * *$R_{tot}$ = `total thermal resistance`
-  
+  * $Q_{core}$ = `core-capability` (maximum heat dissipation capability for core)
+  * $Q_{cache}$ = `cache-capability` (maximum heat dissipation capability for cache)
+  * $Q_{cool}$ = `cooling-capability` (total cooling system capacity)
+  * $R_{core}$ = `core-resistance` (thermal resistance from core to cooler)
+  * $R_{cache}$ = `cache-resistance` (thermal resistance from cache to cooler)
+
 * **Arguments:**
-  * `core-temperature` (@weight 1): temperature of core
-  * `power-dissipated` (@weight -1): power that dissipates
-  * `thermal-resistance` (@weight -1): thermal resistance
+  * `cooling-capability` (@weight 1): Total heat removal capacity available.
+  * `core-resistance` (@weight -1): Lower resistance enables higher heat dissipation from core.
+  * `cache-resistance` (@weight -1): Lower resistance enables higher heat dissipation from cache.
 
 ---
-### LateralThermalConductivityModel
 
-How well heat spreads sideways.
+### ThermalResistanceModel
 
-* **Model:** `LateralThermalConductivityModel`
+This model calculates the total thermal resistance from a die (core or cache) to the cooler through thermal TSVs and thermal interface material.
+
+* **Model:** `ThermalResistanceModel`
 * **Formula:**
   $$
-  k_{xy} = -\frac{q_x}{A*(dT/dx)}
+  R_{total} = R_{TSV} + R_{TIM}
+  $$
+  $$
+  R_{TSV} = \frac{1}{N_{TSV} \cdot k_{TSV} \cdot A_{TSV}}
   $$
   Where:
-  * $k_{xy}$ = `lateral thermal conductivity`
-  * $q_x$ = `heat flow`
-  * *$A$ = `area`
-  * *$dT/dx$ = `temperature gradient`
-  
+  * $R_{total}$ = `thermal-resistance` (total thermal resistance to cooler)
+  * $R_{TSV}$ = Thermal resistance through TSV array
+  * $R_{TIM}$ = `tim-resistance` (thermal interface material resistance)
+  * $N_{TSV}$ = Number of thermal TSVs (from `tsv-density` × `die-area`)
+  * $k_{TSV}$ = `tsv-thermal-conductivity`
+  * $A_{TSV}$ = Cross-sectional area of TSVs (function of `tsv-diameter`)
+
 * **Arguments:**
-  * `heat-flow` (@weight 1): flow of heat
-  * `area` (@weight -1): area
-  * `temperature-gradient` (@weight -1): change of temperature with distance
+  * `die-area` (@weight -1): Larger die area allows more TSVs, reducing resistance.
+  * `tsv-density` (@weight -1): Higher TSV density provides more parallel thermal paths.
+  * `tsv-diameter` (@weight -1): Larger diameter TSVs have lower thermal resistance.
+  * `tsv-thermal-conductivity` (@weight -1): Higher conductivity reduces thermal resistance.
+  * `tim-resistance` (@weight 1): TIM resistance adds to total thermal path.
 
 ---
-### ThermalInterfaceMaterialModel
 
-The material between the dies. In 3D stacking, one might use "Hybrid Bonding" (Copper-to-Copper), which eliminates the TIM entirely, or micro-bumps with underfill.
+### ThermalTimResistanceModel
 
-* **Model:** `ThermalInterfaceMaterialModel`
+This model calculates the thermal resistance of the Thermal Interface Material (TIM) layer between the die and the heat spreader or heat sink.
+
+* **Model:** `ThermalTimResistanceModel`
 * **Formula:**
   $$
-  BLT = k_{TIM}*A*(R_{TIM}-R_{contact})
+  R_{TIM} = \frac{d_{TIM}}{k_{TIM} \cdot A_{die}} + R_{contact}
   $$
   Where:
-  * $BLT$ = `bond line thickness`
-  * $k_{TIM}$ = `thermal conductivity`
-  * *$A$ = `area`
-  * *$R_{TIM}$ = `TIM resistance`
-  * *$R_{contact}$ = `conntact resistance`
-  
+  * $R_{TIM}$ = `tim-resistance` (total TIM thermal resistance)
+  * $d_{TIM}$ = `tim-thickness` (thickness of TIM layer)
+  * $k_{TIM}$ = `tim-conductivity` (thermal conductivity of TIM material)
+  * $A_{die}$ = `die-area` (total die area for heat transfer)
+  * $R_{contact}$ = `contact-resistance` (interfacial thermal resistance)
+
 * **Arguments:**
-  * `tim-resistance` (@weight 1): thermal interface material resistance
-  * `contact-resistance` (@weight 1): contact resistance
-  * `area` (@weight 1): area of contact
-  * `thermal-conductivity` (@weight 1): conductivity of interface material
+  * `die-area` (@weight -1): Larger area reduces thermal resistance (inverse relationship).
+  * `tim-thickness` (@weight 1): Thicker TIM increases thermal resistance.
+  * `tim-conductivity` (@weight -1): Higher conductivity TIM reduces resistance.
+  * `contact-resistance` (@weight 1): Imperfect surface contact adds resistance.
 
 ---

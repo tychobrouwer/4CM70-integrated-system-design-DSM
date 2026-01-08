@@ -16,7 +16,6 @@ define component PowerDistributionSystem
     core-max-current-capacity   is a Current                    property
     tsv-thermal-conductivity    is a ThermalConductivity        property
     tsv-resistivity             is a Resistivity                property
-    max-temp-budget             is a Temperature                property
     tim-resistance              is a ThermalResistance          property
     contact-resistance          is a ThermalResistance          property
     power-capability            is a Power                      property

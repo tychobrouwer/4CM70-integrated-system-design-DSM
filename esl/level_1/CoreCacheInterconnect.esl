@@ -11,14 +11,23 @@ define component CoreCacheInterconnect
     process-node      is a ProcessNode     property
 
   relations
-    bandwidth-model: InterconnectBandwidthModel
+    bandwidth-model: BandwidthModel
       requiring arguments
         * bus-width           #< @weight 1
         * frequency           #< @weight 1
 
       returning arguments
         * bandwidth
-    
+
+    die-area-model: InterconnectAreaModel
+      requiring arguments
+        * length              #< @weight 1
+        * bus-width           #< @weight 1 
+        * process-node        #< @weight -2
+
+      returning arguments
+        * die-area
+
     latency-model: InterconnectLatencyModel
       requiring arguments
         * length              #< @weight 1
@@ -28,19 +37,10 @@ define component CoreCacheInterconnect
       returning arguments
         * latency
 
-
-   length-model2D: InterconnectLengthModel2D
-    requiring arguments
-      * die-area               #< @weight 0.5
-      * process-node           #< @weight 0.5
-
-      returning arguments
-      * length2D
-
-    length-model3D: InterconnectLengthModel3D
-    requiring arguments
-      * die-area               #< @weight 0.25
-      * process-node           #< @weight 1
+    interconnect-length-connector: InterconnectLengthConnector
+      requiring arguments
+        * length2D             #< @weight 1
+        * length3D             #< @weight 1
 
       returning arguments
-      * length3D
+        * length

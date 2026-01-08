@@ -2,26 +2,6 @@
 
 ## Relations
 
-### InterconnectBandwidthModel
-
-This model calculates the peak bandwidth of core-cache interconnects.
-
-* **Model:** `InterconnectBandwidthModel`
-* **Formula:**
-  $$
-  BW = N_{\text{bus_width_bytes}} \cdot f_{bus}
-  $$
-  Where:
-  * $BW$ = `Bandwidth of the interconnect`
-  * $N_{\text{bus_width_bytes}}$ = `bus-width`
-  * $f_{bus}$ = `frequency`
-  
-* **Arguments:**
-  * `bus-width` (@weight 1): Data bus width in bytes per cycle
-  * `frequency` (@weight 1): Core frequency
-
----
-
 ### InterconnectLatencyModel
 
 This very simplified model gives an indication of the latency of an interconnect.
@@ -29,20 +9,20 @@ This very simplified model gives an indication of the latency of an interconnect
 * **Model:** `InterconnectLatencyModel`
 * **Formula:**
   $$
-  t = \frac{L}{v} + \frac{S}{N_{bus_width_bytes}*f_{bus}}
+  t = \frac{L}{v} + \frac{S}{N_{bus_width}*f_{bus}}
   $$
   Where:
-  * $t$ = `Latency of the interconnect`
+  * $t$ = Latency of the interconnect
   * $S$ = 'Size of file transfer' (architecture-independent, unimportant for DSM)
   * *v* = 'Signal velocity' (architecture-independent, unimportant for DSM)
-  * $L$ = 'length'
-  * $N_{\text{bus_width_bytes}}$ = `bus-width`
-  * $f_{bus}$ = `frequency`
-  
+  * $L$ = Physical length of the interconnect
+  * $N_{bus_width}$ = Bus width
+  * $f_{bus}$ = Interconnect frequency
+
 * **Arguments:**
-  * `length` (@weight 1): physical length of the interconnect
-  * `bus-width` (@weight -1): Data bus width in bytes per cycle
-  * `frequency` (@weight -1): Core frequency
+  * `length` (@weight 1)
+  * `bus-width` (@weight -1)
+  * `frequency` (@weight -1)
 
 ---
 
@@ -50,39 +30,80 @@ This very simplified model gives an indication of the latency of an interconnect
 
 This very simplified model gives an indication of the length an interconnect has to be in a 2D architecture. It does not have a specific formula, but we know that the interconnect length scales with the square root of die area. We also know that the process node has influence on the mean interconnect length, as the smaller features are, the shorter interconnects will be.
 
-* **Model:** `InterconnectLatencyModel`
+* **Model:** `InterconnectLengthModel2D`
 * **Formula:**
   $$
-  L = \sqrt{A_{die}} * \sqrt{N_{process_node}}
+  l = \sqrt{A_{die}} * \sqrt{N_{process_node}}
   $$
   Where:
-  * $L$ = `Length of the interconnect`
-  * $A_{die}$ = `Die area of cpu`
-  * *$N_{process_node}$ = `Factor for influence of the process node
+  * $l$ = Length of the interconnect
+  * $A_{die}$ = Die area of CPU
+  * *$N_{process_node}$ = Factor for influence of the process node
   
 * **Arguments:**
-  * `die-area` (@weight 0.5): area of the die
-  * `process-node` (@weight 0.5): Process node that is used in manufacturing
+  * `die-area` (@weight 0.5)
+  * `process-node` (@weight 0.5)
 
 ---
-
 
 ### InterconnectLengthModel3D
 
 This very simplified model gives an indication of the length an interconnect has to be in a 3D architecture. It does not have a specific formula, but we know that the interconnect length scales with the square root of die area. We also know that the process node has influence on the mean interconnect length, as the smaller features are, the shorter interconnects will be. Because core and cache are stacked on top of each other in a 3D architecture, this has a smaller influence than in a 2D situation.
 
-* **Model:** `InterconnectLatencyModel`
+* **Model:** `InterconnectLengthModel3D`
 * **Formula:**
   $$
-  L = \sqrt{A_{die}} * N_{process_node}^{/frac{1}{4}}
+  l = \sqrt{A_{die}} * N_{process_node}^{/frac{1}{4}}
   $$
   Where:
-  * $L$ = `Length of the interconnect`
-  * $A_{die}$ = `Die area of cpu`
-  * *$N_{process_node}$ = `Factor for influence of the process node
+  * $l$ = `length`
+  * $A_{die}$ = `die-area`
+  * *$N_{process_node}$ = `process-node`
   
 * **Arguments:**
-  * `die-area` (@weight 0.5): area of the die
-  * `process-node` (@weight 0.25): Process node that is used in manufacturing
+  * `die-area` (@weight 0.5): Higher die area increases interconnect length.
+  * `process-node` (@weight 0.25): Smaller process nodes reduce interconnect length.
+
+---
+
+### InterconnectLengthConnector
+
+Connects the length parameter on an architecture basis
+
+* **Model** `InterconnectLengthConnector`
+* **Formula**
+  $$
+  l = l_{2D} \vee l_{3D}
+  $$
+  Where:
+  * $l$ = `length` (Architecture independent length of the interconnect)
+  * $l_{2D}$ = `length-2D`
+  * $l_{3D}$ = `length-3D`
+
+* **Arguments**
+  * `length-2D` (@weight 1)
+  * `length-3D` (@weight 1)
+
+---
+
+### InterconnectAreaModel
+
+Calculates the interconnect area
+
+* **Model**
+* **Formula**
+  $$
+  A = f(l, N_bus_width, N_process_node)
+  $$
+  Where
+  * $A$ = Interconnect area
+  * $l$ = Interconnect length
+  * $N_{bus_width}$ = Bus width
+  * $N_{process_node}$ = Factor for influence of the process node
+
+* **Arguments**
+  * `length` (@weight 1): Increased length increases area.
+  * `N_{bus_width}` (@weight 1): Wider buses require more area.
+  * `N_{process_node}` (@weight -2): Smaller process nodes reduce area requirements.
 
 ---

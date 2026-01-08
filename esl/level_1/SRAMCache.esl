@@ -1,6 +1,5 @@
 define component SRAMCache
   parameters
-    # Electrical
     power-consumption     is a Power            property
     max-power-consumption is a Power            property
     dynamic-power         is a Power            property
@@ -8,48 +7,25 @@ define component SRAMCache
     voltage               is a Voltage          property
     dynamic-current       is a Current          property
     leakage-current       is a Current          property
-    total-current         is a Current          property
-    
-    # Performance
     bandwidth             is a Bandwidth        property
     latency               is a Latency          property
     access-time           is a Latency          property
     miss-penalty          is a Latency          property
     hit-rate              is a HitRate          property
     clock-frequency       is a Frequency        property
-    
-    # Organization
     capacity              is a CacheCapacity    property
     associativity         is a Associativity    property
     block-size            is a BlockSize        property
     bus-width             is a BusWidth         property
-    number-of-sets        is a Count            property
     number-of-banks       is a Count            property
-    
-    # Physical
     die-area              is a Area             property
     process-node          is a ProcessNode      property
     transistors           is a Count            property
     internal-wire-length  is a Length           property
-    
-    # Thermal
     temperature           is a Temperature      property
     thermal-load          is a ThermalPower     property
-    
-    # Energy (per access)
-    read-energy           is a Energy           property
-    write-energy          is a Energy           property
 
   relations
-    cache-organization-model: CacheOrganizationModel
-      requiring arguments
-        * capacity                  #< @weight 1
-        * block-size                #< @weight -1
-        * associativity             #< @weight -1
-
-      returning arguments
-        * number-of-sets
-
     cache-transistor-model: CacheTransistorModel
       requiring arguments
         * capacity                  #< @weight 1
@@ -115,7 +91,7 @@ define component SRAMCache
       returning arguments
         * latency
 
-    cache-bandwidth-model: CacheBandwidthModel
+    cache-bandwidth-model: BandwidthModel
       requiring arguments
         * bus-width                 #< @weight 1
         * clock-frequency           #< @weight 1
@@ -123,35 +99,29 @@ define component SRAMCache
       returning arguments
         * bandwidth
 
-    cache-dynamic-current-model: CacheDynamicCurrentModel
+    cache-dynamic-current-model: CurrentModel
       requiring arguments
-        * transistors               #< @weight 0.7
-        * process-node              #< @weight -1
+        * transistors               #< @weight 1
+        * process-node              #< @weight -0.5
+        * temperature               #< @weight 2
         * voltage                   #< @weight 1
         * clock-frequency           #< @weight 1
 
       returning arguments
         * dynamic-current
 
-    cache-leakage-current-model: CacheLeakageCurrentModel
+    cache-leakage-current-model: CurrentModel
       requiring arguments
         * transistors               #< @weight 1
-        * process-node              #< @weight -2
-        * temperature               #< @weight 2.5
-        * voltage                   #< @weight 1.5
+        * process-node              #< @weight -0.5
+        * temperature               #< @weight 2
+        * voltage                   #< @weight 1
+        * clock-frequency           #< @weight 1
 
       returning arguments
         * leakage-current
 
-    cache-total-current-model: CacheTotalCurrentModel
-      requiring arguments
-        * dynamic-current           #< @weight 1
-        * leakage-current           #< @weight 1
-
-      returning arguments
-        * total-current
-
-    cache-dynamic-power-model: CacheDynamicPowerModel
+    cache-dynamic-power-model: PowerModel
       requiring arguments
         * voltage                   #< @weight 1
         * dynamic-current           #< @weight 1
@@ -159,7 +129,7 @@ define component SRAMCache
       returning arguments
         * dynamic-power
 
-    cache-leakage-power-model: CacheLeakagePowerModel
+    cache-leakage-power-model: PowerModel
       requiring arguments
         * voltage                   #< @weight 1
         * leakage-current           #< @weight 1
@@ -167,31 +137,13 @@ define component SRAMCache
       returning arguments
         * leakage-power
 
-    cache-power-model: CacheTotalPowerModel
+    cache-power-model: TotalPowerModel
       requiring arguments
         * dynamic-power             #< @weight 1
         * leakage-power             #< @weight 1
 
       returning arguments
         * power-consumption
-
-    cache-read-energy-model: CacheReadEnergyModel
-      requiring arguments
-        * dynamic-power             #< @weight 1
-        * access-time               #< @weight 1
-        * clock-frequency           #< @weight -1
-
-      returning arguments
-        * read-energy
-
-    # Write energy typically 1.2-2x read energy
-    cache-write-energy-model: CacheWriteEnergyModel
-      requiring arguments
-        * read-energy               #< @weight 1
-        * associativity             #< @weight 0.2
-
-      returning arguments
-        * write-energy
 
     cache-thermal-model: PowerThermalModel
       requiring arguments

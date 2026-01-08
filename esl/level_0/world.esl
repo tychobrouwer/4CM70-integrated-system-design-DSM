@@ -22,10 +22,7 @@ world
     cache-leakage-power                   is a Power
     cache-dynamic-current                 is a Current
     cache-leakage-current                 is a Current
-    cache-total-current                   is a Current
     cache-number-of-banks                 is a Count
-    cache-read-energy                     is a Energy
-    cache-write-energy                    is a Energy
     cache-dynamic-power                   is a Power
     cache-power-consumption               is a Power
     cache-max-power-consumption           is a Power
@@ -34,7 +31,6 @@ world
     cache-die-area                        is a Area
     cache-hit-rate                        is a HitRate
     cache-voltage                         is a Voltage
-    cache-current                         is a Current
     cache-latency                         is a Latency
     cache-capacity                        is a CacheCapacity
     cache-associativity                   is a Associativity
@@ -46,7 +42,6 @@ world
     cache-thermal-load                    is a ThermalPower
     cache-access-time                     is a Latency
     cache-miss-penalty                    is a Latency
-    cache-number-of-sets                  is a Count
 
     interconnect-bandwidth                is a Bandwidth
     interconnect-die-area                 is a Area
@@ -72,35 +67,30 @@ world
     power-core-tsv-count                  is a Count
     power-cache-max-current-capacity      is a Current
     power-core-max-current-capacity       is a Current
-    power-tsv-thermal-conductivity        is a ThermalConductivity
+    power-tsv-conductivity                is a ThermalConductivity
     power-tsv-resistivity                 is a Resistivity
-    power-max-temp-budget                 is a Temperature
     power-tim-resistance                  is a ThermalResistance
     power-contact-resistance              is a ThermalResistance
     power-capability                      is a Power   
     
-    thermal-core-capability			         is a ThermalPower		  
-    thermal-cache-capability			       is a ThermalPower		     
-    thermal-cooling-capability		       is a ThermalPower		      
-    thermal-heat                 		     is a Power                 
-    thermal-input-temperature    		     is a Temperature           	
-    thermal-output-temperature     		   is a Temperature           
-    thermal-heat-capacity  			         is a HeatCapacity          	     
-    thermal-coolant-flowrate      		   is a Massflowrate         
-    thermal-core-temperature         		 is a Temperature           
-    thermal-ambient-temperature      		 is a Temperature           	  
-    thermal-power-dissipated         		 is a Power                 	
-    thermal-resistance       		         is a ThermalResistance     	
-    thermal-heat-flow        			       is a Power                 	             
-    thermal-area                      	 is a Area                     
-    thermal-temperature-gradient      	 is a TemperatureGradient        
-    thermal-lateral-conductivity         is a ThermalConductivity     
-    thermal-tim-resistance             	 is a ThermalResistance        
-    thermal-contact-resistance 		       is a ThermalResistance                                           
-    thermal-conductivity     	        	 is a ThermalConductivity        
-    thermal-bond-line-thickness		       is a Length                 
-    thermal-cache-resistance             is a ThermalResistance
-    thermal-core-resistance              is a ThermalResistance
+    thermal-cooling-capability          is a ThermalPower
+    thermal-cache-capability            is a ThermalPower
+    thermal-cache-resistance            is a ThermalResistance
+    thermal-core-capability             is a ThermalPower
+    thermal-core-resistance             is a ThermalResistance
+    thermal-core-tsv-density            is a Density
+    thermal-core-tsv-diameter           is a Length
+    thermal-cache-tsv-density           is a Density
+    thermal-cache-tsv-diameter          is a Length
+    thermal-tsv-conductivity            is a ThermalConductivity
+    thermal-tim-resistance              is a ThermalResistance
+    thermal-contact-resistance          is a ThermalResistance
+    thermal-coolant-flowrate            is a Massflowrate
+    thermal-coolant-inlet-temperature   is a Temperature
+    thermal-coolant-outlet-temperature  is a Temperature
+    thermal-coolant-specific-heat       is a HeatCapacity
+    thermal-tim-thickness               is a Length
+    thermal-tim-conductivity            is a ThermalConductivity
 
   components
     core is a CPUCore with arguments
@@ -125,7 +115,6 @@ world
       * cache-voltage
       * cache-dynamic-current
       * cache-leakage-current
-      * cache-total-current
       * cache-bandwidth
       * cache-latency
       * cache-access-time
@@ -136,7 +125,6 @@ world
       * cache-associativity
       * cache-block-size
       * cache-bus-width
-      * cache-number-of-sets
       * cache-number-of-banks
       * cache-die-area
       * cache-process-node
@@ -144,8 +132,6 @@ world
       * cache-internal-wire-length
       * cache-temperature
       * cache-thermal-load
-      * cache-read-energy
-      * cache-write-energy
       
     interconnect is a CoreCacheInterconnect with arguments
       * interconnect-bandwidth
@@ -173,34 +159,31 @@ world
       * power-core-tsv-count
       * power-cache-max-current-capacity
       * power-core-max-current-capacity
-      * power-tsv-thermal-conductivity
+      * power-tsv-conductivity
       * power-tsv-resistivity
-      * power-max-temp-budget
       * power-tim-resistance
       * power-contact-resistance
       * power-capability 
 
     thermal-system is a ThermalDissipationSystem with arguments
-      * thermal-core-capability			            
-      * thermal-cache-capability			         
-      * thermal-cooling-capability		          
-      * thermal-heat                 		         
-      * thermal-input-temperature    		        
-      * thermal-output-temperature     		      
-      * thermal-heat-capacity  			                
-      * thermal-coolant-flowrate      		     
-      * thermal-core-temperature         		     
-      * thermal-ambient-temperature      		      
-      * thermal-power-dissipated         		    
-      * thermal-resistance       		    
-      * thermal-heat-flow        			                      
-      * thermal-area                      	      
-      * thermal-temperature-gradient      	   
-      * thermal-lateral-conductivity   	
-      * thermal-tim-resistance             	   
-      * thermal-contact-resistance 		                                              
-      * thermal-conductivity     		       
-      * thermal-bond-line-thickness		          
+      * thermal-cooling-capability
+      * thermal-cache-capability
+      * thermal-cache-resistance
+      * thermal-core-capability
+      * thermal-core-resistance
+      * thermal-core-tsv-density
+      * thermal-core-tsv-diameter
+      * thermal-cache-tsv-density
+      * thermal-cache-tsv-diameter
+      * thermal-tsv-conductivity
+      * thermal-tim-resistance
+      * thermal-contact-resistance
+      * thermal-coolant-flowrate
+      * thermal-coolant-inlet-temperature
+      * thermal-coolant-outlet-temperature
+      * thermal-coolant-specific-heat
+      * thermal-tim-thickness
+      * thermal-tim-conductivity
 
   design-requirement
     dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
@@ -239,6 +222,7 @@ world
       requiring arguments
         * core-die-area                           #< @weight 1
         * cache-die-area                          #< @weight 1
+        * interconnect-die-area                   #< @weight 1
 
       returning arguments
         * total-die-area
@@ -287,12 +271,12 @@ world
   
     core-performance-model: PerformanceModel
       requiring arguments
-        * core-clock-frequency
-        * core-voltage
-        * core-process-node
-        * core-transistors
-        * cache-latency
-        * interconnect-latency
+        * core-clock-frequency                    #< @weight 0.4
+        * core-voltage                            #< @weight 0.2
+        * core-process-node                       #< @weight -0.2
+        * core-transistors                        #< @weight 0.1
+        * cache-latency                           #< @weight -0.3
+        * interconnect-latency                    #< @weight -0.2
 
       returning arguments
         * core-computational-performance
@@ -301,25 +285,7 @@ world
     #------------------------------------------------------------#
     # INTERCONNECT MODELS
     #------------------------------------------------------------#
-
-    bandwidth-model: InterconnectBandwidthModel
-      requiring arguments
-        * interconnect-bus-width                  #< @weight 1
-        * core-clock-frequency                    #< @weight 1
-
-      returning arguments
-        * interconnect-bandwidth
     
-    latency-model: InterconnectLatencyModel
-      requiring arguments
-        * interconnect-length                     #< @weight 1
-        * interconnect-bandwidth                  #< @weight -1
-        * core-clock-frequency                    #< @weight -1
-
-      returning arguments
-        * interconnect-latency
-
-
    length-model2D: InterconnectLengthModel2D
     requiring arguments
       * total-die-area                            #< @weight 0.5
@@ -376,40 +342,33 @@ world
     # THERMAL DISSIPATION SYSTEM MODELS
     #------------------------------------------------------------#
 
-    thermal-coolant-flowrate-model: CoolantFlowrateModel
+    thermal-core-capability-model: ThermalResistanceModel
       requiring arguments
-        * thermal-heat                            #< @weight 1
-        * thermal-input-temperature               #< @weight -1
-        * thermal-output-temperature              #< @weight -1
-        * thermal-heat-capacity                   #< @weight -1
-
-      returning arguments
-        * thermal-coolant-flowrate             
-
-    thermal-ambient-input-temperature-model: AmbientInputTemperatureModel
-      requiring arguments
-        * core-temperature                        #< @weight 1
-        * thermal-power-dissipated                #< @weight -1
-        * thermal-resistance              #< @weight -1
-
-      returning arguments
-        * ambient-temperature           
-
-    thermal-lateral-conductivity-model: LateralThermalConductivityModel
-      requiring arguments
-        * thermal-heat-flow                       #< @weight 1
-        * thermal-area                            #< @weight -1
-        * thermal-temperature-gradient            #< @weight -1
-
-      returning arguments
-        * thermal-lateral-conductivity     
-
-    thermal-interface-model: ThermalInterfaceMaterialModel
-      requiring arguments
+        * core-die-area                           #< @weight -1
+        * thermal-core-tsv-density                #< @weight -1
+        * thermal-core-tsv-diameter               #< @weight -1
+        * thermal-tsv-conductivity                #< @weight -1
         * thermal-tim-resistance                  #< @weight 1
-        * thermal-contact-resistance              #< @weight 1
-        * thermal-area                            #< @weight 1
-        * thermal-conductivity                    #< @weight 1
 
       returning arguments
-        * thermal-bond-line-thickness          
+        * thermal-core-resistance
+
+    thermal-cache-capability-model: ThermalResistanceModel
+      requiring arguments
+        * cache-die-area                          #< @weight -1
+        * thermal-cache-tsv-density               #< @weight -1
+        * thermal-cache-tsv-diameter              #< @weight -1
+        * thermal-tsv-conductivity                #< @weight -1
+        * thermal-tim-resistance                  #< @weight 1
+      returning arguments
+        * thermal-cache-resistance
+
+    thermal-tim-resistance-model: ThermalTimResistanceModel
+      requiring arguments
+        * total-die-area                          #< @weight -1
+        * thermal-tim-thickness                   #< @weight 1
+        * thermal-tim-conductivity                #< @weight -1
+        * thermal-contact-resistance              #< @weight 1
+
+      returning arguments
+        * thermal-tim-resistance
