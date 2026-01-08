@@ -29,7 +29,6 @@ def annotate_variable_importance(graph):
         # 1. Access the esl_info where the parser stores comments
         esl_info = node.annotations.get("esl_info", {})
         tagged_comments = esl_info.get("tagged_comments", {})
-        print(tagged_comments)
         # 2. Check for the specific tag key "@importance"
         # Note: RaGraph parsers typically strip the '@' for the dict key, 
         # so check 'importance'.
