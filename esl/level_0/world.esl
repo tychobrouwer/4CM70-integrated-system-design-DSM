@@ -271,12 +271,12 @@ world
   
     core-performance-model: PerformanceModel
       requiring arguments
-        * core-clock-frequency
-        * core-voltage
-        * core-process-node
-        * core-transistors
-        * cache-latency
-        * interconnect-latency
+        * core-clock-frequency                    #< @weight 0.4
+        * core-voltage                            #< @weight 0.2
+        * core-process-node                       #< @weight -0.2
+        * core-transistors                        #< @weight 0.1
+        * cache-latency                           #< @weight -0.3
+        * interconnect-latency                    #< @weight -0.2
 
       returning arguments
         * core-computational-performance

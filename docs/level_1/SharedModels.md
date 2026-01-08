@@ -146,12 +146,6 @@ This model converts electrical power consumption into thermal load for thermal m
 
 ---
 
-
-
-
-
-
-
 ### PowerConsumptionRelation
 
 This relation connects max power consumption to the thermal cooling capacity and electrical power capacity.
