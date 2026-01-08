@@ -1,97 +1,96 @@
 world
   variables
-    ambient-temperature                   is a Temperature
-    total-power-consumption               is a Power
-    total-die-area                        is a Area
-    efficiency                            is a Percent
+    ambient-temperature                   is a Temperature          #< @importance false
+    total-power-consumption               is a Power                #< @importance true
+    total-die-area                        is a Area                 #< @importance true
+    efficiency                            is a Percent              #< @importance true
 
-    core-power-consumption                is a Power
-    core-max-power-consumption            is a Power
-    core-temperature                      is a Temperature
-    core-required-bandwidth               is a Bandwidth
-    core-computational-performance        is a Performance
-    core-die-area                         is a Area
-    core-voltage                          is a Voltage
-    core-current                          is a Current
-    core-clock-frequency                  is a Frequency
-    core-process-node                     is a ProcessNode
-    core-transistors                      is a Count
-    core-thermal-load                     is a ThermalPower
+    core-power-consumption                is a Power                #< @importance true
+    core-max-power-consumption            is a Power                #< @importance true
+    core-temperature                      is a Temperature          #< @importance true
+    core-required-bandwidth               is a Bandwidth            #< @importance false
+    core-computational-performance        is a Performance          #< @importance true
+    core-die-area                         is a Area                 #< @importance true
+    core-voltage                          is a Voltage              #< @importance false
+    core-current                          is a Current              #< @importance true
+    core-clock-frequency                  is a Frequency            #< @importance true
+    core-process-node                     is a ProcessNode          #< @importance false
+    core-transistors                      is a Count                #< @importance false
+    core-thermal-load                     is a ThermalPower         #< @importance true
 
-    cache-internal-wire-length            is a Length
-    cache-leakage-power                   is a Power
-    cache-dynamic-current                 is a Current
-    cache-leakage-current                 is a Current
-    cache-number-of-banks                 is a Count
-    cache-dynamic-power                   is a Power
-    cache-power-consumption               is a Power
-    cache-max-power-consumption           is a Power
-    cache-bandwidth                       is a Bandwidth
-    cache-temperature                     is a Temperature
-    cache-die-area                        is a Area
-    cache-hit-rate                        is a HitRate
-    cache-voltage                         is a Voltage
-    cache-latency                         is a Latency
-    cache-capacity                        is a CacheCapacity
-    cache-associativity                   is a Associativity
-    cache-block-size                      is a BlockSize
-    cache-bus-width                       is a BusWidth
-    cache-process-node                    is a ProcessNode
-    cache-transistors                     is a Count
-    cache-clock-frequency                 is a Frequency
-    cache-thermal-load                    is a ThermalPower
-    cache-access-time                     is a Latency
-    cache-miss-penalty                    is a Latency
+    cache-internal-wire-length            is a Length               #< @importance false
+    cache-leakage-power                   is a Power                #< @importance false
+    cache-dynamic-current                 is a Current              #< @importance false
+    cache-leakage-current                 is a Current              #< @importance false
+    cache-number-of-banks                 is a Count                #< @importance false
+    cache-dynamic-power                   is a Power                #< @importance false
+    cache-power-consumption               is a Power                #< @importance true
+    cache-max-power-consumption           is a Power                #< @importance true
+    cache-bandwidth                       is a Bandwidth            #< @importance true
+    cache-temperature                     is a Temperature          #< @importance true
+    cache-die-area                        is a Area                 #< @importance true
+    cache-hit-rate                        is a HitRate              #< @importance false
+    cache-voltage                         is a Voltage              #< @importance false
+    cache-latency                         is a Latency              #< @importance true
+    cache-capacity                        is a CacheCapacity        #< @importance false
+    cache-associativity                   is a Associativity        #< @importance false
+    cache-block-size                      is a BlockSize            #< @importance false
+    cache-bus-width                       is a BusWidth             #< @importance true
+    cache-process-node                    is a ProcessNode          #< @importance false
+    cache-transistors                     is a Count                #< @importance false
+    cache-clock-frequency                 is a Frequency            #< @importance true
+    cache-thermal-load                    is a ThermalPower         #< @importance true
+    cache-access-time                     is a Latency              #< @importance true
+    cache-miss-penalty                    is a Latency              #< @importance true
 
-    interconnect-bandwidth                is a Bandwidth
-    interconnect-die-area                 is a Area
-    interconnect-latency                  is a Latency
-    interconnect-length                   is a Length
-    interconnect-length2D                 is a Length
-    interconnect-length3D                 is a Length
-    interconnect-bus-width                is a BusWidth
-    interconnect-frequency                is a Frequency
-    interconnect-process-node             is a ProcessNode
+    interconnect-bandwidth                is a Bandwidth            #< @importance true
+    interconnect-die-area                 is a Area                 #< @importance true
+    interconnect-latency                  is a Latency              #< @importance true
+    interconnect-length                   is a Length               #< @importance true
+    interconnect-length2D                 is a Length               #< @importance true
+    interconnect-length3D                 is a Length               #< @importance true
+    interconnect-bus-width                is a BusWidth             #< @importance true
+    interconnect-frequency                is a Frequency            #< @importance true
+    interconnect-process-node             is a ProcessNode          #< @importance false
 
-    power-cache-capability                is a Power
-    power-core-capability                 is a Power 
-    power-cache-tsv-density               is a Density
-    power-core-tsv-density                is a Density
-    power-cache-tsv-diameter              is a Length
-    power-core-tsv-diameter               is a Length
-    power-cache-tsv-length                is a Length
-    power-core-tsv-length                 is a Length
-    power-cache-max-temp-budget           is a Temperature
-    power-core-max-temp-budget            is a Temperature
-    power-cache-tsv-count                 is a Count
-    power-core-tsv-count                  is a Count
-    power-cache-max-current-capacity      is a Current
-    power-core-max-current-capacity       is a Current
-    power-tsv-conductivity                is a ThermalConductivity
-    power-tsv-resistivity                 is a Resistivity
-    power-tim-resistance                  is a ThermalResistance
-    power-contact-resistance              is a ThermalResistance
-    power-capability                      is a Power   
+    power-cache-capability                is a Power                #< @importance true
+    power-core-capability                 is a Power                #< @importance true
+    power-cache-tsv-density               is a Density              #< @importance true
+    power-core-tsv-density                is a Density              #< @importance true
+    power-cache-tsv-diameter              is a Length               #< @importance true
+    power-core-tsv-diameter               is a Length               #< @importance true
+    power-cache-tsv-length                is a Length               #< @importance true
+    power-core-tsv-length                 is a Length               #< @importance true
+    power-cache-max-temp-budget           is a Temperature          #< @importance true
+    power-core-max-temp-budget            is a Temperature          #< @importance true
+    power-cache-tsv-count                 is a Count                #< @importance true
+    power-core-tsv-count                  is a Count                #< @importance true
+    power-cache-max-current-capacity      is a Current              #< @importance true
+    power-core-max-current-capacity       is a Current              #< @importance true
+    power-tsv-conductivity                is a ThermalConductivity  #< @importance true
+    power-tsv-resistivity                 is a Resistivity          #< @importance true
+    power-tim-resistance                  is a ThermalResistance    #< @importance true
+    power-contact-resistance              is a ThermalResistance    #< @importance true
+    power-capability                      is a Power                #< @importance true
     
-    thermal-cooling-capability          is a ThermalPower
-    thermal-cache-capability            is a ThermalPower
-    thermal-cache-resistance            is a ThermalResistance
-    thermal-core-capability             is a ThermalPower
-    thermal-core-resistance             is a ThermalResistance
-    thermal-core-tsv-density            is a Density
-    thermal-core-tsv-diameter           is a Length
-    thermal-cache-tsv-density           is a Density
-    thermal-cache-tsv-diameter          is a Length
-    thermal-tsv-conductivity            is a ThermalConductivity
-    thermal-tim-resistance              is a ThermalResistance
-    thermal-contact-resistance          is a ThermalResistance
-    thermal-coolant-flowrate            is a Massflowrate
-    thermal-coolant-inlet-temperature   is a Temperature
-    thermal-coolant-outlet-temperature  is a Temperature
-    thermal-coolant-specific-heat       is a HeatCapacity
-    thermal-tim-thickness               is a Length
-    thermal-tim-conductivity            is a ThermalConductivity
-
+    thermal-cooling-capability          is a ThermalPower           #< @importance true
+    thermal-cache-capability            is a ThermalPower           #< @importance true
+    thermal-cache-resistance            is a ThermalResistance      #< @importance true
+    thermal-core-capability             is a ThermalPower           #< @importance true
+    thermal-core-resistance             is a ThermalResistance      #< @importance true
+    thermal-core-tsv-density            is a Density                #< @importance true
+    thermal-core-tsv-diameter           is a Length                 #< @importance true
+    thermal-cache-tsv-density           is a Density                #< @importance true
+    thermal-cache-tsv-diameter          is a Length                 #< @importance true
+    thermal-tsv-conductivity            is a ThermalConductivity    #< @importance true
+    thermal-tim-resistance              is a ThermalResistance      #< @importance true
+    thermal-contact-resistance          is a ThermalResistance      #< @importance true
+    thermal-coolant-flowrate            is a Massflowrate           #< @importance true
+    thermal-coolant-inlet-temperature   is a Temperature            #< @importance false
+    thermal-coolant-outlet-temperature  is a Temperature            #< @importance true
+    thermal-coolant-specific-heat       is a HeatCapacity           #< @importance false
+    thermal-tim-thickness               is a Length                 #< @importance true
+    thermal-tim-conductivity            is a ThermalConductivity    #< @importance true
   components
     core is a CPUCore with arguments
       * core-power-consumption
