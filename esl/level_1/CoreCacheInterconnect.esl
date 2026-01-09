@@ -11,7 +11,7 @@ define component CoreCacheInterconnect
     process-node-factor   is a ProcessNode     property
 
   relations
-    bandwidth-model: BandwidthModel
+    interconnect-bandwidth-model: BandwidthModel
       requiring arguments
         * bus-width             #< @weight 1
         * frequency             #< @weight 1
@@ -19,7 +19,7 @@ define component CoreCacheInterconnect
       returning arguments
         * bandwidth
 
-    die-area-model: InterconnectAreaModel
+    interconnect-die-area-model: InterconnectAreaModel
       requiring arguments
         * length                #< @weight 1
         * bus-width             #< @weight 1 
@@ -28,7 +28,7 @@ define component CoreCacheInterconnect
       returning arguments
         * die-area
 
-    latency-model: InterconnectLatencyModel
+    interconnect-latency-model: InterconnectLatencyModel
       requiring arguments
         * length                #< @weight 1
         * bandwidth             #< @weight -1

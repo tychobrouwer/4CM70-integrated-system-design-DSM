@@ -21,7 +21,7 @@ define component PowerDistributionSystem
     power-capability            is a Power                      property
 
   relations
-    total-power-relation: TotalPowerModel
+    power-total-relation: TotalPowerModel
       requiring arguments
         * core-capability               #< @weight 1
         * cache-capability              #< @weight 1
@@ -29,7 +29,7 @@ define component PowerDistributionSystem
       returning arguments
         * power-capability
 
-    cache-tsv-electrical-model: TSVElectricalModel
+    power-cache-tsv-electrical-model: TSVElectricalModel
       requiring arguments
         * cache-tsv-count               #< @weight 1
         * cache-tsv-diameter            #< @weight 2
@@ -43,7 +43,7 @@ define component PowerDistributionSystem
       returning arguments 
         * cache-max-current-capacity
 
-    core-tsv-electrical-model: TSVElectricalModel
+    power-core-tsv-electrical-model: TSVElectricalModel
       requiring arguments
         * core-tsv-count                #< @weight 1
         * core-tsv-diameter             #< @weight 2

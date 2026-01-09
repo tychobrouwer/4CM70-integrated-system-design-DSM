@@ -4,6 +4,7 @@ world
     system-power-consumption              is a Power                #< @type both
     system-die-area                       is a Area                 #< @type both
     system-efficiency                     is a Percent              #< @type both
+    system-bandwidth                      is a Bandwidth            #< @type both
 
     core-power-consumption                is a Power                #< @type both
     core-max-power-consumption            is a Power                #< @type both
@@ -185,13 +186,13 @@ world
       * thermal-tim-thickness
       * thermal-tim-conductivity
 
-  design-requirement
+  # design-requirement
     # dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
     # dr-cache-power-capability: power-cache-capability must be greater than cache-max-power-consumption
     # dr-total-power-capability: power-capability must be greater than system-power-consumption
-    dr-bus-width-match: interconnect-bus-width must be equal to cache-bus-width
-    dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-cache-bandwidth
-    dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
+    # dr-bus-width-match: interconnect-bus-width must be equal to cache-bus-width
+    # dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-cache-bandwidth
+    # dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
     # dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
     # dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
     # dr-core-thermal-capability: thermal-core-capability must be greater than core-thermal-load
@@ -202,7 +203,7 @@ world
     # SYSTEM MODELS
     #------------------------------------------------------------#
 
-    total-power-model: TotalPowerModel
+    system-power-model: TotalPowerModel
       requiring arguments
         * core-power-consumption                  #< @weight 1
         * cache-power-consumption                 #< @weight 1
@@ -242,7 +243,7 @@ world
         * cache-bandwidth
 
       returning arguments
-        * interconnect-bandwidth
+        * system-bandwidth
 
     #------------------------------------------------------------#
     # CACHE MODELS
@@ -311,7 +312,7 @@ world
         * core-transistors                        #< @weight 0.1
         * cache-latency                           #< @weight -0.3
         * interconnect-latency                    #< @weight -0.2
-        * interconnect-bandwidth                  #< @weight 0.25
+        * system-bandwidth                        #< @weight 0.25
 
       returning arguments
         * core-computational-performance
@@ -319,17 +320,17 @@ world
 
     core-power-restriction: PowerRestriction
       requiring arguments
-        * core-max-power-consumption               #< @weight 1
-        * power-core-capability                    #< @weight 1
-        * core-power-consumption                   #< @weight 1
+        * core-max-power-consumption              #< @weight 1
+        * power-core-capability                   #< @weight 1
+        * core-power-consumption                  #< @weight 1
 
       returning arguments
         * core-power-consumption
 
     core-thermal-restriction: ThermalRestriction
       requiring arguments
-        * thermal-core-capability                  #< @weight 1
-        * core-thermal-load                        #< @weight 1
+        * thermal-core-capability                 #< @weight 1
+        * core-thermal-load                       #< @weight 1
 
       returning arguments
         * core-thermal-load
@@ -338,27 +339,27 @@ world
     # INTERCONNECT MODELS
     #------------------------------------------------------------#
     
-   length-model2D: InterconnectLengthModel2D
-    requiring arguments
-      * system-die-area                           #< @weight 0.5
-      * interconnect-process-node-factor          #< @weight -1
+    interconnect-length-model2D: InterconnectLengthModel2D
+      requiring arguments
+        * system-die-area                         #< @weight 0.5
+        * interconnect-process-node-factor        #< @weight -1
 
-      returning arguments
-      * interconnect-length2D
+        returning arguments
+        * interconnect-length2D
 
-    length-model3D: InterconnectLengthModel3D
-    requiring arguments
-      * system-die-area                           #< @weight 0.25
-      * interconnect-process-node-factor          #< @weight -1
+    interconnect-length-model3D: InterconnectLengthModel3D
+      requiring arguments
+        * system-die-area                         #< @weight 0.25
+        * interconnect-process-node-factor        #< @weight -1
 
-      returning arguments
-      * interconnect-length3D
+        returning arguments
+        * interconnect-length3D
 
     #------------------------------------------------------------#
     # POWER DISTRIBUTION SYSTEM MODELS
     #------------------------------------------------------------#
 
-    cache-tsv-geometry-model: TSVGeometryModel
+    power-cache-tsv-geometry-model: TSVGeometryModel
       requiring arguments
         * cache-die-area                          #< @weight 1
         * power-cache-tsv-density                 #< @weight 1
@@ -366,7 +367,7 @@ world
       returning arguments
         * power-cache-tsv-count
 
-    cache-power-limit-model: PowerModel
+    power-cache-limit-model: PowerModel
       requiring arguments
         * cache-voltage                           #< @weight 1
         * power-cache-max-current-capacity        #< @weight 1
@@ -374,7 +375,7 @@ world
       returning arguments
         * power-cache-capability
 
-    core-tsv-geometry-model: TSVGeometryModel
+    power-core-tsv-geometry-model: TSVGeometryModel
       requiring arguments
         * core-die-area                           #< @weight 1
         * power-core-tsv-density                  #< @weight 1
@@ -382,7 +383,7 @@ world
       returning arguments
         * power-core-tsv-count
 
-    core-power-limit-model: PowerModel
+    power-core-limit-model: PowerModel
       requiring arguments
         * core-voltage                            #< @weight 1
         * power-core-max-current-capacity         #< @weight 1
