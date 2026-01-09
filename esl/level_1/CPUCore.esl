@@ -3,13 +3,13 @@ define component CPUCore
     power-consumption         is a Power              property
     max-power-consumption     is a Power              property
     temperature               is a Temperature        property
-    required-bandwidth        is a Bandwidth          property
+    required-cache-bandwidth  is a Bandwidth          property
     computational-performance is a Performance        property
     die-area                  is a Area               property
     voltage                   is a Voltage            property
     current                   is a Current            property
     clock-frequency           is a Frequency          property
-    process-node-factor              is a ProcessNode        property
+    process-node-factor       is a ProcessNode        property
     transistors               is a Count              property
     thermal-load              is a ThermalPower       property
 

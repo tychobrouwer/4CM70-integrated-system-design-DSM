@@ -1,14 +1,14 @@
 world
   variables
     ambient-temperature                   is a Temperature          #< @importance false
-    total-power-consumption               is a Power                #< @importance true
-    total-die-area                        is a Area                 #< @importance true
+    system-power-consumption               is a Power                #< @importance true
+    system-die-area                        is a Area                 #< @importance true
     efficiency                            is a Percent              #< @importance true
 
     core-power-consumption                is a Power                #< @importance true
     core-max-power-consumption            is a Power                #< @importance true
     core-temperature                      is a Temperature          #< @importance true
-    core-required-bandwidth               is a Bandwidth            #< @importance false
+    core-required-cache-bandwidth         is a Bandwidth            #< @importance false
     core-computational-performance        is a Performance          #< @importance true
     core-die-area                         is a Area                 #< @importance true
     core-voltage                          is a Voltage              #< @importance false
@@ -73,30 +73,31 @@ world
     power-contact-resistance              is a ThermalResistance    #< @importance true
     power-capability                      is a Power                #< @importance true
     
-    thermal-cooling-capability          is a ThermalPower           #< @importance true
-    thermal-cache-capability            is a ThermalPower           #< @importance true
-    thermal-cache-resistance            is a ThermalResistance      #< @importance true
-    thermal-core-capability             is a ThermalPower           #< @importance true
-    thermal-core-resistance             is a ThermalResistance      #< @importance true
-    thermal-core-tsv-density            is a Density                #< @importance true
-    thermal-core-tsv-diameter           is a Length                 #< @importance true
-    thermal-cache-tsv-density           is a Density                #< @importance true
-    thermal-cache-tsv-diameter          is a Length                 #< @importance true
-    thermal-tsv-conductivity            is a ThermalConductivity    #< @importance true
-    thermal-tim-resistance              is a ThermalResistance      #< @importance true
-    thermal-contact-resistance          is a ThermalResistance      #< @importance true
-    thermal-coolant-flowrate            is a Massflowrate           #< @importance true
-    thermal-coolant-inlet-temperature   is a Temperature            #< @importance false
-    thermal-coolant-outlet-temperature  is a Temperature            #< @importance true
-    thermal-coolant-specific-heat       is a HeatCapacity           #< @importance false
-    thermal-tim-thickness               is a Length                 #< @importance true
-    thermal-tim-conductivity            is a ThermalConductivity    #< @importance true
+    thermal-cooling-capability            is a ThermalPower           #< @importance true
+    thermal-cache-capability              is a ThermalPower           #< @importance true
+    thermal-cache-resistance              is a ThermalResistance      #< @importance true
+    thermal-core-capability               is a ThermalPower           #< @importance true
+    thermal-core-resistance               is a ThermalResistance      #< @importance true
+    thermal-core-tsv-density              is a Density                #< @importance true
+    thermal-core-tsv-diameter             is a Length                 #< @importance true
+    thermal-cache-tsv-density             is a Density                #< @importance true
+    thermal-cache-tsv-diameter            is a Length                 #< @importance true
+    thermal-tsv-conductivity              is a ThermalConductivity    #< @importance true
+    thermal-tim-resistance                is a ThermalResistance      #< @importance true
+    thermal-contact-resistance            is a ThermalResistance      #< @importance true
+    thermal-coolant-flowrate              is a Massflowrate           #< @importance true
+    thermal-coolant-inlet-temperature     is a Temperature            #< @importance false
+    thermal-coolant-outlet-temperature    is a Temperature            #< @importance true
+    thermal-coolant-specific-heat         is a HeatCapacity           #< @importance false
+    thermal-tim-thickness                 is a Length                 #< @importance true
+    thermal-tim-conductivity              is a ThermalConductivity    #< @importance true
+
   components
     core is a CPUCore with arguments
       * core-power-consumption
       * core-max-power-consumption
       * core-temperature
-      * core-required-bandwidth
+      * core-required-cache-bandwidth
       * core-computational-performance
       * core-die-area
       * core-voltage
@@ -187,9 +188,9 @@ world
   design-requirement
     dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
     dr-cache-power-capability: power-cache-capability must be greater than cache-max-power-consumption
-    dr-total-power-capability: power-capability must be greater than total-power-consumption
+    dr-total-power-capability: power-capability must be greater than system-power-consumption
     dr-bus-width-match: interconnect-bus-width must be equal to cache-bus-width
-    dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-bandwidth
+    dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-cache-bandwidth
     dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
     dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
     dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
@@ -207,24 +208,24 @@ world
         * cache-power-consumption                 #< @weight 1
 
       returning arguments
-        * total-power-consumption
+        * system-power-consumption
 
     efficiency-model: EfficiencyModel
       requiring arguments
-        * total-power-consumption                 #< @weight -1
+        * system-power-consumption                #< @weight -1
         * core-computational-performance          #< @weight 1
 
       returning arguments
         * efficiency
 
-    total-die-area-model: TotalDieAreaModel
+    system-die-area-model: TotalDieAreaModel
       requiring arguments
         * core-die-area                           #< @weight 1
         * cache-die-area                          #< @weight 1
         * interconnect-die-area                   #< @weight 1
 
       returning arguments
-        * total-die-area
+        * system-die-area
 
     #------------------------------------------------------------#
     # CACHE MODELS
@@ -279,7 +280,7 @@ world
 
       returning arguments
         * core-computational-performance
-        * core-required-bandwidth
+        * core-required-cache-bandwidth
 
     #------------------------------------------------------------#
     # INTERCONNECT MODELS
@@ -287,15 +288,15 @@ world
     
    length-model2D: InterconnectLengthModel2D
     requiring arguments
-      * total-die-area                            #< @weight 0.5
-      * interconnect-process-node-factor          #< @weight -0.5
+      * system-die-area                           #< @weight 0.5
+      * interconnect-process-node-factor          #< @weight -1
 
       returning arguments
       * interconnect-length2D
 
     length-model3D: InterconnectLengthModel3D
     requiring arguments
-      * total-die-area                            #< @weight 0.25
+      * system-die-area                           #< @weight 0.25
       * interconnect-process-node-factor          #< @weight -1
 
       returning arguments
@@ -307,8 +308,8 @@ world
 
     cache-tsv-geometry-model: TSVGeometryModel
       requiring arguments
-        * cache-die-area                          #< @weight 
-        * power-cache-tsv-density                 #< @weight 
+        * cache-die-area                          #< @weight 1
+        * power-cache-tsv-density                 #< @weight 1
 
       returning arguments
         * power-cache-tsv-count
@@ -323,8 +324,8 @@ world
 
     core-tsv-geometry-model: TSVGeometryModel
       requiring arguments
-        * core-die-area                           #< @weight 
-        * power-core-tsv-density                  #< @weight 
+        * core-die-area                           #< @weight 1
+        * power-core-tsv-density                  #< @weight 1
 
       returning arguments
         * power-core-tsv-count
@@ -364,7 +365,7 @@ world
 
     thermal-tim-resistance-model: ThermalTimResistanceModel
       requiring arguments
-        * total-die-area                          #< @weight -1
+        * system-die-area                         #< @weight -1
         * thermal-tim-thickness                   #< @weight 1
         * thermal-tim-conductivity                #< @weight -1
         * thermal-contact-resistance              #< @weight 1

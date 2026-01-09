@@ -48,7 +48,7 @@ define relation
       * die-area-3                    is a Area
 
     returning parameters
-      * total-die-area                is a Area
+      * system-die-area                is a Area
 
   PowerConsumptionRelation
     requiring parameters
@@ -214,7 +214,7 @@ define relation
 
     returning parameters
       * computational-performance     is a Performance
-      * required-bandwidth            is a Bandwidth
+      * required-cache-bandwidth      is a Bandwidth
 
   InterconnectLatencyModel
     requiring parameters
