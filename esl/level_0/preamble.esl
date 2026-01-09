@@ -197,6 +197,8 @@ define relation
   CacheAMATModel
     requiring parameters
       * access-time                   is a Latency
+      * block-size                    is a BlockSize
+      * bandwidth                     is a Bandwidth
       * hit-rate                      is a HitRate
       * miss-penalty                  is a Latency
 
@@ -256,7 +258,7 @@ define relation
       * computational-performance     is a Performance
 
     returning parameters
-      * system-efficiency                    is a Percent
+      * system-efficiency             is a Percent
 
   PowerThermalModel
     requiring parameters
@@ -290,3 +292,11 @@ define relation
 
     returning parameters
       * length                        is a Length
+
+  PowerRestriction
+    requiring parameters
+      * max-power-consumption         is a Power
+      * power-consumption             is a Power
+    
+    returning parameters
+      * restricted-power-consumption  is a Power

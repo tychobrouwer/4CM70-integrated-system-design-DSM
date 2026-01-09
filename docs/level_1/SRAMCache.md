@@ -104,16 +104,20 @@ This model calculates the Average Memory Access Time (AMAT), which is the effect
 * **Model:** `CacheAMATModel`
 * **Formula:**
   $$
-  t_{avg} = t_{hit} + (1 - H) \cdot t_{miss}
+  t_{avg} = t_{hit} + \frac{B}{BW} + (1 - H) \cdot t_{miss}
   $$
   Where:
   * $t_{avg}$ = `latency`
   * $t_{hit}$ = `access-time`
+  * $B$ = `block-size`
+  * $BW$ = `bandwidth`
   * $H$ = `hit-rate`
   * $t_{miss}$ = `miss-penalty`
 
 * **Arguments:**
   * `access-time` (@weight 1): Time to access the cache on a hit.
+  * `block-size` (@weight 1): Larger blocks increase transfer time on misses.
+  * `bandwidth` (@weight -1): Higher bandwidth reduces transfer time.
   * `hit-rate` (@weight -1): Probability of finding data in the cache (highly sensitive).
   * `miss-penalty` (@weight 1): Time required to fetch data from the next level of memory.
 

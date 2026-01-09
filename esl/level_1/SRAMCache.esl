@@ -19,7 +19,7 @@ define component SRAMCache
     bus-width             is a BusWidth         property
     number-of-banks       is a Count            property
     die-area              is a Area             property
-    process-node-factor          is a ProcessNode      property
+    process-node-factor   is a ProcessNode      property
     transistors           is a Count            property
     internal-wire-length  is a Length           property
     temperature           is a Temperature      property
@@ -85,6 +85,8 @@ define component SRAMCache
     cache-latency-model: CacheAMATModel
       requiring arguments
         * access-time               #< @weight 1
+        * block-size                #< @weight 1
+        * bandwidth                 #< @weight -1
         * hit-rate                  #< @weight -1
         * miss-penalty              #< @weight 1
 

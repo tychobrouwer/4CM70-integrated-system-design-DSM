@@ -227,6 +227,14 @@ world
       returning arguments
         * system-die-area
 
+    system-power-restriction: PowerRestriction
+      requiring arguments
+        * power-capability
+        * system-power-consumption
+
+      returning arguments
+        * system-power-consumption
+
     #------------------------------------------------------------#
     # CACHE MODELS
     #------------------------------------------------------------#
@@ -247,6 +255,14 @@ world
 
       returning arguments
         * cache-temperature
+
+    cache-power-restriction: PowerRestriction
+      requiring arguments
+        * cache-max-power-consumption              #< @weight 1
+        * cache-power-consumption                  #< @weight 1
+
+      returning arguments
+        * cache-power-consumption
     
     #------------------------------------------------------------#
     # CORE MODELS
@@ -281,6 +297,14 @@ world
       returning arguments
         * core-computational-performance
         * core-required-cache-bandwidth
+
+    core-power-restriction: PowerRestriction
+      requiring arguments
+        * core-max-power-consumption               #< @weight 1
+        * core-power-consumption                   #< @weight 1
+
+      returning arguments
+        * core-power-consumption
 
     #------------------------------------------------------------#
     # INTERCONNECT MODELS
