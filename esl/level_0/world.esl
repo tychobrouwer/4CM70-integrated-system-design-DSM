@@ -3,7 +3,7 @@ world
     ambient-temperature                   is a Temperature          #< @importance false
     system-power-consumption               is a Power                #< @importance true
     system-die-area                        is a Area                 #< @importance true
-    efficiency                            is a Percent              #< @importance true
+    system-efficiency                            is a Percent              #< @importance true
 
     core-power-consumption                is a Power                #< @importance true
     core-max-power-consumption            is a Power                #< @importance true
@@ -210,13 +210,13 @@ world
       returning arguments
         * system-power-consumption
 
-    efficiency-model: EfficiencyModel
+    system-efficiency-model: EfficiencyModel
       requiring arguments
         * system-power-consumption                #< @weight -1
         * core-computational-performance          #< @weight 1
 
       returning arguments
-        * efficiency
+        * system-efficiency
 
     system-die-area-model: TotalDieAreaModel
       requiring arguments

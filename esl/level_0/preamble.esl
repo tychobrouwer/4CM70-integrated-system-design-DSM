@@ -256,7 +256,7 @@ define relation
       * computational-performance     is a Performance
 
     returning parameters
-      * efficiency                    is a Percent
+      * system-efficiency                    is a Percent
 
   PowerThermalModel
     requiring parameters
