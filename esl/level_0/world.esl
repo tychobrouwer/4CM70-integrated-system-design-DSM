@@ -1,20 +1,20 @@
 world
   variables
     ambient-temperature                   is a Temperature          #< @type both
-    total-power-consumption               is a Power                #< @type both
-    total-die-area                        is a Area                 #< @type both
-    efficiency                            is a Percent              #< @type both
+    system-power-consumption              is a Power                #< @type both
+    system-die-area                       is a Area                 #< @type both
+    system-efficiency                     is a Percent              #< @type both
 
     core-power-consumption                is a Power                #< @type both
     core-max-power-consumption            is a Power                #< @type both
     core-temperature                      is a Temperature          #< @type both
-    core-required-bandwidth               is a Bandwidth            #< @type both
+    core-required-cache-bandwidth         is a Bandwidth            #< @type both
     core-computational-performance        is a Performance          #< @type both
     core-die-area                         is a Area                 #< @type both
     core-voltage                          is a Voltage              #< @type both
     core-current                          is a Current              #< @type both
     core-clock-frequency                  is a Frequency            #< @type both
-    core-process-node                     is a ProcessNode          #< @type both
+    core-process-node-factor              is a ProcessNode          #< @type both
     core-transistors                      is a Count                #< @type both
     core-thermal-load                     is a ThermalPower         #< @type both
 
@@ -36,7 +36,7 @@ world
     cache-associativity                   is a Associativity        #< @type both
     cache-block-size                      is a BlockSize            #< @type both
     cache-bus-width                       is a BusWidth             #< @type both
-    cache-process-node                    is a ProcessNode          #< @type both
+    cache-process-node-factor             is a ProcessNode          #< @type both
     cache-transistors                     is a Count                #< @type both
     cache-clock-frequency                 is a Frequency            #< @type both
     cache-thermal-load                    is a ThermalPower         #< @type both
@@ -51,7 +51,7 @@ world
     interconnect-length3D                 is a Length               #< @type 3d
     interconnect-bus-width                is a BusWidth             #< @type both
     interconnect-frequency                is a Frequency            #< @type both
-    interconnect-process-node             is a ProcessNode          #< @type both
+    interconnect-process-node-factor      is a ProcessNode          #< @type both
 
     power-cache-capability                is a Power                #< @type both
     power-core-capability                 is a Power                #< @type both
@@ -91,6 +91,7 @@ world
     thermal-coolant-specific-heat       is a HeatCapacity           #< @type both
     thermal-tim-thickness               is a Length                 #< @type both
     thermal-tim-conductivity            is a ThermalConductivity    #< @type both
+
   components
     core is a CPUCore with arguments
       * core-power-consumption
