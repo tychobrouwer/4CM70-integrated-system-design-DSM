@@ -1,46 +1,46 @@
 define component CoreCacheInterconnect
   parameters
-    bandwidth         is a Bandwidth       property
-    die-area          is a Area            property
-    latency           is a Latency         property
-    length            is a Length          property
-    length2D          is a Length          property
-    length3D          is a Length          property
-    bus-width         is a BusWidth        property
-    frequency         is a Frequency       property
-    process-node      is a ProcessNode     property
+    bandwidth             is a Bandwidth       property
+    die-area              is a Area            property
+    latency               is a Latency         property
+    length                is a Length          property
+    length2D              is a Length          property
+    length3D              is a Length          property
+    bus-width             is a BusWidth        property
+    frequency             is a Frequency       property
+    process-node-factor   is a ProcessNode     property
 
   relations
     bandwidth-model: BandwidthModel
       requiring arguments
-        * bus-width           #< @weight 1
-        * frequency           #< @weight 1
+        * bus-width             #< @weight 1
+        * frequency             #< @weight 1
 
       returning arguments
         * bandwidth
 
     die-area-model: InterconnectAreaModel
       requiring arguments
-        * length              #< @weight 1
-        * bus-width           #< @weight 1 
-        * process-node        #< @weight -2
+        * length                #< @weight 1
+        * bus-width             #< @weight 1 
+        * process-node-factor   #< @weight -1
 
       returning arguments
         * die-area
 
     latency-model: InterconnectLatencyModel
       requiring arguments
-        * length              #< @weight 1
-        * bandwidth           #< @weight -1
-        * frequency           #< @weight -1
+        * length                #< @weight 1
+        * bandwidth             #< @weight -1
+        * frequency             #< @weight -1
 
       returning arguments
         * latency
 
     interconnect-length-connector: InterconnectLengthConnector
       requiring arguments
-        * length2D             #< @weight 1
-        * length3D             #< @weight 1
+        * length2D              #< @weight 1
+        * length3D              #< @weight 1
 
       returning arguments
         * length

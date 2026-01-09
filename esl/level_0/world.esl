@@ -14,7 +14,7 @@ world
     core-voltage                          is a Voltage              #< @importance false
     core-current                          is a Current              #< @importance true
     core-clock-frequency                  is a Frequency            #< @importance true
-    core-process-node                     is a ProcessNode          #< @importance false
+    core-process-node-factor              is a ProcessNode          #< @importance false
     core-transistors                      is a Count                #< @importance false
     core-thermal-load                     is a ThermalPower         #< @importance true
 
@@ -36,7 +36,7 @@ world
     cache-associativity                   is a Associativity        #< @importance false
     cache-block-size                      is a BlockSize            #< @importance false
     cache-bus-width                       is a BusWidth             #< @importance true
-    cache-process-node                    is a ProcessNode          #< @importance false
+    cache-process-node-factor             is a ProcessNode          #< @importance false
     cache-transistors                     is a Count                #< @importance false
     cache-clock-frequency                 is a Frequency            #< @importance true
     cache-thermal-load                    is a ThermalPower         #< @importance true
@@ -51,7 +51,7 @@ world
     interconnect-length3D                 is a Length               #< @importance true
     interconnect-bus-width                is a BusWidth             #< @importance true
     interconnect-frequency                is a Frequency            #< @importance true
-    interconnect-process-node             is a ProcessNode          #< @importance false
+    interconnect-process-node-factor      is a ProcessNode          #< @importance false
 
     power-cache-capability                is a Power                #< @importance true
     power-core-capability                 is a Power                #< @importance true
@@ -102,7 +102,7 @@ world
       * core-voltage
       * core-current
       * core-clock-frequency
-      * core-process-node
+      * core-process-node-factor
       * core-transistors
       * core-thermal-load
 
@@ -126,7 +126,7 @@ world
       * cache-bus-width
       * cache-number-of-banks
       * cache-die-area
-      * cache-process-node
+      * cache-process-node-factor
       * cache-transistors
       * cache-internal-wire-length
       * cache-temperature
@@ -141,7 +141,7 @@ world
       * interconnect-length3D
       * interconnect-bus-width
       * interconnect-frequency
-      * interconnect-process-node
+      * interconnect-process-node-factor
 
     power-system is a PowerDistributionSystem with arguments
       * power-cache-capability
@@ -272,7 +272,7 @@ world
       requiring arguments
         * core-clock-frequency                    #< @weight 0.4
         * core-voltage                            #< @weight 0.2
-        * core-process-node                       #< @weight -0.2
+        * core-process-node-factor                #< @weight -0.2
         * core-transistors                        #< @weight 0.1
         * cache-latency                           #< @weight -0.3
         * interconnect-latency                    #< @weight -0.2
@@ -288,7 +288,7 @@ world
    length-model2D: InterconnectLengthModel2D
     requiring arguments
       * total-die-area                            #< @weight 0.5
-      * interconnect-process-node                 #< @weight 0.5
+      * interconnect-process-node-factor          #< @weight -0.5
 
       returning arguments
       * interconnect-length2D
@@ -296,7 +296,7 @@ world
     length-model3D: InterconnectLengthModel3D
     requiring arguments
       * total-die-area                            #< @weight 0.25
-      * interconnect-process-node                 #< @weight 1
+      * interconnect-process-node-factor          #< @weight -1
 
       returning arguments
       * interconnect-length3D

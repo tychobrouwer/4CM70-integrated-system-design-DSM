@@ -38,12 +38,12 @@ This model estimates the average wire length within the cache, which affects acc
   * $L_{wire}$ = `internal-wire-length`
   * $A_{die}$ = `die-area`
   * $N_{banks}$ = `number-of-banks`
-  * $L_{gate}$ = `process-node`
+  * $L_{gate}$ = `process-node-factor`
 
 * **Arguments:**
   * `die-area` (@weight 0.5): Wire length scales with square root of area.
   * `number-of-banks` (@weight -0.5): More banks reduce average wire length per access.
-  * `process-node` (@weight 0.5): Smaller nodes have proportionally shorter wires.
+  * `process-node-factor` (@weight 0.5): Smaller nodes have proportionally shorter wires.
 
 ---
 
@@ -63,12 +63,12 @@ This model estimates the time required to access data in the cache, influenced b
   * $L_{wire}$ = `internal-wire-length`
   * $V$ = `voltage`
   * $T$ = `temperature`
-  * $L_{gate}$ = `process-node`
+  * $L_{gate}$ = `process-node-factor`
 
 * **Arguments:**
   * `capacity` (@weight 0.3): Larger caches have longer wire delays.
   * `associativity` (@weight 0.5): Higher associativity adds multiplexing delay.
-  * `process-node` (@weight -1): Smaller nodes reduce intrinsic gate delay.
+  * `process-node-factor` (@weight -1): Smaller nodes reduce intrinsic gate delay.
   * `voltage` (@weight -1): Higher voltage reduces delay.
   * `temperature` (@weight 0.3): Higher temperature increases resistance and delay.
   * `internal-wire-length` (@weight 0.5): Longer wires increase RC delay.

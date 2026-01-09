@@ -42,7 +42,7 @@ This very simplified model gives an indication of the length an interconnect has
   
 * **Arguments:**
   * `die-area` (@weight 0.5)
-  * `process-node` (@weight 0.5)
+  * `process-node-factor` (@weight 0.5)
 
 ---
 
@@ -58,11 +58,11 @@ This very simplified model gives an indication of the length an interconnect has
   Where:
   * $l$ = `length`
   * $A_{die}$ = `die-area`
-  * *$N_{process_node}$ = `process-node`
+  * *$N_{process_node}$ = `process-node-factor`
   
 * **Arguments:**
   * `die-area` (@weight 0.5): Higher die area increases interconnect length.
-  * `process-node` (@weight 0.25): Smaller process nodes reduce interconnect length.
+  * `process-node-factor` (@weight 0.25): Smaller process nodes reduce interconnect length.
 
 ---
 

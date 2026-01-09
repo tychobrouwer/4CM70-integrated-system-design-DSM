@@ -132,7 +132,7 @@ define relation
   AreaModel
     requiring parameters
       * transistors                   is a Count
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
 
     returning parameters
       * die-area                      is a Area
@@ -141,7 +141,7 @@ define relation
     requiring parameters
       * voltage                       is a Voltage
       * temperature                   is a Temperature
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
 
     returning parameters
       * clock-frequency               is a Frequency
@@ -158,7 +158,7 @@ define relation
   CurrentModel
     requiring parameters
       * transistors                   is a Count
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
       * temperature                   is a Temperature
       * voltage                       is a Voltage
       * clock-frequency               is a Frequency
@@ -178,7 +178,7 @@ define relation
     requiring parameters
       * capacity                      is a CacheCapacity
       * associativity                 is a Associativity
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
       * voltage                       is a Voltage
       * temperature                   is a Temperature
       * internal-wire-length          is a Length
@@ -207,7 +207,7 @@ define relation
     requiring parameters
       * clock-frequency               is a Frequency
       * voltage                       is a Voltage
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
       * transistors                   is a Count
       * amat                          is a Latency
       * interconnect-latency          is a Latency
@@ -228,7 +228,7 @@ define relation
   InterconnectLengthModel2D
     requiring parameters
       * die-area                      is a Area
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
 
     returning parameters
       * length2D                      is a Length
@@ -236,7 +236,7 @@ define relation
   InterconnectLengthModel3D
     requiring parameters
       * die-area                      is a Area
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
 
     returning parameters
       * length3D                      is a Length
@@ -245,7 +245,7 @@ define relation
     requiring parameters
       * length                        is a Length
       * bus-width                     is a BusWidth
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
 
     returning parameters
       * die-area                      is a Area
@@ -278,7 +278,7 @@ define relation
     requiring parameters
       * die-area                      is a Area
       * number-of-banks               is a Count
-      * process-node                  is a ProcessNode
+      * process-node-factor           is a ProcessNode
 
     returning parameters
       * internal-wire-length          is a Length

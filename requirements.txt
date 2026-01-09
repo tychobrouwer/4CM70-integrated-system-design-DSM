@@ -13,3 +13,6 @@ notebook
 # --- Domain-specific libs (adjust as needed) ---
 ragraph
 raesl
+
+# --- Visualization library for html graph ---
+pyvis

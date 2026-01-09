@@ -34,11 +34,11 @@ This model calculates the physical die area occupied by the cache based on trans
   Where:
   * $A$ = `die-area`
   * $N_{transistors}$ = `transistors`
-  * $L_{gate}$ = `process-node`
+  * $L_{gate}$ = `process-node-factor`
 
 * **Arguments:**
   * `transistors` (@weight 1): More transistors require proportionally more area.
-  * `process-node` (@weight 2): Area scales quadratically with feature size (2D scaling).
+  * `process-node-factor` (@weight 2): Area scales quadratically with feature size (2D scaling).
 
 ### FrequencyModel
 
@@ -53,12 +53,12 @@ This model determines the maximum operating frequency of the cache based on volt
   * $f$ = `clock-frequency`
   * $V$ = `voltage`
   * $T$ = `temperature`
-  * $L_{gate}$ = `process-node`
+  * $L_{gate}$ = `process-node-factor`
 
 * **Arguments:**
   * `voltage` (@weight 1): Higher voltage enables faster switching.
   * `temperature` (@weight -0.5): Higher temperature reduces carrier mobility.
-  * `process-node` (@weight -1): Smaller nodes enable higher frequencies.
+  * `process-node-factor` (@weight -1): Smaller nodes enable higher frequencies.
 
 ---
 
@@ -77,11 +77,11 @@ This model calculates the current drawn by the cache during active switching ope
   * $f$ = `clock-frequency`
   * $V$ = `voltage`
   * $T$ = `temperature`
-  * $L_{gate}$ = `process-node`
+  * $L_{gate}$ = `process-node-factor`
 
 * **Arguments:**
   * `transistors` (@weight 1): More transistors increase switching current.
-  * `process-node` (@weight -0.5): Smaller nodes reduce capacitance per transistor.
+  * `process-node-factor` (@weight -0.5): Smaller nodes reduce capacitance per transistor.
   * `temperature` (@weight 2): Temperature strongly affects leakage and mobility (exponential).
   * `voltage` (@weight 1): Current scales linearly with voltage.
   * `clock-frequency` (@weight 1): Higher frequency increases switching events per second.

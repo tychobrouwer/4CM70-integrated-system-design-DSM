@@ -26,13 +26,13 @@ This model estimates the computational performance and required bandwidth of a p
   * $L_{cache}$ = `cache-latency`
   * $L_{interconnect}$ = `interconnect-latency`
   * $V$ = `core-voltage`
-  * $L_{gate}$ = `core-process-node`
+  * $L_{gate}$ = `core-process-node-factor`
   * $N_{transistors}$ = `core-transistors`
 
 * **Arguments:**
   * `core-clock-frequency` (@weight 0.4): Higher clock frequency increases computational performance.
   * `core-voltage` (@weight 0.3): Higher voltage improves switching speed, enhancing performance.
-  * `core-process-node` (@weight -0.2): Smaller process nodes enable higher performance due to reduced gate delays.
+  * `core-process-node-factor` (@weight -0.2): Smaller process nodes enable higher performance due to reduced gate delays.
   * `core-transistors` (@weight 0.1): More transistors can improve performance through increased parallelism.
   * `cache-latency` (@weight -0.3): Lower cache latency reduces data access time, improving required bandwidth.
   * `interconnect-latency` (@weight -0.2): Lower interconnect latency enhances data transfer speed, reducing required bandwidth.
