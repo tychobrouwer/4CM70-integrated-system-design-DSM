@@ -211,8 +211,9 @@ define relation
       * voltage                       is a Voltage
       * process-node-factor           is a ProcessNode
       * transistors                   is a Count
-      * amat                          is a Latency
+      * cache-latency                 is a Latency
       * interconnect-latency          is a Latency
+      * bandwidth                     is a Bandwidth
 
     returning parameters
       * computational-performance     is a Performance
@@ -293,10 +294,36 @@ define relation
     returning parameters
       * length                        is a Length
 
-  PowerRestriction
+  PowerRestriction2
     requiring parameters
       * max-power-consumption         is a Power
       * power-consumption             is a Power
     
     returning parameters
       * restricted-power-consumption  is a Power
+
+  PowerRestriction
+    requiring parameters
+      * max-power-consumption         is a Power
+      * power-capability              is a Power
+      * power-consumption             is a Power
+    
+    returning parameters
+      * restricted-power-consumption  is a Power
+
+  ThermalRestriction
+    requiring parameters
+      * thermal-capability            is a ThermalPower
+      * thermal-load                  is a ThermalPower
+
+    returning parameters
+      * restricted-thermal-load       is a ThermalPower
+
+  BandwidthRestriction
+    requiring parameters
+      * interconnect-bandwidth        is a Bandwidth
+      * required-bandwidth            is a Bandwidth
+      * cache-bandwidth               is a Bandwidth
+
+    returning parameters
+      * restricted-bandwidth          is a Bandwidth

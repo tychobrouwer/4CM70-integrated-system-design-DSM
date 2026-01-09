@@ -186,16 +186,16 @@ world
       * thermal-tim-conductivity
 
   design-requirement
-    dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
-    dr-cache-power-capability: power-cache-capability must be greater than cache-max-power-consumption
-    dr-total-power-capability: power-capability must be greater than system-power-consumption
+    # dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
+    # dr-cache-power-capability: power-cache-capability must be greater than cache-max-power-consumption
+    # dr-total-power-capability: power-capability must be greater than system-power-consumption
     dr-bus-width-match: interconnect-bus-width must be equal to cache-bus-width
     dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-cache-bandwidth
     dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
-    dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
-    dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
-    dr-core-thermal-capability: thermal-core-capability must be greater than core-thermal-load
-    dr-cache-thermal-capability: thermal-cache-capability must be greater than cache-thermal-load
+    # dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
+    # dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
+    # dr-core-thermal-capability: thermal-core-capability must be greater than core-thermal-load
+    # dr-cache-thermal-capability: thermal-cache-capability must be greater than cache-thermal-load
 
   relations
     #------------------------------------------------------------#
@@ -227,13 +227,22 @@ world
       returning arguments
         * system-die-area
 
-    system-power-restriction: PowerRestriction
+    system-power-restriction: PowerRestriction2
       requiring arguments
         * power-capability
         * system-power-consumption
 
       returning arguments
         * system-power-consumption
+
+    system-bandwidth-restriction: BandwidthRestriction
+      requiring arguments
+        * interconnect-bandwidth
+        * core-required-cache-bandwidth
+        * cache-bandwidth
+
+      returning arguments
+        * interconnect-bandwidth
 
     #------------------------------------------------------------#
     # CACHE MODELS
@@ -259,11 +268,20 @@ world
     cache-power-restriction: PowerRestriction
       requiring arguments
         * cache-max-power-consumption              #< @weight 1
+        * power-cache-capability                   #< @weight 1
         * cache-power-consumption                  #< @weight 1
 
       returning arguments
         * cache-power-consumption
-    
+
+    cache-thermal-restriction: ThermalRestriction
+      requiring arguments
+        * thermal-cache-capability                 #< @weight 1
+        * cache-thermal-load                       #< @weight 1
+
+      returning arguments
+        * cache-thermal-load
+
     #------------------------------------------------------------#
     # CORE MODELS
     #------------------------------------------------------------#
@@ -293,6 +311,7 @@ world
         * core-transistors                        #< @weight 0.1
         * cache-latency                           #< @weight -0.3
         * interconnect-latency                    #< @weight -0.2
+        * interconnect-bandwidth                  #< @weight 0.25
 
       returning arguments
         * core-computational-performance
@@ -301,10 +320,19 @@ world
     core-power-restriction: PowerRestriction
       requiring arguments
         * core-max-power-consumption               #< @weight 1
+        * power-core-capability                    #< @weight 1
         * core-power-consumption                   #< @weight 1
 
       returning arguments
         * core-power-consumption
+
+    core-thermal-restriction: ThermalRestriction
+      requiring arguments
+        * thermal-core-capability                  #< @weight 1
+        * core-thermal-load                        #< @weight 1
+
+      returning arguments
+        * core-thermal-load
 
     #------------------------------------------------------------#
     # INTERCONNECT MODELS
