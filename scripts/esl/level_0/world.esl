@@ -1,0 +1,427 @@
+world
+  variables
+    ambient-temperature                   is a Temperature          #< @type both
+    system-power-consumption              is a Power                #< @type both
+    system-die-area                       is a Area                 #< @type both
+    system-efficiency                     is a Percent              #< @type both
+    system-bandwidth                      is a Bandwidth            #< @type both
+
+    core-power-consumption                is a Power                #< @type both
+    core-max-power-consumption            is a Power                #< @type both
+    core-temperature                      is a Temperature          #< @type both
+    core-required-cache-bandwidth         is a Bandwidth            #< @type both
+    core-computational-performance        is a Performance          #< @type both
+    core-die-area                         is a Area                 #< @type both
+    core-voltage                          is a Voltage              #< @type both
+    core-current                          is a Current              #< @type both
+    core-clock-frequency                  is a Frequency            #< @type both
+    core-process-node-factor              is a ProcessNode          #< @type both
+    core-transistors                      is a Count                #< @type both
+    core-thermal-load                     is a ThermalPower         #< @type both
+
+    cache-internal-wire-length            is a Length               #< @type both
+    cache-leakage-power                   is a Power                #< @type both
+    cache-dynamic-current                 is a Current              #< @type both
+    cache-leakage-current                 is a Current              #< @type both
+    cache-number-of-banks                 is a Count                #< @type both
+    cache-dynamic-power                   is a Power                #< @type both
+    cache-power-consumption               is a Power                #< @type both
+    cache-max-power-consumption           is a Power                #< @type both
+    cache-bandwidth                       is a Bandwidth            #< @type both
+    cache-temperature                     is a Temperature          #< @type both
+    cache-die-area                        is a Area                 #< @type both
+    cache-hit-rate                        is a HitRate              #< @type both
+    cache-voltage                         is a Voltage              #< @type both
+    cache-latency                         is a Latency              #< @type both
+    cache-capacity                        is a CacheCapacity        #< @type both
+    cache-associativity                   is a Associativity        #< @type both
+    cache-block-size                      is a BlockSize            #< @type both
+    cache-bus-width                       is a BusWidth             #< @type both
+    cache-process-node-factor             is a ProcessNode          #< @type both
+    cache-transistors                     is a Count                #< @type both
+    cache-clock-frequency                 is a Frequency            #< @type both
+    cache-thermal-load                    is a ThermalPower         #< @type both
+    cache-access-time                     is a Latency              #< @type both
+    cache-miss-penalty                    is a Latency              #< @type both
+
+    interconnect-bandwidth                is a Bandwidth            #< @type both
+    interconnect-die-area                 is a Area                 #< @type both
+    interconnect-latency                  is a Latency              #< @type both
+    interconnect-length                   is a Length               #< @type both
+    interconnect-length2D                 is a Length               #< @type both
+    interconnect-length3D                 is a Length               #< @type 3d
+    interconnect-bus-width                is a BusWidth             #< @type both
+    interconnect-frequency                is a Frequency            #< @type both
+    interconnect-process-node-factor      is a ProcessNode          #< @type both
+
+    power-cache-capability                is a Power                #< @type both
+    power-core-capability                 is a Power                #< @type both
+    power-cache-tsv-density               is a Density              #< @type 3d
+    power-core-tsv-density                is a Density              #< @type 3d
+    power-cache-tsv-diameter              is a Length               #< @type 3d
+    power-core-tsv-diameter               is a Length               #< @type 3d
+    power-cache-tsv-length                is a Length               #< @type 3d
+    power-core-tsv-length                 is a Length               #< @type 3d
+    power-cache-max-temp-budget           is a Temperature          #< @type both
+    power-core-max-temp-budget            is a Temperature          #< @type both
+    power-cache-tsv-count                 is a Count                #< @type 3d
+    power-core-tsv-count                  is a Count                #< @type 3d
+    power-cache-max-current-capacity      is a Current              #< @type both
+    power-core-max-current-capacity       is a Current              #< @type both
+    power-tsv-conductivity                is a ThermalConductivity  #< @type 3d
+    power-tsv-resistivity                 is a Resistivity          #< @type 3d
+    power-tim-resistance                  is a ThermalResistance    #< @type both
+    power-contact-resistance              is a ThermalResistance    #< @type both
+    power-capability                      is a Power                #< @type both
+    
+    thermal-cooling-capability          is a ThermalPower           #< @type both
+    thermal-cache-capability            is a ThermalPower           #< @type both
+    thermal-cache-resistance            is a ThermalResistance      #< @type both
+    thermal-core-capability             is a ThermalPower           #< @type both
+    thermal-core-resistance             is a ThermalResistance      #< @type both
+    thermal-core-tsv-density            is a Density                #< @type 3d
+    thermal-core-tsv-diameter           is a Length                 #< @type 3d
+    thermal-cache-tsv-density           is a Density                #< @type 3d
+    thermal-cache-tsv-diameter          is a Length                 #< @type 3d
+    thermal-tsv-conductivity            is a ThermalConductivity    #< @type 3d
+    thermal-tim-resistance              is a ThermalResistance      #< @type both
+    thermal-contact-resistance          is a ThermalResistance      #< @type both
+    thermal-coolant-flowrate            is a Massflowrate           #< @type both
+    thermal-coolant-inlet-temperature   is a Temperature            #< @type both
+    thermal-coolant-outlet-temperature  is a Temperature            #< @type both
+    thermal-coolant-specific-heat       is a HeatCapacity           #< @type both
+    thermal-tim-thickness               is a Length                 #< @type both
+    thermal-tim-conductivity            is a ThermalConductivity    #< @type both
+
+  components
+    core is a CPUCore with arguments
+      * core-power-consumption
+      * core-max-power-consumption
+      * core-temperature
+      * core-required-cache-bandwidth
+      * core-computational-performance
+      * core-die-area
+      * core-voltage
+      * core-current
+      * core-clock-frequency
+      * core-process-node-factor
+      * core-transistors
+      * core-thermal-load
+
+    cache is a SRAMCache with arguments
+      * cache-power-consumption
+      * cache-max-power-consumption
+      * cache-dynamic-power
+      * cache-leakage-power
+      * cache-voltage
+      * cache-dynamic-current
+      * cache-leakage-current
+      * cache-bandwidth
+      * cache-latency
+      * cache-access-time
+      * cache-miss-penalty
+      * cache-hit-rate
+      * cache-clock-frequency
+      * cache-capacity
+      * cache-associativity
+      * cache-block-size
+      * cache-bus-width
+      * cache-number-of-banks
+      * cache-die-area
+      * cache-process-node-factor
+      * cache-transistors
+      * cache-internal-wire-length
+      * cache-temperature
+      * cache-thermal-load
+      
+    interconnect is a CoreCacheInterconnect with arguments
+      * interconnect-bandwidth
+      * interconnect-die-area
+      * interconnect-latency
+      * interconnect-length
+      * interconnect-length2D
+      * interconnect-length3D
+      * interconnect-bus-width
+      * interconnect-frequency
+      * interconnect-process-node-factor
+
+    power-system is a PowerDistributionSystem with arguments
+      * power-cache-capability
+      * power-core-capability
+      * power-cache-tsv-density
+      * power-core-tsv-density
+      * power-cache-tsv-diameter
+      * power-core-tsv-diameter 
+      * power-cache-tsv-length
+      * power-core-tsv-length
+      * power-cache-max-temp-budget
+      * power-core-max-temp-budget
+      * power-cache-tsv-count
+      * power-core-tsv-count
+      * power-cache-max-current-capacity
+      * power-core-max-current-capacity
+      * power-tsv-conductivity
+      * power-tsv-resistivity
+      * power-tim-resistance
+      * power-contact-resistance
+      * power-capability 
+
+    thermal-system is a ThermalDissipationSystem with arguments
+      * thermal-cooling-capability
+      * thermal-cache-capability
+      * thermal-cache-resistance
+      * thermal-core-capability
+      * thermal-core-resistance
+      * thermal-core-tsv-density
+      * thermal-core-tsv-diameter
+      * thermal-cache-tsv-density
+      * thermal-cache-tsv-diameter
+      * thermal-tsv-conductivity
+      * thermal-tim-resistance
+      * thermal-contact-resistance
+      * thermal-coolant-flowrate
+      * thermal-coolant-inlet-temperature
+      * thermal-coolant-outlet-temperature
+      * thermal-coolant-specific-heat
+      * thermal-tim-thickness
+      * thermal-tim-conductivity
+
+  # design-requirement
+    # dr-core-power-capability: power-core-capability must be greater than core-max-power-consumption
+    # dr-cache-power-capability: power-cache-capability must be greater than cache-max-power-consumption
+    # dr-total-power-capability: power-capability must be greater than system-power-consumption
+    # dr-bus-width-match: interconnect-bus-width must be equal to cache-bus-width
+    # dr-core-bandwidth: interconnect-bandwidth must be approximately core-required-cache-bandwidth
+    # dr-cache-bandwidth: interconnect-bandwidth must be approximately cache-bandwidth
+    # dr-core-power-consumption: core-max-power-consumption must be greater than core-power-consumption
+    # dr-cache-power-consumption: cache-max-power-consumption must be greater than cache-power-consumption
+    # dr-core-thermal-capability: thermal-core-capability must be greater than core-thermal-load
+    # dr-cache-thermal-capability: thermal-cache-capability must be greater than cache-thermal-load
+
+  relations
+    #------------------------------------------------------------#
+    # SYSTEM MODELS
+    #------------------------------------------------------------#
+
+    system-power-model: TotalPowerModel
+      requiring arguments
+        * core-power-consumption                  #< @weight 1
+        * cache-power-consumption                 #< @weight 1
+
+      returning arguments
+        * system-power-consumption
+
+    system-efficiency-model: EfficiencyModel
+      requiring arguments
+        * system-power-consumption                #< @weight -1
+        * core-computational-performance          #< @weight 1
+
+      returning arguments
+        * system-efficiency
+
+    system-die-area-model: TotalDieAreaModel
+      requiring arguments
+        * core-die-area                           #< @weight 1
+        * cache-die-area                          #< @weight 1
+        * interconnect-die-area                   #< @weight 1
+
+      returning arguments
+        * system-die-area
+
+    system-power-restriction: PowerRestriction2
+      requiring arguments
+        * power-capability
+        * system-power-consumption
+
+      returning arguments
+        * system-power-consumption
+
+    system-bandwidth-restriction: BandwidthRestriction
+      requiring arguments
+        * interconnect-bandwidth
+        * core-required-cache-bandwidth
+        * cache-bandwidth
+
+      returning arguments
+        * system-bandwidth
+
+    #------------------------------------------------------------#
+    # CACHE MODELS
+    #------------------------------------------------------------#
+
+    cache-thermal-management-relation: PowerConsumptionRelation
+      requiring arguments
+        * thermal-cache-capability                #< @weight 1
+        * power-cache-capability                  #< @weight 1
+
+      returning arguments
+        * cache-max-power-consumption
+
+    cache-temperature-model: TemperatureModel
+      requiring arguments
+        * cache-thermal-load                      #< @weight 1
+        * thermal-cache-resistance                #< @weight 1
+        * ambient-temperature                     #< @weight 1
+
+      returning arguments
+        * cache-temperature
+
+    cache-power-restriction: PowerRestriction
+      requiring arguments
+        * cache-max-power-consumption              #< @weight 1
+        * power-cache-capability                   #< @weight 1
+        * cache-power-consumption                  #< @weight 1
+
+      returning arguments
+        * cache-power-consumption
+
+    cache-thermal-restriction: ThermalRestriction
+      requiring arguments
+        * thermal-cache-capability                 #< @weight 1
+        * cache-thermal-load                       #< @weight 1
+
+      returning arguments
+        * cache-thermal-load
+
+    #------------------------------------------------------------#
+    # CORE MODELS
+    #------------------------------------------------------------#
+
+    core-thermal-management-relation: PowerConsumptionRelation
+      requiring arguments
+        * thermal-core-capability                 #< @weight 1
+        * power-core-capability                   #< @weight 1
+
+      returning arguments
+        * core-max-power-consumption
+
+    core-temperature-model: TemperatureModel
+      requiring arguments
+        * core-thermal-load                       #< @weight 1
+        * thermal-core-resistance                 #< @weight 1
+        * ambient-temperature                     #< @weight 1
+
+      returning arguments
+        * core-temperature
+  
+    core-performance-model: PerformanceModel
+      requiring arguments
+        * core-clock-frequency                    #< @weight 0.4
+        * core-voltage                            #< @weight 0.2
+        * core-process-node-factor                #< @weight -0.2
+        * core-transistors                        #< @weight 0.1
+        * cache-latency                           #< @weight -0.3
+        * interconnect-latency                    #< @weight -0.2
+        * system-bandwidth                        #< @weight 0.25
+
+      returning arguments
+        * core-computational-performance
+        * core-required-cache-bandwidth
+
+    core-power-restriction: PowerRestriction
+      requiring arguments
+        * core-max-power-consumption              #< @weight 1
+        * power-core-capability                   #< @weight 1
+        * core-power-consumption                  #< @weight 1
+
+      returning arguments
+        * core-power-consumption
+
+    core-thermal-restriction: ThermalRestriction
+      requiring arguments
+        * thermal-core-capability                 #< @weight 1
+        * core-thermal-load                       #< @weight 1
+
+      returning arguments
+        * core-thermal-load
+
+    #------------------------------------------------------------#
+    # INTERCONNECT MODELS
+    #------------------------------------------------------------#
+    
+    interconnect-length-model2D: InterconnectLengthModel2D
+      requiring arguments
+        * system-die-area                         #< @weight 0.5
+        * interconnect-process-node-factor        #< @weight -1
+
+        returning arguments
+        * interconnect-length2D
+
+    interconnect-length-model3D: InterconnectLengthModel3D
+      requiring arguments
+        * system-die-area                         #< @weight 0.25
+        * interconnect-process-node-factor        #< @weight -1
+
+        returning arguments
+        * interconnect-length3D
+
+    #------------------------------------------------------------#
+    # POWER DISTRIBUTION SYSTEM MODELS
+    #------------------------------------------------------------#
+
+    power-cache-tsv-geometry-model: TSVGeometryModel
+      requiring arguments
+        * cache-die-area                          #< @weight 1
+        * power-cache-tsv-density                 #< @weight 1
+
+      returning arguments
+        * power-cache-tsv-count
+
+    power-cache-limit-model: PowerModel
+      requiring arguments
+        * cache-voltage                           #< @weight 1
+        * power-cache-max-current-capacity        #< @weight 1
+
+      returning arguments
+        * power-cache-capability
+
+    power-core-tsv-geometry-model: TSVGeometryModel
+      requiring arguments
+        * core-die-area                           #< @weight 1
+        * power-core-tsv-density                  #< @weight 1
+
+      returning arguments
+        * power-core-tsv-count
+
+    power-core-limit-model: PowerModel
+      requiring arguments
+        * core-voltage                            #< @weight 1
+        * power-core-max-current-capacity         #< @weight 1
+
+      returning arguments
+        * power-core-capability
+
+    #------------------------------------------------------------#
+    # THERMAL DISSIPATION SYSTEM MODELS
+    #------------------------------------------------------------#
+
+    thermal-core-capability-model: ThermalResistanceModel
+      requiring arguments
+        * core-die-area                           #< @weight -1
+        * thermal-core-tsv-density                #< @weight -1
+        * thermal-core-tsv-diameter               #< @weight -1
+        * thermal-tsv-conductivity                #< @weight -1
+        * thermal-tim-resistance                  #< @weight 1
+
+      returning arguments
+        * thermal-core-resistance
+
+    thermal-cache-capability-model: ThermalResistanceModel
+      requiring arguments
+        * cache-die-area                          #< @weight -1
+        * thermal-cache-tsv-density               #< @weight -1
+        * thermal-cache-tsv-diameter              #< @weight -1
+        * thermal-tsv-conductivity                #< @weight -1
+        * thermal-tim-resistance                  #< @weight 1
+      returning arguments
+        * thermal-cache-resistance
+
+    thermal-tim-resistance-model: ThermalTimResistanceModel
+      requiring arguments
+        * system-die-area                         #< @weight -1
+        * thermal-tim-thickness                   #< @weight 1
+        * thermal-tim-conductivity                #< @weight -1
+        * thermal-contact-resistance              #< @weight 1
+
+      returning arguments
+        * thermal-tim-resistance

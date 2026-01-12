@@ -24,7 +24,7 @@ def set_edge_weights(graph):
                 
                 e.weights[weight] = weight_value
 
-def annotate_variable_type(graph):
+def annotate_variable_importance(graph):
     for node in graph.nodes:
         # 1. Access the esl_info where the parser stores comments
         esl_info = node.annotations.get("esl_info", {})

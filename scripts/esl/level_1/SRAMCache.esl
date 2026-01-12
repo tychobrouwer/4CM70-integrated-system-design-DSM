@@ -1,0 +1,155 @@
+define component SRAMCache
+  parameters
+    power-consumption     is a Power            property
+    max-power-consumption is a Power            property
+    dynamic-power         is a Power            property
+    leakage-power         is a Power            property
+    voltage               is a Voltage          property
+    dynamic-current       is a Current          property
+    leakage-current       is a Current          property
+    bandwidth             is a Bandwidth        property
+    latency               is a Latency          property
+    access-time           is a Latency          property
+    miss-penalty          is a Latency          property
+    hit-rate              is a HitRate          property
+    clock-frequency       is a Frequency        property
+    capacity              is a CacheCapacity    property
+    associativity         is a Associativity    property
+    block-size            is a BlockSize        property
+    bus-width             is a BusWidth         property
+    number-of-banks       is a Count            property
+    die-area              is a Area             property
+    process-node-factor   is a ProcessNode      property
+    transistors           is a Count            property
+    internal-wire-length  is a Length           property
+    temperature           is a Temperature      property
+    thermal-load          is a ThermalPower     property
+
+  relations
+    cache-transistor-model: CacheTransistorModel
+      requiring arguments
+        * capacity                  #< @weight 1
+        * associativity             #< @weight 0.1
+        * block-size                #< @weight 0
+
+      returning arguments
+        * transistors
+
+    cache-area-model: AreaModel
+      requiring arguments
+        * transistors               #< @weight 1
+        * process-node-factor       #< @weight -1
+
+      returning arguments
+        * die-area
+
+    cache-wire-length-model: CacheWireLengthModel
+      requiring arguments
+        * die-area                  #< @weight 0.5
+        * number-of-banks           #< @weight -0.5
+        * process-node-factor       #< @weight -1
+
+      returning arguments
+        * internal-wire-length
+
+    cache-access-time-model: CacheAccessTimeModel
+      requiring arguments
+        * capacity                  #< @weight 0.3
+        * associativity             #< @weight 0.5
+        * process-node-factor       #< @weight -1
+        * voltage                   #< @weight -1
+        * temperature               #< @weight 0.3
+        * internal-wire-length      #< @weight 0.5
+
+      returning arguments
+        * access-time
+
+    cache-frequency-model: FrequencyModel
+      requiring arguments
+        * voltage                   #< @weight 1
+        * temperature               #< @weight -0.5
+        * process-node-factor       #< @weight -1
+
+      returning arguments
+        * clock-frequency
+
+    cache-hit-rate-model: CacheHitRateModel
+      requiring arguments
+        * capacity                  #< @weight 0.7
+        * associativity             #< @weight 0.3
+        * block-size                #< @weight 0.15
+
+      returning arguments
+        * hit-rate
+
+    cache-latency-model: CacheAMATModel
+      requiring arguments
+        * access-time               #< @weight 1
+        * block-size                #< @weight 1
+        * bandwidth                 #< @weight -1
+        * hit-rate                  #< @weight -1
+        * miss-penalty              #< @weight 1
+
+      returning arguments
+        * latency
+
+    cache-bandwidth-model: BandwidthModel
+      requiring arguments
+        * bus-width                 #< @weight 1
+        * clock-frequency           #< @weight 1
+
+      returning arguments
+        * bandwidth
+
+    cache-dynamic-current-model: CurrentModel
+      requiring arguments
+        * transistors               #< @weight 1
+        * process-node-factor       #< @weight -0.5
+        * temperature               #< @weight 2
+        * voltage                   #< @weight 1
+        * clock-frequency           #< @weight 1
+
+      returning arguments
+        * dynamic-current
+
+    cache-leakage-current-model: CurrentModel
+      requiring arguments
+        * transistors               #< @weight 1
+        * process-node-factor       #< @weight -0.5
+        * temperature               #< @weight 2
+        * voltage                   #< @weight 1
+        * clock-frequency           #< @weight 1
+
+      returning arguments
+        * leakage-current
+
+    cache-dynamic-power-model: PowerModel
+      requiring arguments
+        * voltage                   #< @weight 1
+        * dynamic-current           #< @weight 1
+
+      returning arguments
+        * dynamic-power
+
+    cache-leakage-power-model: PowerModel
+      requiring arguments
+        * voltage                   #< @weight 1
+        * leakage-current           #< @weight 1
+
+      returning arguments
+        * leakage-power
+
+    cache-power-model: TotalPowerModel
+      requiring arguments
+        * dynamic-power             #< @weight 1
+        * leakage-power             #< @weight 1
+
+      returning arguments
+        * power-consumption
+
+    cache-thermal-model: PowerThermalModel
+      requiring arguments
+        * power-consumption         #< @weight 1
+
+      returning arguments
+        * thermal-load

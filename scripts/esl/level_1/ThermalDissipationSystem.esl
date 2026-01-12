@@ -1,0 +1,41 @@
+define component ThermalDissipationSystem
+  parameters
+    cooling-capability          is a ThermalPower             property
+    cache-capability            is a ThermalPower             property
+    cache-resistance            is a ThermalResistance        property
+    core-capability             is a ThermalPower             property
+    core-resistance             is a ThermalResistance        property
+    core-tsv-density            is a Density                  property
+    core-tsv-diameter           is a Length                   property
+    cache-tsv-density           is a Density                  property
+    cache-tsv-diameter          is a Length                   property
+    tsv-thermal-conductivity    is a ThermalConductivity      property
+    tim-resistance              is a ThermalResistance        property
+    contact-resistance          is a ThermalResistance        property
+    coolant-flowrate            is a Massflowrate             property
+    coolant-inlet-temperature   is a Temperature              property
+    coolant-outlet-temperature  is a Temperature              property
+    coolant-specific-heat       is a HeatCapacity             property
+    tim-thickness               is a Length                   property
+    tim-conductivity            is a ThermalConductivity      property    
+
+  relations
+    thermal-coolant-flowrate-model: ThermalCoolingCapabilityModel
+      requiring arguments
+        * coolant-flowrate            #< @weight 1
+        * coolant-inlet-temperature   #< @weight -1
+        * coolant-outlet-temperature  #< @weight 1
+        * coolant-specific-heat       #< @weight 1
+
+      returning arguments
+        * cooling-capability
+
+    thermal-cooling-capability-model: ThermalCapabilityModel
+      requiring arguments
+        * core-resistance             #< @weight 1
+        * cache-resistance            #< @weight -1
+        * cooling-capability          #< @weight -1
+
+      returning arguments
+        * core-capability
+        * cache-capability
